@@ -1,0 +1,50 @@
+_site
+# copied from https://gist.github.com/bradonomics/cf5984b6799da7fdfafd
+.sass-cache
+.jekyll-metadata
+.jekyll-cache
+Gemfile.lock
+
+### Compiled Source ###
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+### Logs and Databases ###
+*.log
+*.sql
+*.sqlite
+
+### Windows ###
+Thumbs.db
+ehthumbs.db
+ehthumbs_vista.db
+Desktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msm
+*.msp
+*.lnk
+
+### MacOS ###
+*.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
