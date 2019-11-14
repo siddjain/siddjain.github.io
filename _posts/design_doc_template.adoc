@@ -1,0 +1,110 @@
+= Software Design Doc Template
+Siddharth Jain <sjain68@its.jnj.com>
+v0.1, 2019-11
+:doctype: article
+
+== Project Title
+
+== Author(s)
+
+== Reviewer(s)
+
+list people required to review and approve the document
+
+== Version
+
+Document the progress of this document from writing to review to approval.
+
+[options="header"]
+|===
+| Date | Version
+| XXX | Draft v1
+| XXX | In Review
+| XXX | Draft v2
+| XXX | Approved
+|===
+
+== Problem Description
+
+Describe the problem being solved. This should be understood by a non-engineer or a executive in your company. Identify your users/customers in this section. Are you building a B2B, B2C or internal application?
+
+== Goals & Non-Goals
+
+The Goals section should:
+
+* describe what features you are going to build e.g., we will build a chat application that will allow users to exchange messages. will it support chat rooms where more than 2 people can join? how many (maximum)?
+  how many chat rooms will a user be able to join? how many friends can user have in their friend list? can user be anywhere on the globe?
+  
+The goals section is an extension of the problem statement where you start getting into the details of what will you achieve without describing how you will achieve it.
+
+* specify how to measure success using metrics — bonus points if you can link to a dashboard that tracks those metrics (e.g., we will support a QPS of 30 queries per second)
+
+Non-Goals are equally important to describe which problems you won’t be fixing so everyone is on the same page. e.g., our chat application will not support multimedia content. or our chat application will not support
+notifications.
+
+== Timeline
+
+[options="header"]
+|===
+| Date | Deliverable
+| XXX  | XXX
+| XXX  | XXX
+| XXX  | XXX
+|===
+
+== Technical Architecture
+
+The main section of the design doc. How will the problem be solved? In most cases, a system can be broken down into UI (the frontend) - is it web or mobile? Android or IOS? and the backend. Will backend run on a cloud 
+platform? Which one? Lay out your assumptions. How will user authentication and authorization work? What database will be used? Will you use a RDBMS (if yes, which one?) or NoSQL (if yes, which one?) and why?
+How will you protect against single point of failure? How will data be backed up? What will network topology look like? Where will each component run? Think about security and performance. Each of the topics mentioned 
+could be, and often is, a design doc in itself. E.g., there is usually separate design doc of frontend and backend. List all the APIs you will develop e.g., if you are developing a record management app for a library
+list out all the endpoints and what will the request/response look like:
+
+[options="header"]
+|===
+| endpoint | request | response
+|===
+
+_Aim for a world where you can write this, then take a vacation on some deserted island, and another engineer on the team can just read it and implement the solution as you described._
+
+== Dependencies
+
+List all the dependencies you have. List both internal as well as external dependencies. Internal deps are components that your solution depends on but which are developed by other teams in the organization. E.g., we will 
+use a Kafka cluster which is built and managed by team X. We will use HDFS storage which is owned by team Y. We will use Cassandra cluster which is managed and administered by team Z.
+
+[options="header"]
+|===
+| Name of dep | Owner | Purpose
+| Fabric | Hyperledger | Platform for developing permissioned blockchain
+|===
+
+Listing the dependencies is a very useful exercise and will help you in writing the technical architecture section. Be detailed but judge for yourself where you want to draw the line. E.g., do you want to list the
+dependencies of dependencies?
+
+== Tests, Monitors, Metrics, Alarms, Logging (Oh My!)
+
+How will you test? unit tests vs. integration tests? what will be passing criteria (e.g., expect 100% tests to pass and 70% code coverage)? How will you monitor for abnormalities or system failure? What metrics will you 
+put in place to measure performance of the system? What alarms will you put in place so engineers are alerted before system completely breaks down? (e.g., fire alarm when disk quota reaches 99% used space, requests per 
+second reach X, latency - the time to serve a request - reaches Y etc.). List all the tools you will use here for testing, monitoring, alerting etc. 
+
+== Build, Deployment and Continuous Integration (CI)
+
+What does your build and deployment story look like? Will you use anything like Jenkins for automated builds and deployment? Will you deploy on VMs or use some containerization technology like Docker or Kubernetes?
+
+== Unresolved Issues, Blockers & Risks
+
+List all issues that you depend on and which need to be fixed by other teams in the organization or even outside your organization. e.g., our solution relies on fixing bug X in Fabric. what is ETA on the unresolved issues? 
+who will resolve them? List all the known unknowns - these are problems you know that you will need to solve but you currently don't know how to solve because not enough research has been done or there could be some 
+blocker or another reason.
+
+'''
+
+**Do the Skeptic Test**
+Before sending your design doc to others to review, take a pass at it pretending to be the reviewer. What questions and doubts might you have about this design? Then address them preemptively.
+
+**Do the Vacation Test**
+If you go on a long vacation now with no internet access, can someone on your team read the doc and implement it as you intended?
+
+== References
+
+* https://www.freecodecamp.org/news/how-to-write-a-good-software-design-document-66fcf019569c/
