@@ -1,5 +1,5 @@
 ---
-layout: mathjax-post
+layout: post
 title:  "Software Design Doc Template"
 date:   2019-11-14 14:54:14 -0700
 categories: software
