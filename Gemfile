@@ -25,7 +25,7 @@ gem "minima", "~> 2.0"
 group :jekyll_plugins do
   gem "jekyll-feed", "~> 0.6"
   # from https://github.com/asciidoctor/jekyll-asciidoc-quickstart/blob/master/Gemfile
-  gem 'jekyll-asciidoc', '~> 2.1.0'
+  gem 'jekyll-asciidoc', '~> 3.0.0'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
