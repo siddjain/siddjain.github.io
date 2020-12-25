@@ -1,4 +1,5 @@
 # from https://github.com/jirutka/rake-jekyll with edits
+# built-in environment variables: https://docs.travis-ci.com/user/environment-variables/
 require 'rake-jekyll'
 
 # This task builds the Jekyll site and deploys it to a remote Git repository.
