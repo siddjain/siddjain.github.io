@@ -20,7 +20,14 @@
 {"description":"Project Title","url":"https://siddjain.github.io/software/2020/12/24/design-doc-template.html","headline":"Software Design Doc Template","dateModified":"2020-12-24T18:30:00+00:00","datePublished":"2020-12-24T18:30:00+00:00","@type":"BlogPosting","author":{"@type":"Person","name":"Siddharth Jain"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://siddjain.github.io/software/2020/12/24/design-doc-template.html"},"@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://siddjain.github.io/feed.xml" title="siddharth's space" /></head>
-<body><header class="site-header" role="banner">
+<body>
+    
+    <!-- from https://developers.facebook.com/docs/plugins/like-button/ -->
+    <!-- I created a new app to get the appID. https://developers.facebook.com/apps/194621285460565/add/ -->
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous"
+     src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v9.0&appId=194621285460565&autoLogAppEvents=1"
+     nonce="mY2hWZoA"></script><header class="site-header" role="banner">
 
   <div class="wrapper"><a class="site-title" rel="author" href="/">siddharth&#39;s space</a><nav class="site-nav">
         <input type="checkbox" id="nav-trigger" class="nav-trigger" />
@@ -288,7 +295,17 @@ If you go on a long vacation now with no internet access, can someone on your te
 </div>
 </div>
 </div>
-  </div><a class="u-url" href="/software/2020/12/24/design-doc-template.html" hidden></a>
+  </div>
+
+  <!-- from https://developers.facebook.com/docs/plugins/like-button/ -->
+  <!-- page.url will give the URL of the page sans the domain name. refer https://jekyllrb.com/docs/variables/ -->
+  <!-- more at https://www.digitalocean.com/community/tutorials/how-to-control-urls-and-links-in-jekyll -->
+  <div class="fb-like" data-href="https://siddjain.github.io/software/2020/12/24/design-doc-template.html" 
+      data-width="" 
+      data-layout="standard"
+      data-action="like" 
+      data-size="small"
+      data-share="true"></div><a class="u-url" href="/software/2020/12/24/design-doc-template.html" hidden></a>
 </article>
       </div>
     </main><footer class="site-footer h-card">
@@ -315,22 +332,6 @@ If you go on a long vacation now with no internet access, can someone on your te
   </div>
 
 </footer>
-<!-- refer https://github.com/asciidoctor/jekyll-asciidoc#adding-the-stem-assets-to-the-page --><!-- from https://github.com/asciidoctor/jekyll-asciidoc#adding-the-stem-assets-to-the-page -->
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-    messageStyle: "none",
-    tex2jax: {
-        inlineMath: [["\\(", "\\)"]],
-        displayMath: [["\\[", "\\]"]],
-        ignoreClass: "nostem|nolatexmath"
-    },
-    asciimath2jax: {
-        delimiters: [["\\$", "\\$"]],
-        ignoreClass: "nostem|noasciimath"
-    },
-    TeX: { equationNumbers: { autoNumber: "none" } }
-});
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script></body>
+</body>
 
 </html>
