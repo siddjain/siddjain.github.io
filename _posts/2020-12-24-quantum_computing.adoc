@@ -1,0 +1,403 @@
+= Quantum Computing Notes
+Siddharth Jain <siddjain@live.com>
+:revdate: 2020-12-24 10:30:00 -0800
+:doctype: article
+:stem: latexmath
+:eqnums: all
+:xrefstyle: short
+
+== Preliminaries 
+
+=== The Probability Amplitude Vector or the Wave Function
+
+A big hurdle in understanding quantum computing is the obnoxious notation that really gets in the way esp. when writing equations on paper.
+Anyway begin by recalling that given a system of _n_ qubits, the state of the system is represented by a _probability amplitude vector_
+aka _the wave function_ stem:[\Psi] of length **2^n^**. _It is nothing but the joint probability distribution of the 2^n^ states that the qubit register can end up in when measured_.
+When the qubit register is _measured_ all the qubits will collapse into `0` s and `1` s giving
+a binary number between 0 and 2^n^-1.
+_Different measurements will yield different values according to the probability amplitude vector_. 
+E.g., with _n=3_, in a random measurement we will get `010` (or the number `2` expressed in decimal).
+The _i-th_ component of the _probability amplitude vector_ (e.g., _i=2_ taking example above)
+stem:[\Psi] is a complex number, the modulus-square of which will give the probability that when the qubit register is _measured_ it will end up in
+the _i-th_ _computational basis state_ (i.e., will have the numerical value _i_). 
+
+Example: consider _n = 3_ qubits. There are 2^3^=8 pure states which can be ordered like so:
+
+----
+[000, 001, 010, 011, 100, 101, 110, 111]
+----
+
+We can call these as states 0, 1, 2, 3, 4, 5, 6, 7, 8. i.e., _i = {0, 1, 2, 3, 4, 5, 6, 7, 8}_.
+
+The _probability amplitude vector_ is a vector of complex numbers of length 2^3^=8 _such that_ following equation holds at all times:
+
+[latexmath#law-of-prob]
+.Law of probability
+++++
+\begin{equation}
+\sum_{i=0}^{i=2^n} || \Psi_i || ^ 2 = 1
+\end{equation}
+++++
+
+which is saying the sum of probabilities should equal 1. The LHS is also known variously as the:
+
+* the _L^2^_ norm of the vector
+* the squared length of the vector
+* inner product of the vector with itself
+
+=== Quantum Circuits as Unitary Matrix Computations
+
+A quantum circuit can be expressed as a series of matrix transforms i.e., a series of matrix multiplications.
+Each matrix transform is such that the transformed _probability amplitude vector_ should obey the law of probability (<<law-of-prob>>)
+or equivalently _the length of the input vector should remain the same after the transformation by the matrix_.
+Mathematically this means that each matrix has to be _unitary_. The definition of a _unitary_ matrix is that its _adjoint_ is
+equal to its inverse. The _adjoint_ of a matrix is defined as its _complex-conjugate transpose_ i.e., first we 
+compute the complex-conjugate of the entries and then take the transpose (or vice-versa, we get the same result and order does not matter here).
+
+Given a unitary matrix stem:[U] the _ij-th_ entry in this matrix is nothing but the complex probability amplitude that if the qubits start in
+the _j-th_ state, they will end up in _i-th_ state after _measurement_. The complex probability amplitude has to be mod-squared to get the
+actual probability.
+
+=== Definition: Superposition
+
+When the _probability amplitude vector_ stem:[\Psi] is such that all entries are `0` except for one which is `1`, it is in a 
+_pure state_ or a _computational basis state_. This is the case after _measurement_ when all qubits collapse into definite `0` s or `1` s.
+In any other case the _probability amplitude vector_ is in a state of _superposition_. i.e., _superposition_ is defined to be the state when 
+stem:[\Psi] is not a "`Kronecker delta`" vector.
+
+=== Definition: Entanglement
+
+All statements below are equivalent and correspond to the case when the qubits are _not_ in entanglement:
+
+* The joint probability distribution function (pdf) of the _n_ qubits can be expressed as a product of individual pdfs 
+* The state of the _i-th_ qubit does not depend on the state of the other qubits
+* The _probability amplitude vector_ stem:[\Psi] can be factored out into a tensor product of _n_ sub-vectors as below:
+
+[latexmath#factorizable-pdf]
+.Un-entangled qubits or factorizable probability amplitude vector
+++++
+\begin{equation}
+\Psi = \otimes_{i=0}^{i=n} \psi_i 
+\end{equation}
+++++
+
+_Note carefully that in above equation, the LHS is a vector of length 2^n^ whereas the RHS is a tensor product of n vectors, each vector being of length 2._ 
+
+When <<factorizable-pdf>> does not hold i.e., the joint pdf is not factorizable the qubits are in a state of _entanglement_.
+
+=== The Ugly notation
+
+Remember that |0> is shorthand for stem:[\begin{pmatrix} 1 \\ 0 \end{pmatrix}] which is the _probability amplitude vector_ of a single qubit
+that is in a definite state. And |1> is shorthand for stem:[\begin{pmatrix} 0 \\ 1 \end{pmatrix}].
+
+The pure states of a two qubit system are expressed variously as 
+
+[options=header]
+|===
+| Notation 1 | Notation 2 | Tensor Product | Probability Amplitude Vector
+| \|00> | \|0>\|0> | \|0> stem:[\otimes] \|0> | stem:[\begin{pmatrix} 1 \\ 0 \\ 0 \\ 0 \end{pmatrix}]
+| \|01> | \|0>\|1> | \|0> stem:[\otimes] \|1> | stem:[\begin{pmatrix} 0 \\ 1 \\ 0 \\ 0 \end{pmatrix}]
+| \|10> | \|1>\|0> | \|1> stem:[\otimes] \|0> | stem:[\begin{pmatrix} 0 \\ 0 \\ 1 \\ 0 \end{pmatrix}]
+| \|11> | \|1>\|1> | \|1> stem:[\otimes] \|1> | stem:[\begin{pmatrix} 0 \\ 0 \\ 0 \\ 1 \end{pmatrix}]
+|===
+
+The _probability amplitude vector_ is rarely written down due to its length. It explodes with _n_. But you should always remember that when
+you see |00> it is a shorthand for the actual vector.
+
+=== EPR or Bell Pair
+
+The simplest demonstration of entanglement is with the EPR or Bell Pair which is a two qubit system whose wave function is given by
+following where the stem:[\frac{1}{\sqrt 2}] scale factor is removed for brevity:
+
+[latexmath]
+++++
+\Psi = |00> + |11>
+++++
+
+[latexmath]
+++++
+     = \begin{pmatrix} 1 \\ 0 \\ 0 \\ 0 \end{pmatrix} + \begin{pmatrix} 0 \\ 0 \\ 0 \\ 1 \end{pmatrix} = \begin{pmatrix} 1 \\ 0 \\ 0 \\ 1 \end{pmatrix}
+++++
+
+Verify that this 4x1 vector cannot be expressed as a tensor product of two 2x1 vectors which is the definition of entanglement. Physically,
+if the first qubit is `1` it precludes any possibility that the second qubit can be `0`. Thus, the state of the second qubit is not _independent_
+of the state of the first qubit (and vice-versa).
+
+== The Deutsch-Josza Algorithm
+
+Considered the Hello World of quantum computing, I found this a very difficult algorithm to understand.
+In fact I don't understand it and the reason for making these notes. Here is the circuit diagram.
+
+image::https://i.stack.imgur.com/SottO.png[link="https://quantumcomputing.stackexchange.com/questions/15253/why-isnt-output-of-deutsch-jozsa-algorithm-simply-0"]
+
+In what follows we consider just 2 qubits or the case when _n=1_ in the diagram above.
+Understanding the notation used in this and other diagrams like this that appear commonly in books etc.
+|stem:[\Psi_0]>, |stem:[\Psi_1]>, |stem:[\Psi_2]> and |stem:[\Psi_3]> are used to mean the total
+_probability amplitude vector_ at the four stages in the circuit. |stem:[\Psi_0]> is easy:
+
+[latexmath]
+++++
+\begin{equation}
+\Psi_0 = |0>|1> = |01> = \begin{pmatrix} 0 \\ 1 \\ 0 \\ 0 \end{pmatrix}
+\end{equation}
+++++
+
+To get |stem:[\Psi_1]>, we can try to figure out the 4x4 unitary matrix which will transform |stem:[\Psi_0]> to |stem:[\Psi_1]>.
+I have not seen this in any of the books. Rather what they do is to tell the reader to apply the Hadamard transform
+individually to the two qubits. Applying Hadamard transform to the |0> qubit gives (|0> {plus} |1>) (I ignore the scale factor for brevity)
+and applying it to |1> qubit gives (|0> - |1>). |stem:[\Psi_1]> is then given by the tensor product of these two:
+
+[latexmath#psi1]
+++++
+\begin{equation}
+\Psi_1 = (|0> + |1>) \otimes (|0> - |1>) = |00> - |01> + |10> - |11> 
+\end{equation}
+++++
+
+[latexmath]
+++++
+\begin{equation}
+  = \begin{pmatrix} 1 \\ 0 \\ 0 \\ 0 \end{pmatrix} - \begin{pmatrix} 0 \\ 1 \\ 0 \\ 0 \end{pmatrix} + \begin{pmatrix} 0 \\ 0 \\ 1 \\ 0 \end{pmatrix} - \begin{pmatrix} 0 \\ 0 \\ 0 \\ 1 \end{pmatrix}
+\end{equation}
+++++
+
+[latexmath]
+++++
+\begin{equation}
+  = \begin{pmatrix} 1 \\ -1 \\ 1 \\ -1 \end{pmatrix} 
+\end{equation}
+++++
+
+The second and third equations are never written in any textbook but that is what stem:[\Psi_1] is. It is an equal superposition of all the pure states.
+
+Getting to stem:[\Psi_2] is going to take a lot of work. First, we need to explain what _f_ is. _f_ is a classical scalar - actually boolean - function.
+Its input _domain_ is a _classical_ bit string i.e., a number between 0 and 2^n^-1. For the case when _n=1_, its input can be `0` or `1`. For the case when
+_n=2_, its input can be `00`, `01`, `10`, `11` or 0, 1, 2, 3 respectively. And its output is a `0` or `1`. This is one of the things I find hard to
+understand in this algorithm. _f_ is a classical function but _x_ is not a classical bit. It is a qubit. What is stem:[f(x)] when stem:[x] is in a superposition
+of states - it is not even defined. Anyway what the books tell us to do is this - the effect of the stem:[U_f] circuit is to take |stem:[x,y]> and return
+|stem:[x,y \oplus f(x)]> and we apply this rule to <<psi1>> to give:
+
+[latexmath]
+++++
+\begin{equation}
+\Psi_2  = |0,0 \oplus f(0)>  - |0, 1 \oplus f(0)> + |1, 0 \oplus f(1)> - |1, 1 \oplus f(1)> 
+\end{equation}
+++++
+
+Since stem:[1 \oplus a = \bar a], we get:
+
+[latexmath]
+++++
+\begin{equation}
+\Psi_2  = |0, f(0)>  - |0, \bar f(0)> + |1, f(1)> - |1, \bar f(1)> 
+\end{equation}
+++++
+
+This gives following 4 possibilities for stem:[\Psi_2]:
+
+[options=header]
+|===
+| f(0) | f(1) | stem:[\Psi_2]
+| 0 | 0 | stem:[\|00>  - \|01> + \|10> - \|11> = A] 
+| 0 | 1 | stem:[\|00>  - \|01> + \|11> - \|10> = B] 
+| 1 | 0 | stem:[\|01>  - \|00> + \|10> - \|11> = -B] 
+| 1 | 1 | stem:[\|01>  - \|00> + \|11> - \|10> = A] 
+|===
+
+So when _f_ is a constant i.e., stem:[f(0) = f(1)], we have stem:[\Psi_2 = \pm A] (the positive sign is taken when stem:[f(0) = f(1) = 0] and negative sign otherwise)
+and when _f_ is balanced i.e., stem:[f(0) \neq f(1)], we have stem:[\Psi_2 = \pm B].
+
+Now to get stem:[\Psi_3] it is convenient to express stem:[\Psi_2] as following tensor product of two qubits so that we can just apply the Hadamard to first qubit to get stem:[\Psi_3]:
+
+[latexmath#A]
+++++
+\begin{equation}
+A = (|0> + |1>) \otimes (|0> - |1>) = \Psi_1
+\end{equation}
+++++
+
+[latexmath#B]
+++++
+\begin{equation}
+B = (|0> - |1>) \otimes (|0> - |1>)
+\end{equation}
+++++
+
+Now since the Hadmard stem:[H] is its own inverse, applying stem:[H] to (|0> + |1>) gives back |0> and applying it to (|0> - |1>) gives back |1>.
+And so stem:[\Psi_3] equals:
+
+[latexmath]
+++++
+\begin{equation}
+\Psi_3 = |0> \otimes (|0> - |1>)
+\end{equation}
+++++
+
+if stem:[f] is constant and
+
+[latexmath]
+++++
+\begin{equation}
+\Psi_3 = |1> \otimes (|0> - |1>)
+\end{equation}
+++++
+
+if stem:[f] is balanced. The first qubit is in a _definite_ state of either `0` or `1` with 100% probability.
+And measuring the first qubit will tell if stem:[f] is constant or balanced which is the problem the Deutsch-Josza Algorithm is supposed to solve.
+
+I find this algorithm extremely confusing and outright "`wrong`" because by definition the stem:[U_f] gate is supposed to leave the first qubit
+unchanged - it maps |stem:[x,y]> to |stem:[x,y \oplus f(x)]> whereas <<A>> and <<B>> show just the opposite. _The first qubit gets messed up
+whereas the second one is unchanged!_ This is my longstanding dilemma with this algorithm. It is contradictory.
+Also see https://quantumcomputing.stackexchange.com/questions/15253/why-isnt-output-of-deutsch-jozsa-algorithm-simply-0[this] question on StackExchange.
+
+Let's also see how to get stem:[\Psi_3] using the long method. We apply Hadamard to the first qubit of stem:[A] and stem:[B] expressions.
+This gives us following for the case when stem:[\Psi_2 = A]. I am going to drop off all the ugly brakets to simplify notation:
+
+[latexmath]
+++++
+\Psi_3 = (0 + 1) 0 - (0 + 1) 1 + (0 - 1) 0 - ( 0 - 1) 1
+++++
+
+[latexmath]
+++++
+       = 00 + 10 - 01 - 11 + 00 - 10 - 01 + 11
+++++
+
+[latexmath]
+++++
+       = 00 - 01 (\textrm{scale factor is not important})
+++++
+
+[latexmath]
+++++
+       = |0> \otimes (|0> - |1>) (\textrm{adding back the brakets})
+++++
+
+which agrees with previous result. Let's also do the exercise for when stem:[\Psi_2 = B]:
+
+[latexmath]
+++++
+\Psi_3 = (0 + 1) 0 - (0 + 1) 1 + (0 - 1) 1 - ( 0 - 1) 0
+++++
+
+[latexmath]
+++++
+       = 00 + 10 - 01 - 11 + 01 - 11 - 00 + 10
+++++
+
+[latexmath]
+++++
+       = 10 - 11 (\textrm{scale factor is not important})
+++++
+
+[latexmath]
+++++
+       = |1> \otimes (|0> - |1>) (\textrm{adding back the brakets})
+++++
+
+which again agrees with what we obtained previously using the shortcut method. So at least this much is good.
+
+== Quantum Teleportation
+
+The quantum teleportation circuit is shown in:
+
+image::https://miro.medium.com/max/2000/0*97mRZq_jBC8mSOxk.png[link:https://miro.medium.com/max/2000/0*97mRZq_jBC8mSOxk.png]
+
+stem:[\beta_{00}] is the Bell pair |00> + |11>. Let's do the math dropping the ugly brakets:
+
+[latexmath]
+++++
+\Psi_0 = \psi \left( 00 + 11 \right) 
+++++
+
+To get stem:[\Psi_1] we have to apply a controlled NOT to the second qubit. So we get following two cases:
+
+[options=header]
+|===
+| stem:[\psi] | stem:[\Psi_1]
+| 0 | 000 + 011
+| 1 | 110 + 101
+|===
+
+Above is when stem:[\psi] is in a pure state either `0` or `1`. In practice it will be in a quantum state:
+
+[latexmath]
+++++
+\begin{equation}
+\psi = \alpha |0> + \beta |1> 
+\end{equation}
+++++
+
+or simply 
+
+[latexmath]
+++++
+\begin{equation}
+\psi = \begin{pmatrix} \alpha \\ \beta \end{pmatrix}
+\end{equation}
+++++
+
+This means that stem:[\Psi_1] is given by:
+
+[latexmath]
+++++
+\begin{equation}
+\Psi_1 = \alpha (000 + 011) + \beta (110 + 101)
+\end{equation}
+++++
+
+where I have dropped the ugly brakets for clarity.
+Now we have to apply Hadamard to the first qubit giving:
+
+[latexmath]
+++++
+\begin{equation}
+\Psi_2 = \alpha \left( (0 + 1) 00 + (0 + 1) 11 \right) + \beta \left( (0 - 1) 10 + (0 - 1) 01 \right)
+\end{equation}
+++++
+
+[latexmath]
+++++
+\begin{equation}
+      = \alpha \left( 000 + 100 + 011 + 111 \right) + \beta \left( 010 - 110 + 001 - 101 \right)
+\end{equation}
+++++
+
+[latexmath]
+++++
+\begin{equation}
+      = \begin{pmatrix} \alpha \\ \beta \\ \beta \\ \alpha \\ \alpha \\ -\beta \\ -\beta \\ \alpha \end{pmatrix} (\textrm{do it as exercise})
+\end{equation}
+++++
+
+Now we measure the first two qubits. When we do this those qubits will collapse into definite `0` or `1` and we will be left with the wave function
+stem:[\psi_3] of just a single qubit. Suppose we find the first two qubits collpase to `00` upon measuring. Then stem:[\Psi_2] collapses to:
+
+[latexmath]
+++++
+\begin{equation}
+      = \alpha 000 + \beta 001 
+\end{equation}
+++++
+
+and so stem:[\psi_3] is nothing but stem:[\alpha |0> + \beta |1>] or just stem:[\begin{pmatrix} \alpha \\ \beta \end{pmatrix}]. Similarly,
+when we do the exercise for the other cases, we end up with following table of results:
+
+[options=header]
+|===
+| stem:[M_1] | stem:[M_2] | stem:[\psi_3]
+| 0 | 0 | \begin{pmatrix} \alpha \\ \beta \end{pmatrix}
+| 0 | 1 | \begin{pmatrix} \beta \\ \alpha \end{pmatrix}
+| 1 | 0 | \begin{pmatrix} \alpha \\ -\beta \end{pmatrix}
+| 1 | 1 | \begin{pmatrix} -\beta \\ \alpha \end{pmatrix}
+|===
+
+Voila! In first case, the state stem:[\psi] has been transmitted as-is. And in all the other cases, we can get back stem:[\begin{pmatrix} \alpha \\ \beta \end{pmatrix}]
+by applying simple matrix transformations afforded by the stem:[X] and stem:[Z] gates. The stem:[X] gate interchanges (swaps) the amplitudes while the stem:[Z] gate 
+negates the second amplitude. The astute reader will notice that applying stem:[XZ] to 
+stem:[\begin{pmatrix} -\beta \\ \alpha \end{pmatrix}] gives
+stem:[\begin{pmatrix} -\alpha \\ -\beta \end{pmatrix}] which is stem:[-\psi] not stem:[\psi] but this is
+inconsequential as quantum states are indistinguishable 
+modulo a global phase factor i.e., the state stem:[\psi] cannot be distinguished from stem:[e^{i\theta}\psi].
+If you want to get stem:[\psi] you will apply stem:[X] followed by stem:[Z]. 
+But the order of the gates doesn't matter. This is _quantum teleportation_. QED.
