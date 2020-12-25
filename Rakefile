@@ -1,4 +1,4 @@
-# from https://github.com/jirutka/rake-jekyll
+# from https://github.com/jirutka/rake-jekyll with edits
 require 'rake-jekyll'
 
 # This task builds the Jekyll site and deploys it to a remote Git repository.
@@ -30,10 +30,8 @@ Rake::Jekyll::GitDeployTask.new(:deploy) do |t|
     # Deploy the built site into remote branch named 'gh-pages', or 'master' if
     # the remote repository URL matches `#{gh_user}.github.io.git`.
     # It will be automatically created if not exist yet.
-    t.deploy_branch = -> {
-        gh_user = ENV['TRAVIS_REPO_SLUG'].to_s.split('/').first
-        remote_url.match(/[:\/]#{gh_user}\.github\.io\.git$/) ? 'gh-pages': 'master'
-    }
+    t.deploy_branch = 'gh-pages'
+
     # Run this command to build the site.
     t.build_script = ->(dest_dir) {
         puts "\nRunning Jekyll..."
@@ -54,7 +52,7 @@ Rake::Jekyll::GitDeployTask.new(:deploy) do |t|
         next url.gsub(%r{^https://}, "https://#{ENV['GH_TOKEN']}@") if ENV.key? 'GH_TOKEN'
         next url
     }
-    
+
     # Skip commit and push when building a pull request, env. variable
     # SKIP_DEPLOY represents truthy, or env. variable SOURCE_BRANCH is set, but
     # does not match TRAVIS_BRANCH.
