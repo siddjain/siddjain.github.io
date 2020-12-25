@@ -1,6 +1,6 @@
 = Software Design Doc Template
-Siddharth Jain <sjain68@its.jnj.com>
-v0.1, 2019-11
+Siddharth Jain <siddjain@live.com>
+:revdate: 2020-12-24 10:30:00 -0800
 :doctype: article
 
 == Project Title
