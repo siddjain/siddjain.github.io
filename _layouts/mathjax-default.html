@@ -1,0 +1,23 @@
+<!-- from https://github.com/jekyll/minima/blob/master/_layouts/default.html -->
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang | default: "en" }}">
+
+  {%- include head.html -%}
+
+  <body>
+
+    {%- include header.html -%}
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        {{ content }}
+      </div>
+    </main>
+
+    {%- include footer.html -%}
+
+    <!-- refer https://github.com/asciidoctor/jekyll-asciidoc#adding-the-stem-assets-to-the-page -->
+    {%- include mathjax.html -%}
+  </body>
+
+</html>

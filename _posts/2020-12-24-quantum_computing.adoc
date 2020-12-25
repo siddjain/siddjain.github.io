@@ -1,3 +1,9 @@
+---
+layout: mathjax-post
+title:  "Quantum Computing Notes"
+date:   2019-12-24 14:54:14 -0700
+categories: software
+---
 = Quantum Computing Notes
 Siddharth Jain <siddjain@live.com>
 :revdate: 2020-12-24 10:30:00 -0800
