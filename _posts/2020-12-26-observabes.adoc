@@ -1,0 +1,296 @@
+---
+layout: mathjax-post
+title:  "Understanding Observables in Quantum Mechanics"
+date:   2020-12-26 14:54:14 -0700
+categories: software
+---
+= Understanding Observables in Quantum Mechanics
+Siddharth Jain <siddjain@live.com>
+:revdate: 2020-12-24 10:30:00 -0800
+:doctype: article
+:stem: latexmath
+:eqnums: all
+:xrefstyle: short
+
+== Preliminaries 
+
+Recall the stem:[X], stem:[Y] stem:[Z] Pauli Matrices:
+
+[latexmath]
+++++
+\begin{equation}
+X = \begin{pmatrix} 0 && 1 \\ 1 && 0 \end{pmatrix} 
+\end{equation}
+++++
+
+[latexmath]
+++++
+\begin{equation}
+Y = \begin{pmatrix} 0 && -i \\ i && 0 \end{pmatrix} 
+\end{equation}
+++++
+
+[latexmath]
+++++
+\begin{equation}
+Z = \begin{pmatrix} 1 && 0 \\ 0 && -1 \end{pmatrix} 
+\end{equation}
+++++
+
+The eigenvalues of all 3 matrices are stem:[\{+1, -1\}]. Calculate the eigenvectors for yourself.
+
+== Composite Systems
+
+Consider what happens when the transformation stem:[X_1 Z_2] is applied to a two qubit system.
+stem:[X] and stem:[Z] are Pauli matrices and the 1 subscript on stem:[X] is used to denote that
+the matrix acts on only the first qubit. Similarly for stem:[Z_2]. Lets see how this transformation
+will affect the 4 computational basis vectors:
+
+[latexmath]
+++++
+\begin{equation}
+00 \xrightarrow{Z_2} 00 \xrightarrow{X_1} 10 = \begin{pmatrix} 0 && 0 && 1 && 0 \end{pmatrix}^T \\
+01 \xrightarrow{Z_2} -01 \xrightarrow{X_1} -11 = \begin{pmatrix} 0 && 0 && 0 && -1 \end{pmatrix}^T \\
+10 \xrightarrow{Z_2} 10 \xrightarrow{X_1} 00 = \begin{pmatrix} 1 && 0 && 0 && 0 \end{pmatrix}^T \\
+11 \xrightarrow{Z_2} -11 \xrightarrow{X_1} -01 = \begin{pmatrix} 0 && -1 && 0 && 0 \end{pmatrix}^T \\
+\end{equation}
+++++
+
+The matrix corresponding to the transformation stem:[X_1 Z_2] is thus given by stacking the column
+vectors as follows:
+
+[latexmath]
+++++
+\begin{equation}
+M = \begin{pmatrix}
+0 && 0 && 1 && 0 \\
+0 && 0 && 0 && -1 \\
+1 && 0 && 0 && 0 \\
+0 && -1 && 0 && 0
+\end{pmatrix}
+\end{equation}
+++++
+
+Note that this matrix is equal to the tensor product of the stem:[X] and stem:[Z] matrices:
+
+[latexmath]
+++++
+\begin{equation}
+M = \begin{pmatrix}
+0 && 1 \\
+1 && 0 
+\end{pmatrix} \otimes
+\begin{pmatrix}
+1 && 0 \\
+0 && -1 
+\end{pmatrix}
+\end{equation}
+++++
+
+Suppose we have to find the matrix corresponding to stem:[X_2 Z_1]. Repeating the procedure above
+we will get 
+
+[latexmath]
+++++
+\begin{equation}
+00 \xrightarrow{Z_1} 00 \xrightarrow{X_2} 01 = \begin{pmatrix} 0 && 1 && 0 && 0 \end{pmatrix}^T \\
+01 \xrightarrow{Z_1} 01 \xrightarrow{X_2} 00 = \begin{pmatrix} 1 && 0 && 0 && 0 \end{pmatrix}^T \\
+10 \xrightarrow{Z_1} -10 \xrightarrow{X_2} -11 = \begin{pmatrix} 0 && 0 && 0 && -1 \end{pmatrix}^T \\
+11 \xrightarrow{Z_1} -11 \xrightarrow{X_2} -10 = \begin{pmatrix} 0 && 0 && -1 && 0 \end{pmatrix}^T \\
+\end{equation}
+++++
+
+Thus
+
+++++
+\begin{equation}
+M = \begin{pmatrix}
+0 && 1 && 0 && 0 \\
+1 && 0 && 0 && 0 \\
+0 && 0 && 0 && -1 \\
+0 && 0 && -1 && 0
+\end{pmatrix}
+\end{equation}
+++++
+
+and we can check that this is same as the tensor product of stem:[Z] and stem:[X] matrices:
+
+[latexmath]
+++++
+\begin{equation}
+M = \begin{pmatrix}
+1 && 0 \\
+0 && -1 
+\end{pmatrix} \otimes
+\begin{pmatrix}
+0 && 1 \\
+1 && 0 
+\end{pmatrix}
+\end{equation}
+++++
+
+== Observations
+
+Lets go back to the stem:[X_1 Z_2] matrix and now understand what happens when a measurement
+is made after applying this matrix. The matrix is referred to as an _observable_ in this case.
+An _observable_ is constrained to be a _Hermitian_ operator:
+
+[latexmath]
+.Definition of Hermitian (aka self-adjoint) operator
+++++
+\begin{equation}
+M = M ^ \dagger
+\end{equation}
+++++
+
+In addition rules of QM only allow unitary transformations:
+
+[latexmath]
+.Definition of Unitary operator
+++++
+\begin{equation}
+M ^ \dagger M = I
+\end{equation}
+++++
+
+Therefore:
+
+[latexmath]
+.Hermitian + Unitary operator
+++++
+\begin{equation}
+M ^ 2 = I
+\end{equation}
+++++
+
+The measurement will give one of the eigenvalues of the matrix and the associated probability
+is given by 
+
+[latexmath#eq1]
+.Probability of measuring _i-th_ eigenvalue
+++++
+\begin{equation}
+p_i = \Psi ^ \dagger \textbf{v}_i \textbf{v}_i ^ \dagger \Psi
+\end{equation}
+++++
+
+where stem:[\textbf{v}_i] is the _normalized_ eigenvector (normalized means length = 1)
+corresponding to the _i-th_ eigenvalue 
+and stem:[\dagger] denotes the _adjoint_ which
+is formed by taking element-wise complex conjugate followed by transpose operation which turns
+column vectors into row vectors.
+stem:[\Psi] is the wave function when the measurement is made. The above equation is also
+written as follows in the brakets notation and is the same thing:
+
+[latexmath]
+++++
+\begin{equation}
+<\Psi|\textbf{v}_i><\textbf{v}_i|\Psi>
+\end{equation}
+++++
+
+Lets do the math to make it clear taking stem:[M = X_1 Z_2] as example. First, we need to calculate the
+eigenvalues and eigenvectors of the matrix stem:[M]. Do that as exercise. The eigenvalues are given by:
+
+[latexmath]
+++++
+\begin{equation}
+\lambda = \{ +1, -1, +1, -1 \} (\textrm{there are duplicate eigenvalues})
+\end{equation}
+++++
+
+and the _orthonormal_ eigenvectors are given by columns of the following matrix:
+
+[latexmath]
+++++
+Q = \begin{equation}
+\frac{1}{\sqrt 2} \begin{pmatrix}
+1 &&  1 &&  0 &&  0 \\
+0 &&  0 && -1 &&  1 \\
+1 && -1 &&  0 &&  0 \\
+0 &&  0 &&  1 &&  1 
+\end{pmatrix}
+\end{equation}
+++++
+
+Verify:
+
+[latexmath]
+++++
+\begin{equation}
+\begin{pmatrix}
+0 && 0 && 1 && 0 \\
+0 && 0 && 0 && -1 \\
+1 && 0 && 0 && 0 \\
+0 && -1 && 0 && 0
+\end{pmatrix}
+\begin{pmatrix}
+1 && 1 && 0 && 0 \\
+0 &&  0 && -1 &&  1 \\
+1 && -1 &&  0 &&  0 \\
+0 &&  0 &&  1 &&  1 
+\end{pmatrix}
+\end{equation}
+ = \begin{pmatrix}
+1 && -1 && 0 && 0 \\
+0 &&  0 && -1 &&  -1 \\
+1 &&  1 &&  0 &&   0 \\
+0 &&  0 &&  1 &&  -1 
+\end{pmatrix}
+++++
+
+Above is nothing but:
+
+[latexmath]
+++++
+\begin{equation}
+M Q = Q \Lambda
+\end{equation}
+++++
+
+As exercise we can take stem:[\Psi] to be (|00> + |11>)/stem:[\sqrt 2]. 
+
+For _i = 0_:
+
+[latexmath]
+++++
+\begin{equation}
+\textbf{v}_0 \textbf{v}_0 ^ \dagger = \frac{1}{2} \begin{pmatrix} 1 \\ 0 \\ 1 \\ 0 \end{pmatrix}
+\begin{pmatrix} 1 && 0 && 1 && 0 \end{pmatrix} = \frac{1}{2} \begin{pmatrix} 1 && 0 && 1 && 0 \\
+0 && 0 && 0 && 0 \\
+1 && 0 && 1 && 0 \\  
+0 && 0 && 0 && 0
+\end{pmatrix}
+\end{equation}
+++++
+
+and we can check that
+
+[latexmath]
+++++
+\begin{equation}
+p_0 = \Psi ^ \dagger \textbf{v}_0 \textbf{v}_0 ^ \dagger \Psi = \frac{1}{4}
+\end{equation}
+++++
+
+If you do the math you will find that stem:[p_1, p_2, p_3] are all stem:[\frac{1}{4}].
+
+The _average_ value of the observable is:
+
+[latexmath]
+++++
+\begin{equation}
+<M> = \sum_i \lambda_i p_i
+\end{equation}
+++++
+
+and turns out to be same as:
+
+[latexmath]
+++++
+\begin{equation}
+<M> = \Psi ^ \dagger M \Psi
+\end{equation}
+++++
+
+which in this case will be 0.
