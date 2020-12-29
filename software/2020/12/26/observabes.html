@@ -11,13 +11,13 @@
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="Preliminaries" />
 <meta property="og:description" content="Preliminaries" />
-<link rel="canonical" href="https://siddjain.github.io/software/2020/12/24/observabes.html" />
-<meta property="og:url" content="https://siddjain.github.io/software/2020/12/24/observabes.html" />
+<link rel="canonical" href="https://siddjain.github.io/software/2020/12/26/observabes.html" />
+<meta property="og:url" content="https://siddjain.github.io/software/2020/12/26/observabes.html" />
 <meta property="og:site_name" content="siddharth’s space" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2020-12-24T18:30:00+00:00" />
+<meta property="article:published_time" content="2020-12-26T18:30:00+00:00" />
 <script type="application/ld+json">
-{"description":"Preliminaries","url":"https://siddjain.github.io/software/2020/12/24/observabes.html","headline":"Understanding Observables in Quantum Mechanics","dateModified":"2020-12-24T18:30:00+00:00","datePublished":"2020-12-24T18:30:00+00:00","@type":"BlogPosting","author":{"@type":"Person","name":"Siddharth Jain"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://siddjain.github.io/software/2020/12/24/observabes.html"},"@context":"http://schema.org"}</script>
+{"description":"Preliminaries","url":"https://siddjain.github.io/software/2020/12/26/observabes.html","headline":"Understanding Observables in Quantum Mechanics","dateModified":"2020-12-26T18:30:00+00:00","datePublished":"2020-12-26T18:30:00+00:00","@type":"BlogPosting","author":{"@type":"Person","name":"Siddharth Jain"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://siddjain.github.io/software/2020/12/26/observabes.html"},"@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://siddjain.github.io/feed.xml" title="siddharth's space" /></head>
 <body>
@@ -48,8 +48,8 @@
 
   <header class="post-header">
     <h1 class="post-title p-name" itemprop="name headline">Understanding Observables in Quantum Mechanics</h1>
-    <p class="post-meta"><time class="dt-published" datetime="2020-12-24T18:30:00+00:00" itemprop="datePublished">
-        Dec 24, 2020
+    <p class="post-meta"><time class="dt-published" datetime="2020-12-26T18:30:00+00:00" itemprop="datePublished">
+        Dec 26, 2020
       </time>• 
           <span itemprop="author" itemscope itemtype="http://schema.org/Person">
             <span class="p-author h-card" itemprop="name">Siddharth Jain</span></span></p>
@@ -201,7 +201,10 @@ M = M ^ \dagger
 </div>
 </div>
 <div class="paragraph">
-<p>In addition rules of QM only allow unitary transformations:</p>
+<p>where \(\dagger\) denotes the <em>adjoint</em> which
+is formed by taking element-wise complex conjugate followed by transpose operation which turns
+column vectors into row vectors.
+In addition rules of QM only allow unitary transformations:</p>
 </div>
 <div class="stemblock">
 <div class="title">Definition of Unitary operator</div>
@@ -223,33 +226,74 @@ M ^ 2 = I
 </div>
 </div>
 <div class="paragraph">
-<p>The measurement will give one of the eigenvalues of the matrix and the associated probability
-is given by</p>
+<p>What does the measurement process do? It does two things:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><em>The measurement process collapses the wavefunction to one of the orthonormal eigen vectors
+(also known as eigen states) of the matrix \(M\)</em>.</p>
+</li>
+<li>
+<p><em>The result of measurement is an eigenvalue of \(M\). That is what the measurement device registers.</em></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The collapse is given by:</p>
+</div>
+<div id="collapse" class="stemblock">
+<div class="title">Wavefunction collapse into the i-th eigenvector \(\textbf{q}_i\)</div>
+<div class="content">
+\[\begin{equation}
+\Psi^{'} = e^{i\theta} \textbf{q}_i
+\end{equation}\]
+</div>
+</div>
+<div class="paragraph">
+<p>where \(e^{i\theta}\) is given by projecting the wavefunction
+onto \(\textbf{q}_i\) and normalizing the length of the resulting complex number. i.e., let</p>
+</div>
+<div id="projection" class="stemblock">
+<div class="title">Projection of the wavefunction onto the i-th eigenvector \(\textbf{q}_i\)</div>
+<div class="content">
+\[\begin{equation}
+z_i = \textbf{q}_i ^ \dagger \Psi
+\end{equation}\]
+</div>
+</div>
+<div class="paragraph">
+<p>Then \(e^{i\theta}\) is simply \(\frac{z_i}{||z_i||}\) and the probability with which the
+wavefunction will collapse to \(\textbf{q}_i\) is given by</p>
 </div>
 <div id="eq1" class="stemblock">
 <div class="title">Probability of measuring <em>i-th</em> eigenvalue</div>
 <div class="content">
 \[\begin{equation}
-p_i = \Psi ^ \dagger \textbf{v}_i \textbf{v}_i ^ \dagger \Psi
+p_i = ||z_i||^2
 \end{equation}\]
 </div>
 </div>
 <div class="paragraph">
-<p>where \(\textbf{v}_i\) is the <em>normalized</em> eigenvector (normalized means length = 1)
-corresponding to the <em>i-th</em> eigenvalue
-and \(\dagger\) denotes the <em>adjoint</em> which
-is formed by taking element-wise complex conjugate followed by transpose operation which turns
-column vectors into row vectors.
-\(\Psi\) is the wave function when the measurement is made. The above equation is also
-written as follows in the brakets notation and is the same thing:</p>
+<p>The above equation is also written as follows in the brakets notation and is the same thing:</p>
 </div>
 <div class="stemblock">
 <div class="content">
 \[\begin{equation}
-&lt;\Psi|\textbf{v}_i&gt;&lt;\textbf{v}_i|\Psi&gt;
+p_i = \langle\Psi|\textbf{q}_i\rangle\langle\textbf{q}_i|\Psi\rangle
 \end{equation}\]
 </div>
 </div>
+<div class="paragraph">
+<p>By default, when we see circuit diagrams with a measurement gate, it is measuring with
+\(M=Z\) where \(Z\) is the Pauli \(Z\) matrix with eigen states \(|0\rangle\)
+and \(|1\rangle\). This is also known as <em>measurement in the computational basis</em>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="an-example">An Example</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>Lets do the math to make it clear taking \(M = X_1 Z_2\) as example. First, we need to calculate the
 eigenvalues and eigenvectors of the matrix \(M\). Do that as exercise. The eigenvalues are given by:</p>
@@ -350,7 +394,7 @@ p_0 = \Psi ^ \dagger \textbf{v}_0 \textbf{v}_0 ^ \dagger \Psi = \frac{1}{4}
 <div class="stemblock">
 <div class="content">
 \[\begin{equation}
-&lt;M&gt; = \sum_i \lambda_i p_i
+\langle M \rangle = \sum_i \lambda_i p_i
 \end{equation}\]
 </div>
 </div>
@@ -360,12 +404,14 @@ p_0 = \Psi ^ \dagger \textbf{v}_0 \textbf{v}_0 ^ \dagger \Psi = \frac{1}{4}
 <div class="stemblock">
 <div class="content">
 \[\begin{equation}
-&lt;M&gt; = \Psi ^ \dagger M \Psi
+\langle M \rangle = \Psi ^ \dagger M \Psi
 \end{equation}\]
 </div>
 </div>
 <div class="paragraph">
-<p>which in this case will be 0.</p>
+<p>which in this case will be 0. The best book I have found on QM is not a book but the
+<a href="https://inst.eecs.berkeley.edu/~cs191/fa10/">Lecture Notes</a> by Umesh Vazirani. The book by Nielsen
+and Chuang in typical fashion of a grad book does not explain anything with examples.</p>
 </div>
 </div>
 </div>
@@ -374,12 +420,12 @@ p_0 = \Psi ^ \dagger \textbf{v}_0 \textbf{v}_0 ^ \dagger \Psi = \frac{1}{4}
   <!-- from https://developers.facebook.com/docs/plugins/like-button/ -->
   <!-- page.url will give the URL of the page sans the domain name. refer https://jekyllrb.com/docs/variables/ -->
   <!-- more at https://www.digitalocean.com/community/tutorials/how-to-control-urls-and-links-in-jekyll -->
-  <div class="fb-like" data-href="https://siddjain.github.io/software/2020/12/24/observabes.html" 
+  <div class="fb-like" data-href="https://siddjain.github.io/software/2020/12/26/observabes.html" 
       data-width="" 
       data-layout="standard"
       data-action="like" 
       data-size="small"
-      data-share="true"></div><a class="u-url" href="/software/2020/12/24/observabes.html" hidden></a>
+      data-share="true"></div><a class="u-url" href="/software/2020/12/26/observabes.html" hidden></a>
 </article>
       </div>
     </main><footer class="site-footer h-card">
