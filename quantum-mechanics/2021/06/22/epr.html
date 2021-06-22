@@ -1,0 +1,223 @@
+<!-- from https://github.com/jekyll/minima/blob/master/_layouts/default.html -->
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.4.0 -->
+<title>Learning Quantum Mechanics The Hard Way | siddharth’s space</title>
+<meta name="generator" content="Jekyll v3.8.7" />
+<meta property="og:title" content="Learning Quantum Mechanics The Hard Way" />
+<meta name="author" content="Siddharth Jain" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="John S. Bell in this landmark paper On The EPR Paradox considered the EPR experiment with a modification - Alice and Bob&#8217;s detectors are no longer oriented along the same axis. Alice detector is oriented along \(\vec{a}\) and Bob&#8217;s detector is oriented along \(\vec{b}\)." />
+<meta property="og:description" content="John S. Bell in this landmark paper On The EPR Paradox considered the EPR experiment with a modification - Alice and Bob&#8217;s detectors are no longer oriented along the same axis. Alice detector is oriented along \(\vec{a}\) and Bob&#8217;s detector is oriented along \(\vec{b}\)." />
+<link rel="canonical" href="https://siddjain.github.io/quantum-mechanics/2021/06/22/epr.html" />
+<meta property="og:url" content="https://siddjain.github.io/quantum-mechanics/2021/06/22/epr.html" />
+<meta property="og:site_name" content="siddharth’s space" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-06-22T18:30:00+00:00" />
+<script type="application/ld+json">
+{"description":"John S. Bell in this landmark paper On The EPR Paradox considered the EPR experiment with a modification - Alice and Bob&#8217;s detectors are no longer oriented along the same axis. Alice detector is oriented along \\(\\vec{a}\\) and Bob&#8217;s detector is oriented along \\(\\vec{b}\\).","url":"https://siddjain.github.io/quantum-mechanics/2021/06/22/epr.html","headline":"Learning Quantum Mechanics The Hard Way","dateModified":"2021-06-22T18:30:00+00:00","datePublished":"2021-06-22T18:30:00+00:00","@type":"BlogPosting","author":{"@type":"Person","name":"Siddharth Jain"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://siddjain.github.io/quantum-mechanics/2021/06/22/epr.html"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://siddjain.github.io/feed.xml" title="siddharth's space" /></head>
+<body>
+    
+    <!-- from https://developers.facebook.com/docs/plugins/like-button/ -->
+    <!-- I created a new app to get the appID. https://developers.facebook.com/apps/194621285460565/add/ -->
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous"
+     src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v9.0&appId=194621285460565&autoLogAppEvents=1"
+     nonce="mY2hWZoA"></script><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">siddharth&#39;s space</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Learning Quantum Mechanics The Hard Way</h1>
+    <p class="post-meta"><time class="dt-published" datetime="2021-06-22T18:30:00+00:00" itemprop="datePublished">
+        Jun 22, 2021
+      </time>• 
+          <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+            <span class="p-author h-card" itemprop="name">Siddharth Jain</span></span></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <div class="paragraph">
+<p>John S. Bell in this landmark paper <a href="https://cds.cern.ch/record/111654/files/vol1p195-200_001.pdf">On The EPR Paradox</a> considered the EPR experiment with a modification -
+Alice and Bob&#8217;s detectors are no longer oriented along the same axis. Alice detector is oriented along \(\vec{a}\) and Bob&#8217;s detector is oriented along \(\vec{b}\).</p>
+</div>
+<div class="paragraph">
+<p><strong>Question: What is the expected value of Alice&#8217;s spin \(\times\) Bob&#8217;s spin?</strong></p>
+</div>
+<div class="paragraph">
+<p>Bell solves it in one line:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/bell_equation3.png" alt="bell equation3">
+</div>
+</div>
+<div class="paragraph">
+<p>and that is why he is Bell. But we will solve it the hard way using the <code>sympy</code> package in Python. Let&#8217;s get started. I won&#8217;t be showing the full code but bits and pieces of it. First, create the vector corresponding to the spin-singlet state i.e., \(\frac{1}{\sqrt{2}}(|01\rangle - |10\rangle)\):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-python" data-lang="python">psi = 1 / sympy.sqrt(2) * Matrix([[0],[1],[-1],[0]])</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Next, create the \(2 \times 2\) matrices corresponding to Alice and Bob. The matrices are identical except for the axes they use:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-python" data-lang="python">a1, a2, a3, b1, b2, b3 = sympy.symbols('a1 a2 a3 b1 b2 b3', real=True)
+M_A = a1 * X + a2 * Y + a3 * Z
+M_B = b1 * X + b2 * Y + b3 * Z</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>where <code>X, Y, Z</code> are the Pauli matrices. Now notice that <code>psi</code> is a \(4 \times 1\) vector but the matrices above are \(2 \times 2\). The \(4 \times 4\) matrix corresponding to Alice&#8217;s observable is given by \(I \otimes M_A\) and conversely the \(4 \times 4\) matrix corresponding to Bob&#8217;s observable is given by \(M_B \otimes I\) where \(I\) of course is the identity matrix.</p>
+</div>
+<div class="paragraph">
+<p>We can calculate these matrices using the <code>TensorProduct</code> function (it takes arguments in &#8220;opposite&#8221; order):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-python" data-lang="python">Alice = TensorProduct(M_A, eye(2))
+Bob   = TensorProduct(eye(2), M_B)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now we write a function which will simulate Alice making a measurement on her qubit:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-python" data-lang="python">alice_measurements, alice_probabilities, psis = measure(psi, Alice)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Writing the <code>measure</code> function is left as exercise and is the heart of the code. The <code>measure</code> function takes input the wavefunction <code>psi</code> and an observable (given by <code>Alice</code> in above).
+Remember an observable is a Hermitian matrix. The function returns us 3 things:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>an array of possible measurement outcomes. This is computed by computing the <em>distinct</em> eigenvalues of the input observable. In our case we will get only two distinct eigenvalues: \(+1\) and \(-1\).</p>
+</li>
+<li>
+<p>an array of the respective probabilities of the outcomes.</p>
+</li>
+<li>
+<p>an array containing the collapsed wavefunction in each case.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Next, we need to simulate Bob&#8217;s measurement for each possible outcome of Alice&#8217;s measurement (so we have a nested loop):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-python" data-lang="python">for i in range(0, len(alice_measurements)):
+    alice_spin = alice_measurements[i]
+    alice_prob = alice_probabilities[i]
+    psi = psis[i]
+    bob_measurements, bob_probabilities, bob_psis = measure(psi, Bob)
+    for j in range(0, len(bob_measurements)):
+        bob_spin = bob_measurements[j]
+        bob_prob = bob_probabilities[j]
+        spin_product.append(alice_spin * bob_spin)
+        probabilities.append(alice_prob * bob_prob)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The final answer i.e., expected value of Alice&#8217;s spin \(\times\) Bob&#8217;s spin is given by:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-python" data-lang="python">for i in range(0, len(spin_product)):
+    expectation += spin_product[i] * probabilities[i]
+
+sympy.pprint(expectation)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Running this does not give the simple \(\vec{a} \cdot \vec{b}\). Instead I get a monstrous expression. I tried simplifying it using the <code>simplify</code> function but it didn&#8217;t help.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/bell_expectation.png" alt="bell expectation">
+</div>
+</div>
+<div class="paragraph">
+<p>To check I didn&#8217;t have a bug in my code, I evaluated the expression (i.e., compute a numerical value) using the <code>n()</code> or <code>N</code> function in <code>sympy</code> and that did give correct result.</p>
+</div>
+  </div>
+
+  <!-- from https://developers.facebook.com/docs/plugins/like-button/ -->
+  <!-- page.url will give the URL of the page sans the domain name. refer https://jekyllrb.com/docs/variables/ -->
+  <!-- more at https://www.digitalocean.com/community/tutorials/how-to-control-urls-and-links-in-jekyll -->
+  <div class="fb-like" data-href="https://siddjain.github.io/quantum-mechanics/2021/06/22/epr.html" 
+      data-width="" 
+      data-layout="standard"
+      data-action="like" 
+      data-size="small"
+      data-share="true"></div><a class="u-url" href="/quantum-mechanics/2021/06/22/epr.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">siddharth&#39;s space</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">siddharth&#39;s space</li><li><a class="u-email" href="mailto:siddjain@example.com">siddjain@example.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/siddjain"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">siddjain</span></a></li><li><a href="https://www.twitter.com/fd97207"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">fd97207</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>कोशिश करने वालो की कभी हार नहीं होती…</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+<!-- refer https://github.com/asciidoctor/jekyll-asciidoc#adding-the-stem-assets-to-the-page --><!-- from https://github.com/asciidoctor/jekyll-asciidoc#adding-the-stem-assets-to-the-page -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    messageStyle: "none",
+    tex2jax: {
+        inlineMath: [["\\(", "\\)"]],
+        displayMath: [["\\[", "\\]"]],
+        ignoreClass: "nostem|nolatexmath"
+    },
+    asciimath2jax: {
+        delimiters: [["\\$", "\\$"]],
+        ignoreClass: "nostem|noasciimath"
+    },
+    TeX: { equationNumbers: { autoNumber: "none" } }
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script></body>
+
+</html>
