@@ -17,11 +17,13 @@ Alice and Bob's detectors are no longer oriented along the same axis. Alice dete
 
 **Question: What is the expected value of Alice's spin stem:[\times] Bob's spin?**
 
-Bell solves it in one line:
+Bell solves it in one line. Or rather, he just gives the answer and leaves it to the reader to work it out:
 
 image::/assets/images/bell_equation3.png[]
 
-and that is why he is Bell. But we will solve it the hard way using the `sympy` package in Python. Let's get started. I won't be showing the full code but bits and pieces of it. First, create the vector corresponding to the spin-singlet state i.e., stem:[\frac{1}{\sqrt{2}}(|01\rangle - |10\rangle)]:
+This problem also appears as Problem 4.55 in DJ Griffiths Introduction to Quantum Mechanics.
+Working it out does not seem trivial to me. I actually had to use the `sympy` package in Python to work it out (the hard or poor man's way).
+Let's get started. I won't be showing the full code but bits and pieces of it. First, create the vector corresponding to the spin-singlet state i.e., stem:[\frac{1}{\sqrt{2}}(|01\rangle - |10\rangle)]:
 
 [source,python]
 ----
@@ -54,7 +56,8 @@ Now we write a function which will simulate Alice making a measurement on her qu
 alice_measurements, alice_probabilities, psis = measure(psi, Alice)
 ----
 
-Writing the `measure` function is left as exercise and is the heart of the code. The `measure` function takes input the wavefunction `psi` and an observable (given by `Alice` in above).
+Writing the `measure` function is left as exercise and is key to solving the problem.
+The `measure` function takes input the wavefunction `psi` and an observable (given by `Alice` in above).
 Remember an observable is a Hermitian matrix. The function returns us 3 things:
 
 * an array of possible measurement outcomes. This is computed by computing the _distinct_ eigenvalues of the input observable. In our case we will get only two distinct eigenvalues: stem:[+1] and stem:[-1].
@@ -87,9 +90,69 @@ for i in range(0, len(spin_product)):
 sympy.pprint(expectation)
 ----
 
-Running this does not give the simple stem:[\vec{a} \cdot \vec{b}]. Instead I get a monstrous expression. I tried simplifying it using the `simplify` function but it didn't help.
-
-image::/assets/images/bell_expectation.png[]
-
+Running this does not give the simple stem:[- \vec{a} \cdot \vec{b}]. Instead I get a monstrous expression. I tried simplifying it using the `simplify` function but it didn't help.
 To check I didn't have a bug in my code, I evaluated the expression (i.e., compute a numerical value) using the `n()` or `N` function in `sympy` and that did give correct result.
+So I don't think there was bug in the code; just that `sympy` is not able to simplify the expression.
 
+== The Smart Way
+
+Now that we have solved the problem the hard way, let's see how to solve it the smart way. It turns out the answer to the problem is given by the expected value of
+the observable formed by stem:[M_B \otimes M_A] (or vice-versa). i.e.,
+
+\begin{equation}
+\langle \psi | M_B \otimes M_A | \psi \rangle = - \vec{a} \cdot \vec{b}
+\end{equation}
+
+where stem:[\psi] once again is given by stem:[\frac{1}{\sqrt{2}}(|01\rangle - |10\rangle)] or stem:[
+\begin{pmatrix}
+0 \\ \frac{\sqrt{2}}{2} \\ -\frac{\sqrt{2}}{2} \\ 0
+\end{pmatrix}
+]
+and that is what Bell is referring to in his paper.
+
+But why is it like that? First, we - or at least I - know that the expected value of an observable stem:[M] (sometimes also referred to as _operator_) is indeed given by
+stem:[\langle \psi | M | \psi \rangle]. The proof of this can be found in Nielsen and Chuang, equation 2.113 p. 88.
+Now let's look at stem:[M_B \otimes M_A]:
+
+\begin{equation} \label{eq1}
+\begin{split}
+M_B \otimes M_A & = (b_1 uu^T + b_2 vv^T) \otimes (a_1 qq^T + a_2 rr^T) \\
+ & = a_1 b_1 uu^T \otimes qq^T + a_2 b_1 uu^T \otimes rr^T + a_1 b_2 vv^T \otimes qq^T + a_2 b_2 vv^T \otimes rr^T \\
+ & = a_1 b_1 (u \otimes q)(u \otimes q)^T + a_2 b_1 (u \otimes r)(u \otimes r)^T + a_1 b_2 (v \otimes q)(v \otimes q)^T + a_2 b_2 (v \otimes r)(v \otimes r)^T
+\end{split}
+\end{equation}
+
+The math above itself is not obvious. stem:[a_1, a_2] are eigenvalues of stem:[M_A]. Similarly stem:[b_1, b_2] are eigenvalues of stem:[M_B].
+stem:[q, r] are eigenvectors of stem:[M_A] and stem:[u, v] are eigenvectors of stem:[M_B].
+The first line follows from the property of eigendecomposition of a matrix and is used often in Nielsen and Chuang.
+To get the second line, _prove that the tensor product distributes over addition_. Don't take it for granted.
+To get the third line is very difficult for me so I posted it as a question on
+https://math.stackexchange.com/questions/4180543/given-vectors-q-r-prove-that-qqt-otimes-rrt-q-otimes-r-q-otimes-r[SE]. It relies on two properties
+(don't take them for granted, _prove them_):
+
+\begin{equation} \label{eq2}
+\begin{split}
+(u \otimes q)^T & = u^T \otimes q^T \\
+(u \otimes q)(u^T \otimes q^T) & = uu^T \otimes qq^T  (\textrm{mixed product property})
+\end{split}
+\end{equation}
+
+Now we have written stem:[M_B \otimes M_A] as an eigendecomposition and can see that its eigenvalues are nothing but the product of the
+eigenvalues of Alice and Bob's matrices. And we are done. QED.
+
+All that is left is to compute stem:[\langle \psi | M_B \otimes M_A | \psi \rangle] and that is something that can be done by hand - not easy for me so I am going to use
+`sympy` again.
+
+[source,python]
+----
+>>> t = psi.H * TensorProduct(M_A, M_B) * psi
+>>> t
+⎡   ⎛  √2⋅a₃⋅b₃   √2⋅(a₁ + ⅈ⋅a₂)⋅(b₁ - ⅈ⋅b₂)⎞      ⎛√2⋅a₃⋅b₃   √2⋅(a₁ - ⅈ⋅a₂)⋅(b₁ + ⅈ⋅b₂)⎞⎤
+⎢√2⋅⎜- ──────── - ──────────────────────────⎟   √2⋅⎜──────── + ──────────────────────────⎟⎥
+⎢   ⎝     2                   2             ⎠      ⎝   2                   2             ⎠⎥
+⎢──────────────────────────────────────────── - ──────────────────────────────────────────⎥
+⎣                     2                                             2                     ⎦
+>>> t.simplify()
+>>> t
+[-a₁⋅b₁ - a₂⋅b₂ - a₃⋅b₃]
+----
