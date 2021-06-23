@@ -56,7 +56,9 @@
   </header>
 
   <div class="post-content e-content" itemprop="articleBody">
-    <div class="paragraph">
+    <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
 <p>John S. Bell in this landmark paper <a href="https://cds.cern.ch/record/111654/files/vol1p195-200_001.pdf">On The EPR Paradox</a> considered the EPR experiment with a modification -
 Alice and Bob&#8217;s detectors are no longer oriented along the same axis. Alice detector is oriented along \(\vec{a}\) and Bob&#8217;s detector is oriented along \(\vec{b}\).</p>
 </div>
@@ -64,7 +66,7 @@ Alice and Bob&#8217;s detectors are no longer oriented along the same axis. Alic
 <p><strong>Question: What is the expected value of Alice&#8217;s spin \(\times\) Bob&#8217;s spin?</strong></p>
 </div>
 <div class="paragraph">
-<p>Bell solves it in one line:</p>
+<p>Bell solves it in one line. Or rather, he just gives the answer and leaves it to the reader to work it out:</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -72,7 +74,9 @@ Alice and Bob&#8217;s detectors are no longer oriented along the same axis. Alic
 </div>
 </div>
 <div class="paragraph">
-<p>and that is why he is Bell. But we will solve it the hard way using the <code>sympy</code> package in Python. Let&#8217;s get started. I won&#8217;t be showing the full code but bits and pieces of it. First, create the vector corresponding to the spin-singlet state i.e., \(\frac{1}{\sqrt{2}}(|01\rangle - |10\rangle)\):</p>
+<p>This problem also appears as Problem 4.55 in DJ Griffiths Introduction to Quantum Mechanics.
+Working it out does not seem trivial to me. I actually had to use the <code>sympy</code> package in Python to work it out (the hard or poor man&#8217;s way).
+Let&#8217;s get started. I won&#8217;t be showing the full code but bits and pieces of it. First, create the vector corresponding to the spin-singlet state i.e., \(\frac{1}{\sqrt{2}}(|01\rangle - |10\rangle)\):</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -110,7 +114,8 @@ Bob   = TensorProduct(eye(2), M_B)</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Writing the <code>measure</code> function is left as exercise and is the heart of the code. The <code>measure</code> function takes input the wavefunction <code>psi</code> and an observable (given by <code>Alice</code> in above).
+<p>Writing the <code>measure</code> function is left as exercise and is key to solving the problem.
+The <code>measure</code> function takes input the wavefunction <code>psi</code> and an observable (given by <code>Alice</code> in above).
 Remember an observable is a Hermitian matrix. The function returns us 3 things:</p>
 </div>
 <div class="ulist">
@@ -155,15 +160,86 @@ sympy.pprint(expectation)</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Running this does not give the simple \(\vec{a} \cdot \vec{b}\). Instead I get a monstrous expression. I tried simplifying it using the <code>simplify</code> function but it didn&#8217;t help.</p>
+<p>Running this does not give the simple \(- \vec{a} \cdot \vec{b}\). Instead I get a monstrous expression. I tried simplifying it using the <code>simplify</code> function but it didn&#8217;t help.
+To check I didn&#8217;t have a bug in my code, I evaluated the expression (i.e., compute a numerical value) using the <code>n()</code> or <code>N</code> function in <code>sympy</code> and that did give correct result.
+So I don&#8217;t think there was bug in the code; just that <code>sympy</code> is not able to simplify the expression.</p>
 </div>
-<div class="imageblock">
-<div class="content">
-<img src="/assets/images/bell_expectation.png" alt="bell expectation">
 </div>
+</div>
+<div class="sect1">
+<h2 id="the-smart-way">The Smart Way</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Now that we have solved the problem the hard way, let&#8217;s see how to solve it the smart way. It turns out the answer to the problem is given by the expected value of
+the observable formed by \(M_B \otimes M_A\) (or vice-versa). i.e.,</p>
 </div>
 <div class="paragraph">
-<p>To check I didn&#8217;t have a bug in my code, I evaluated the expression (i.e., compute a numerical value) using the <code>n()</code> or <code>N</code> function in <code>sympy</code> and that did give correct result.</p>
+<p>\begin{equation}
+\langle \psi | M_B \otimes M_A | \psi \rangle = - \vec{a} \cdot \vec{b}
+\end{equation}</p>
+</div>
+<div class="paragraph">
+<p>where \(\psi\) once again is given by \(\frac{1}{\sqrt{2}}(|01\rangle - |10\rangle)\) or \(
+\begin{pmatrix}
+0 \\ \frac{\sqrt{2}}{2} \\ -\frac{\sqrt{2}}{2} \\ 0
+\end{pmatrix}
+\)
+and that is what Bell is referring to in his paper.</p>
+</div>
+<div class="paragraph">
+<p>But why is it like that? First, we - or at least I - know that the expected value of an observable \(M\) (sometimes also referred to as <em>operator</em>) is indeed given by
+\(\langle \psi | M | \psi \rangle\). The proof of this can be found in Nielsen and Chuang, equation 2.113 p. 88.
+Now let&#8217;s look at \(M_B \otimes M_A\):</p>
+</div>
+<div class="paragraph">
+<p>\begin{equation} \label{eq1}
+\begin{split}
+M_B \otimes M_A &amp; = (b_1 uu^T + b_2 vv^T) \otimes (a_1 qq^T + a_2 rr^T) \\
+ &amp; = a_1 b_1 uu^T \otimes qq^T + a_2 b_1 uu^T \otimes rr^T + a_1 b_2 vv^T \otimes qq^T + a_2 b_2 vv^T \otimes rr^T \\
+ &amp; = a_1 b_1 (u \otimes q)(u \otimes q)^T + a_2 b_1 (u \otimes r)(u \otimes r)^T + a_1 b_2 (v \otimes q)(v \otimes q)^T + a_2 b_2 (v \otimes r)(v \otimes r)^T
+\end{split}
+\end{equation}</p>
+</div>
+<div class="paragraph">
+<p>The math above itself is not obvious. \(a_1, a_2\) are eigenvalues of \(M_A\). Similarly \(b_1, b_2\) are eigenvalues of \(M_B\).
+\(q, r\) are eigenvectors of \(M_A\) and \(u, v\) are eigenvectors of \(M_B\).
+The first line follows from the property of eigendecomposition of a matrix and is used often in Nielsen and Chuang.
+To get the second line, <em>prove that the tensor product distributes over addition</em>. Don&#8217;t take it for granted.
+To get the third line is very difficult for me so I posted it as a question on
+<a href="https://math.stackexchange.com/questions/4180543/given-vectors-q-r-prove-that-qqt-otimes-rrt-q-otimes-r-q-otimes-r">SE</a>. It relies on two properties
+(don&#8217;t take them for granted, <em>prove them</em>):</p>
+</div>
+<div class="paragraph">
+<p>\begin{equation} \label{eq2}
+\begin{split}
+(u \otimes q)^T &amp; = u^T \otimes q^T \\
+(u \otimes q)(u^T \otimes q^T) &amp; = uu^T \otimes qq^T  (\textrm{mixed product property})
+\end{split}
+\end{equation}</p>
+</div>
+<div class="paragraph">
+<p>Now we have written \(M_B \otimes M_A\) as an eigendecomposition and can see that its eigenvalues are nothing but the product of the
+eigenvalues of Alice and Bob&#8217;s matrices. And we are done. QED.</p>
+</div>
+<div class="paragraph">
+<p>All that is left is to compute \(\langle \psi | M_B \otimes M_A | \psi \rangle\) and that is something that can be done by hand - not easy for me so I am going to use
+<code>sympy</code> again.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-python" data-lang="python">&gt;&gt;&gt; t = psi.H * TensorProduct(M_A, M_B) * psi
+&gt;&gt;&gt; t
+⎡   ⎛  √2⋅a₃⋅b₃   √2⋅(a₁ + ⅈ⋅a₂)⋅(b₁ - ⅈ⋅b₂)⎞      ⎛√2⋅a₃⋅b₃   √2⋅(a₁ - ⅈ⋅a₂)⋅(b₁ + ⅈ⋅b₂)⎞⎤
+⎢√2⋅⎜- ──────── - ──────────────────────────⎟   √2⋅⎜──────── + ──────────────────────────⎟⎥
+⎢   ⎝     2                   2             ⎠      ⎝   2                   2             ⎠⎥
+⎢──────────────────────────────────────────── - ──────────────────────────────────────────⎥
+⎣                     2                                             2                     ⎦
+&gt;&gt;&gt; t.simplify()
+&gt;&gt;&gt; t
+[-a₁⋅b₁ - a₂⋅b₂ - a₃⋅b₃]</code></pre>
+</div>
+</div>
+</div>
 </div>
   </div>
 
