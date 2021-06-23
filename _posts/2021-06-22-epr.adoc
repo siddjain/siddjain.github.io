@@ -19,7 +19,7 @@ Alice and Bob's detectors are no longer oriented along the same axis. Alice dete
 
 Bell solves it in one line:
 
-image::images/bell_equation3.png[]
+image::/assets/images/bell_equation3.png[]
 
 and that is why he is Bell. But we will solve it the hard way using the `sympy` package in Python. Let's get started. I won't be showing the full code but bits and pieces of it. First, create the vector corresponding to the spin-singlet state i.e., stem:[\frac{1}{\sqrt{2}}(|01\rangle - |10\rangle)]:
 
@@ -89,7 +89,7 @@ sympy.pprint(expectation)
 
 Running this does not give the simple stem:[\vec{a} \cdot \vec{b}]. Instead I get a monstrous expression. I tried simplifying it using the `simplify` function but it didn't help.
 
-image::images/bell_expectation.png[]
+image::/assets/images/bell_expectation.png[]
 
 To check I didn't have a bug in my code, I evaluated the expression (i.e., compute a numerical value) using the `n()` or `N` function in `sympy` and that did give correct result.
 
