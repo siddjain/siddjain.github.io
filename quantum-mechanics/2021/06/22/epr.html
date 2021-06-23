@@ -3,21 +3,21 @@
 <html lang="en"><head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.4.0 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
 <title>Learning Quantum Mechanics The Hard Way | siddharth’s space</title>
 <meta name="generator" content="Jekyll v3.8.7" />
 <meta property="og:title" content="Learning Quantum Mechanics The Hard Way" />
 <meta name="author" content="Siddharth Jain" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="John S. Bell in this landmark paper On The EPR Paradox considered the EPR experiment with a modification - Alice and Bob&#8217;s detectors are no longer oriented along the same axis. Alice detector is oriented along \(\vec{a}\) and Bob&#8217;s detector is oriented along \(\vec{b}\)." />
-<meta property="og:description" content="John S. Bell in this landmark paper On The EPR Paradox considered the EPR experiment with a modification - Alice and Bob&#8217;s detectors are no longer oriented along the same axis. Alice detector is oriented along \(\vec{a}\) and Bob&#8217;s detector is oriented along \(\vec{b}\)." />
+<meta name="description" content="John S. Bell in his landmark paper On The EPR Paradox considered the EPR experiment with a modification - Alice and Bob&#8217;s detectors are no longer oriented along the same axis. Alice detector is oriented along \(\vec{a}\) and Bob&#8217;s detector is oriented along \(\vec{b}\)." />
+<meta property="og:description" content="John S. Bell in his landmark paper On The EPR Paradox considered the EPR experiment with a modification - Alice and Bob&#8217;s detectors are no longer oriented along the same axis. Alice detector is oriented along \(\vec{a}\) and Bob&#8217;s detector is oriented along \(\vec{b}\)." />
 <link rel="canonical" href="https://siddjain.github.io/quantum-mechanics/2021/06/22/epr.html" />
 <meta property="og:url" content="https://siddjain.github.io/quantum-mechanics/2021/06/22/epr.html" />
 <meta property="og:site_name" content="siddharth’s space" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2021-06-22T18:30:00+00:00" />
 <script type="application/ld+json">
-{"description":"John S. Bell in this landmark paper On The EPR Paradox considered the EPR experiment with a modification - Alice and Bob&#8217;s detectors are no longer oriented along the same axis. Alice detector is oriented along \\(\\vec{a}\\) and Bob&#8217;s detector is oriented along \\(\\vec{b}\\).","url":"https://siddjain.github.io/quantum-mechanics/2021/06/22/epr.html","headline":"Learning Quantum Mechanics The Hard Way","dateModified":"2021-06-22T18:30:00+00:00","datePublished":"2021-06-22T18:30:00+00:00","@type":"BlogPosting","author":{"@type":"Person","name":"Siddharth Jain"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://siddjain.github.io/quantum-mechanics/2021/06/22/epr.html"},"@context":"http://schema.org"}</script>
+{"description":"John S. Bell in his landmark paper On The EPR Paradox considered the EPR experiment with a modification - Alice and Bob&#8217;s detectors are no longer oriented along the same axis. Alice detector is oriented along \\(\\vec{a}\\) and Bob&#8217;s detector is oriented along \\(\\vec{b}\\).","author":{"@type":"Person","name":"Siddharth Jain"},"@type":"BlogPosting","url":"https://siddjain.github.io/quantum-mechanics/2021/06/22/epr.html","headline":"Learning Quantum Mechanics The Hard Way","dateModified":"2021-06-22T18:30:00+00:00","datePublished":"2021-06-22T18:30:00+00:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://siddjain.github.io/quantum-mechanics/2021/06/22/epr.html"},"@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://siddjain.github.io/feed.xml" title="siddharth's space" /></head>
 <body>
@@ -59,7 +59,7 @@
     <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>John S. Bell in this landmark paper <a href="https://cds.cern.ch/record/111654/files/vol1p195-200_001.pdf">On The EPR Paradox</a> considered the EPR experiment with a modification -
+<p>John S. Bell in his landmark paper <a href="https://cds.cern.ch/record/111654/files/vol1p195-200_001.pdf">On The EPR Paradox</a> considered the EPR experiment with a modification -
 Alice and Bob&#8217;s detectors are no longer oriented along the same axis. Alice detector is oriented along \(\vec{a}\) and Bob&#8217;s detector is oriented along \(\vec{b}\).</p>
 </div>
 <div class="paragraph">
@@ -74,13 +74,13 @@ Alice and Bob&#8217;s detectors are no longer oriented along the same axis. Alic
 </div>
 </div>
 <div class="paragraph">
-<p>This problem also appears as Problem 4.55 in DJ Griffiths Introduction to Quantum Mechanics.
-Working it out does not seem trivial to me. I actually had to use the <code>sympy</code> package in Python to work it out (the hard or poor man&#8217;s way).
+<p>This problem also appears as Problem 4.55 in DJ Griffiths Introduction to Quantum Mechanics 2nd ed.
+Working it out is not trivial for me. I actually had to use the <code>sympy</code> package in Python to work it out (the hard or poor man&#8217;s way).
 Let&#8217;s get started. I won&#8217;t be showing the full code but bits and pieces of it. First, create the vector corresponding to the spin-singlet state i.e., \(\frac{1}{\sqrt{2}}(|01\rangle - |10\rangle)\):</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-python" data-lang="python">psi = 1 / sympy.sqrt(2) * Matrix([[0],[1],[-1],[0]])</code></pre>
+<pre class="pygments highlight" style="background: #f8f8f8;"><code data-lang="python"><span></span>psi <span style="color: #666666">=</span> <span style="color: #666666">1</span> <span style="color: #666666">/</span> sympy<span style="color: #666666">.</span>sqrt(<span style="color: #666666">2</span>) <span style="color: #666666">*</span> Matrix([[<span style="color: #666666">0</span>],[<span style="color: #666666">1</span>],[<span style="color: #666666">-1</span>],[<span style="color: #666666">0</span>]])</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -88,9 +88,9 @@ Let&#8217;s get started. I won&#8217;t be showing the full code but bits and pie
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-python" data-lang="python">a1, a2, a3, b1, b2, b3 = sympy.symbols('a1 a2 a3 b1 b2 b3', real=True)
-M_A = a1 * X + a2 * Y + a3 * Z
-M_B = b1 * X + b2 * Y + b3 * Z</code></pre>
+<pre class="pygments highlight" style="background: #f8f8f8;"><code data-lang="python"><span></span>a1, a2, a3, b1, b2, b3 <span style="color: #666666">=</span> sympy<span style="color: #666666">.</span>symbols(<span style="color: #BA2121">&#39;a1 a2 a3 b1 b2 b3&#39;</span>, real<span style="color: #666666">=</span><span style="color: #008000; font-weight: bold">True</span>)
+M_A <span style="color: #666666">=</span> a1 <span style="color: #666666">*</span> X <span style="color: #666666">+</span> a2 <span style="color: #666666">*</span> Y <span style="color: #666666">+</span> a3 <span style="color: #666666">*</span> Z
+M_B <span style="color: #666666">=</span> b1 <span style="color: #666666">*</span> X <span style="color: #666666">+</span> b2 <span style="color: #666666">*</span> Y <span style="color: #666666">+</span> b3 <span style="color: #666666">*</span> Z</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -101,8 +101,8 @@ M_B = b1 * X + b2 * Y + b3 * Z</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-python" data-lang="python">Alice = TensorProduct(M_A, eye(2))
-Bob   = TensorProduct(eye(2), M_B)</code></pre>
+<pre class="pygments highlight" style="background: #f8f8f8;"><code data-lang="python"><span></span>Alice <span style="color: #666666">=</span> TensorProduct(M_A, eye(<span style="color: #666666">2</span>))
+Bob   <span style="color: #666666">=</span> TensorProduct(eye(<span style="color: #666666">2</span>), M_B)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -110,7 +110,7 @@ Bob   = TensorProduct(eye(2), M_B)</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-python" data-lang="python">alice_measurements, alice_probabilities, psis = measure(psi, Alice)</code></pre>
+<pre class="pygments highlight" style="background: #f8f8f8;"><code data-lang="python"><span></span>alice_measurements, alice_probabilities, psis <span style="color: #666666">=</span> measure(psi, Alice)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -136,16 +136,16 @@ Remember an observable is a Hermitian matrix. The function returns us 3 things:<
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-python" data-lang="python">for i in range(0, len(alice_measurements)):
-    alice_spin = alice_measurements[i]
-    alice_prob = alice_probabilities[i]
-    psi = psis[i]
-    bob_measurements, bob_probabilities, bob_psis = measure(psi, Bob)
-    for j in range(0, len(bob_measurements)):
-        bob_spin = bob_measurements[j]
-        bob_prob = bob_probabilities[j]
-        spin_product.append(alice_spin * bob_spin)
-        probabilities.append(alice_prob * bob_prob)</code></pre>
+<pre class="pygments highlight" style="background: #f8f8f8;"><code data-lang="python"><span></span><span style="color: #008000; font-weight: bold">for</span> i <span style="color: #AA22FF; font-weight: bold">in</span> <span style="color: #008000">range</span>(<span style="color: #666666">0</span>, <span style="color: #008000">len</span>(alice_measurements)):
+    alice_spin <span style="color: #666666">=</span> alice_measurements[i]
+    alice_prob <span style="color: #666666">=</span> alice_probabilities[i]
+    psi <span style="color: #666666">=</span> psis[i]
+    bob_measurements, bob_probabilities, bob_psis <span style="color: #666666">=</span> measure(psi, Bob)
+    <span style="color: #008000; font-weight: bold">for</span> j <span style="color: #AA22FF; font-weight: bold">in</span> <span style="color: #008000">range</span>(<span style="color: #666666">0</span>, <span style="color: #008000">len</span>(bob_measurements)):
+        bob_spin <span style="color: #666666">=</span> bob_measurements[j]
+        bob_prob <span style="color: #666666">=</span> bob_probabilities[j]
+        spin_product<span style="color: #666666">.</span>append(alice_spin <span style="color: #666666">*</span> bob_spin)
+        probabilities<span style="color: #666666">.</span>append(alice_prob <span style="color: #666666">*</span> bob_prob)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -153,16 +153,20 @@ Remember an observable is a Hermitian matrix. The function returns us 3 things:<
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-python" data-lang="python">for i in range(0, len(spin_product)):
-    expectation += spin_product[i] * probabilities[i]
+<pre class="pygments highlight" style="background: #f8f8f8;"><code data-lang="python"><span></span><span style="color: #008000; font-weight: bold">for</span> i <span style="color: #AA22FF; font-weight: bold">in</span> <span style="color: #008000">range</span>(<span style="color: #666666">0</span>, <span style="color: #008000">len</span>(spin_product)):
+    expectation <span style="color: #666666">+=</span> spin_product[i] <span style="color: #666666">*</span> probabilities[i]
 
-sympy.pprint(expectation)</code></pre>
+sympy<span style="color: #666666">.</span>pprint(expectation)</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>Running this does not give the simple \(- \vec{a} \cdot \vec{b}\). Instead I get a monstrous expression. I tried simplifying it using the <code>simplify</code> function but it didn&#8217;t help.
 To check I didn&#8217;t have a bug in my code, I evaluated the expression (i.e., compute a numerical value) using the <code>n()</code> or <code>N</code> function in <code>sympy</code> and that did give correct result.
 So I don&#8217;t think there was bug in the code; just that <code>sympy</code> is not able to simplify the expression.</p>
+</div>
+<div class="paragraph">
+<p>The hard way does it using basic principles. And the algorithm can be generalized to any case. But its infeasible to do calculations like this by hand.
+How did Bell calculate it by hand? There ought to be a shortcut.</p>
 </div>
 </div>
 </div>
@@ -203,8 +207,8 @@ M_B \otimes M_A &amp; = (b_1 uu^T + b_2 vv^T) \otimes (a_1 qq^T + a_2 rr^T) \\
 <div class="paragraph">
 <p>The math above itself is not obvious. \(a_1, a_2\) are eigenvalues of \(M_A\). Similarly \(b_1, b_2\) are eigenvalues of \(M_B\).
 \(q, r\) are eigenvectors of \(M_A\) and \(u, v\) are eigenvectors of \(M_B\).
-The first line follows from the property of eigendecomposition of a matrix and is used often in Nielsen and Chuang.
-To get the second line, <em>prove that the tensor product distributes over addition</em>. Don&#8217;t take it for granted.
+The first line follows from the property of eigendecomposition of a matrix and is used often in Nielsen and Chuang. See box 2.2 p. 72 for example.
+To get the second line, <em>prove that the tensor product distributes over addition</em>. Don&#8217;t take it for granted. See equations 2.43 and 2.44 p. 73 in Nielsen &amp; Chuang.
 To get the third line is very difficult for me so I posted it as a question on
 <a href="https://math.stackexchange.com/questions/4180543/given-vectors-q-r-prove-that-qqt-otimes-rrt-q-otimes-r-q-otimes-r">SE</a>. It relies on two properties
 (don&#8217;t take them for granted, <em>prove them</em>):</p>
@@ -212,7 +216,7 @@ To get the third line is very difficult for me so I posted it as a question on
 <div class="paragraph">
 <p>\begin{equation} \label{eq2}
 \begin{split}
-(u \otimes q)^T &amp; = u^T \otimes q^T \\
+(u \otimes q)^T &amp; = u^T \otimes q^T (\textrm{eq. 2.53 p.74 Nielsen &amp; Chuang}) \\
 (u \otimes q)(u^T \otimes q^T) &amp; = uu^T \otimes qq^T  (\textrm{mixed product property})
 \end{split}
 \end{equation}</p>
@@ -227,7 +231,7 @@ eigenvalues of Alice and Bob&#8217;s matrices. And we are done. QED.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-python" data-lang="python">&gt;&gt;&gt; t = psi.H * TensorProduct(M_A, M_B) * psi
+<pre>&gt;&gt;&gt; t = psi.H * TensorProduct(M_A, M_B) * psi
 &gt;&gt;&gt; t
 ⎡   ⎛  √2⋅a₃⋅b₃   √2⋅(a₁ + ⅈ⋅a₂)⋅(b₁ - ⅈ⋅b₂)⎞      ⎛√2⋅a₃⋅b₃   √2⋅(a₁ - ⅈ⋅a₂)⋅(b₁ + ⅈ⋅b₂)⎞⎤
 ⎢√2⋅⎜- ──────── - ──────────────────────────⎟   √2⋅⎜──────── + ──────────────────────────⎟⎥
@@ -236,7 +240,7 @@ eigenvalues of Alice and Bob&#8217;s matrices. And we are done. QED.</p>
 ⎣                     2                                             2                     ⎦
 &gt;&gt;&gt; t.simplify()
 &gt;&gt;&gt; t
-[-a₁⋅b₁ - a₂⋅b₂ - a₃⋅b₃]</code></pre>
+[-a₁⋅b₁ - a₂⋅b₂ - a₃⋅b₃]</pre>
 </div>
 </div>
 </div>
