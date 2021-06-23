@@ -12,7 +12,7 @@ Siddharth Jain <siddjain@live.com>
 :eqnums: all
 :xrefstyle: short
 
-John S. Bell in this landmark paper https://cds.cern.ch/record/111654/files/vol1p195-200_001.pdf[On The EPR Paradox] considered the EPR experiment with a modification -
+John S. Bell in his landmark paper https://cds.cern.ch/record/111654/files/vol1p195-200_001.pdf[On The EPR Paradox] considered the EPR experiment with a modification -
 Alice and Bob's detectors are no longer oriented along the same axis. Alice detector is oriented along stem:[\vec{a}] and Bob's detector is oriented along stem:[\vec{b}]. 
 
 **Question: What is the expected value of Alice's spin stem:[\times] Bob's spin?**
@@ -21,8 +21,8 @@ Bell solves it in one line. Or rather, he just gives the answer and leaves it to
 
 image::/assets/images/bell_equation3.png[]
 
-This problem also appears as Problem 4.55 in DJ Griffiths Introduction to Quantum Mechanics.
-Working it out does not seem trivial to me. I actually had to use the `sympy` package in Python to work it out (the hard or poor man's way).
+This problem also appears as Problem 4.55 in DJ Griffiths Introduction to Quantum Mechanics 2nd ed.
+Working it out is not trivial for me. I actually had to use the `sympy` package in Python to work it out (the hard or poor man's way).
 Let's get started. I won't be showing the full code but bits and pieces of it. First, create the vector corresponding to the spin-singlet state i.e., stem:[\frac{1}{\sqrt{2}}(|01\rangle - |10\rangle)]:
 
 [source,python]
@@ -94,6 +94,9 @@ Running this does not give the simple stem:[- \vec{a} \cdot \vec{b}]. Instead I 
 To check I didn't have a bug in my code, I evaluated the expression (i.e., compute a numerical value) using the `n()` or `N` function in `sympy` and that did give correct result.
 So I don't think there was bug in the code; just that `sympy` is not able to simplify the expression.
 
+The hard way does it using basic principles. And the algorithm can be generalized to any case. But its infeasible to do calculations like this by hand.
+How did Bell calculate it by hand? There ought to be a shortcut.
+
 == The Smart Way
 
 Now that we have solved the problem the hard way, let's see how to solve it the smart way. It turns out the answer to the problem is given by the expected value of
@@ -124,15 +127,15 @@ M_B \otimes M_A & = (b_1 uu^T + b_2 vv^T) \otimes (a_1 qq^T + a_2 rr^T) \\
 
 The math above itself is not obvious. stem:[a_1, a_2] are eigenvalues of stem:[M_A]. Similarly stem:[b_1, b_2] are eigenvalues of stem:[M_B].
 stem:[q, r] are eigenvectors of stem:[M_A] and stem:[u, v] are eigenvectors of stem:[M_B].
-The first line follows from the property of eigendecomposition of a matrix and is used often in Nielsen and Chuang.
-To get the second line, _prove that the tensor product distributes over addition_. Don't take it for granted.
+The first line follows from the property of eigendecomposition of a matrix and is used often in Nielsen and Chuang. See box 2.2 p. 72 for example.
+To get the second line, _prove that the tensor product distributes over addition_. Don't take it for granted. See equations 2.43 and 2.44 p. 73 in Nielsen & Chuang.
 To get the third line is very difficult for me so I posted it as a question on
 https://math.stackexchange.com/questions/4180543/given-vectors-q-r-prove-that-qqt-otimes-rrt-q-otimes-r-q-otimes-r[SE]. It relies on two properties
 (don't take them for granted, _prove them_):
 
 \begin{equation} \label{eq2}
 \begin{split}
-(u \otimes q)^T & = u^T \otimes q^T \\
+(u \otimes q)^T & = u^T \otimes q^T (\textrm{eq. 2.53 p.74 Nielsen & Chuang}) \\
 (u \otimes q)(u^T \otimes q^T) & = uu^T \otimes qq^T  (\textrm{mixed product property})
 \end{split}
 \end{equation}
@@ -143,7 +146,6 @@ eigenvalues of Alice and Bob's matrices. And we are done. QED.
 All that is left is to compute stem:[\langle \psi | M_B \otimes M_A | \psi \rangle] and that is something that can be done by hand - not easy for me so I am going to use
 `sympy` again.
 
-[source,python]
 ----
 >>> t = psi.H * TensorProduct(M_A, M_B) * psi
 >>> t

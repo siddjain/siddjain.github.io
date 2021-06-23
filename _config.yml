@@ -43,3 +43,8 @@ exclude:
 
 # from https://jekyllrb.com/docs/permalinks/
 permalink: /:categories/:year/:month/:day/:title:output_ext
+
+asciidoctor:
+  attributes:    
+    source-highlighter: pygments
+    pygments-css: style

@@ -33,6 +33,9 @@ bundle exec jekyll build --destination #{dest_dir}
 And the `dest_dir` is committed to the `gh-pages` branch. This is how it works.
 You can run this command yourself if you want to build manually although its nice to automate the work through Travis CI.
 
+How are the posts written in asciidoc converted to HTML? This is done using the [jekyll-asciidoc](https://github.com/asciidoctor/jekyll-asciidoc)
+Ruby gem defined in the [Gemfile](Gemfile).
+
 ## References
 
 - https://docs.travis-ci.com/user/deployment/pages/

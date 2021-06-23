@@ -35,3 +35,11 @@ gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 # Performance-booster for watching directories on Windows
 gem "wdm", "~> 0.1.0" if Gem.win_platform?
 
+# WEBrick is an HTTP server toolkit that can be configured as an HTTPS server, a proxy server, and a virtual-host server.
+gem "webrick", "~> 1.7.0"
+
+# a low-level dependency; An XML toolkit for Ruby
+gem "rexml", "~> 3.2.5"
+
+# for syntax highlighting of source code
+gem "pygments.rb", "~> 2.2.0"
