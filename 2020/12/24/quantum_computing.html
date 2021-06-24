@@ -11,13 +11,13 @@
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="Preliminaries" />
 <meta property="og:description" content="Preliminaries" />
-<link rel="canonical" href="https://siddjain.github.io/software/2020/12/24/quantum_computing.html" />
-<meta property="og:url" content="https://siddjain.github.io/software/2020/12/24/quantum_computing.html" />
+<link rel="canonical" href="https://siddjain.github.io/2020/12/24/quantum_computing.html" />
+<meta property="og:url" content="https://siddjain.github.io/2020/12/24/quantum_computing.html" />
 <meta property="og:site_name" content="siddharth’s space" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2020-12-24T18:30:00+00:00" />
 <script type="application/ld+json">
-{"description":"Preliminaries","author":{"@type":"Person","name":"Siddharth Jain"},"@type":"BlogPosting","url":"https://siddjain.github.io/software/2020/12/24/quantum_computing.html","headline":"Quantum Computing Notes","dateModified":"2020-12-24T18:30:00+00:00","datePublished":"2020-12-24T18:30:00+00:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://siddjain.github.io/software/2020/12/24/quantum_computing.html"},"@context":"https://schema.org"}</script>
+{"description":"Preliminaries","author":{"@type":"Person","name":"Siddharth Jain"},"@type":"BlogPosting","url":"https://siddjain.github.io/2020/12/24/quantum_computing.html","headline":"Quantum Computing Notes","dateModified":"2020-12-24T18:30:00+00:00","datePublished":"2020-12-24T18:30:00+00:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://siddjain.github.io/2020/12/24/quantum_computing.html"},"@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://siddjain.github.io/feed.xml" title="siddharth's space" /></head>
 <body>
@@ -173,8 +173,8 @@ In any other case the <em>probability amplitude vector</em> is in a state of <em
 <div class="sect2">
 <h3 id="the-ugly-notation">The Ugly notation</h3>
 <div class="paragraph">
-<p>Remember that |0&gt; is shorthand for \(\begin{pmatrix} 1 \\ 0 \end{pmatrix}\) which is the <em>probability amplitude vector</em> of a single qubit
-that is in a definite state. And |1&gt; is shorthand for \(\begin{pmatrix} 0 \\ 1 \end{pmatrix}\).</p>
+<p>Remember that \(|0\rangle\) is shorthand for \(\begin{pmatrix} 1 \\ 0 \end{pmatrix}\) which is the <em>probability amplitude vector</em> of a single qubit
+that is in a definite state. And \(|1\rangle\) is shorthand for \(\begin{pmatrix} 0 \\ 1 \end{pmatrix}\).</p>
 </div>
 <div class="paragraph">
 <p>The pure states of a two qubit system are expressed variously as</p>
@@ -196,34 +196,34 @@ that is in a definite state. And |1&gt; is shorthand for \(\begin{pmatrix} 0 \\ 
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">|00&gt;</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">|0&gt;|0&gt;</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">|0&gt; \(\otimes\) |0&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\(|00 \rangle\)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\(|0 \rangle |0 \rangle\)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\(|0\rangle \otimes |0\rangle\)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">\(\begin{pmatrix} 1 \\ 0 \\ 0 \\ 0 \end{pmatrix}\)</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">|01&gt;</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">|0&gt;|1&gt;</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">|0&gt; \(\otimes\) |1&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\(|01 \rangle\)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\(|0 \rangle |1 \rangle\)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\(|0\rangle \otimes |1\rangle\)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">\(\begin{pmatrix} 0 \\ 1 \\ 0 \\ 0 \end{pmatrix}\)</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">|10&gt;</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">|1&gt;|0&gt;</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">|1&gt; \(\otimes\) |0&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\(|10 \rangle\)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\(|1 \rangle |0 \rangle\)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\(|1\rangle \otimes |0\rangle\)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">\(\begin{pmatrix} 0 \\ 0 \\ 1 \\ 0 \end{pmatrix}\)</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">|11&gt;</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">|1&gt;|1&gt;</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">|1&gt; \(\otimes\) |1&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\(|11 \rangle\)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\(|1 \rangle |1 \rangle\)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\(|1\rangle \otimes |1\rangle\)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">\(\begin{pmatrix} 0 \\ 0 \\ 0 \\ 1 \end{pmatrix}\)</p></td>
 </tr>
 </tbody>
 </table>
 <div class="paragraph">
-<p>The <em>probability amplitude vector</em> is rarely written down due to its length. It explodes with <em>n</em>. But you should always remember that when
-you see |00&gt; it is a shorthand for the actual vector.</p>
+<p>The <em>probability amplitude vector</em> is rarely written down due to its length. It explodes with <em>n</em>. But that&#8217;s the <em>real thing</em>.
+You should always remember that when you see \(|00\rangle\) it is a shorthand for the actual \(4 \times 1\) vector.</p>
 </div>
 </div>
 <div class="sect2">
@@ -232,19 +232,17 @@ you see |00&gt; it is a shorthand for the actual vector.</p>
 <p>The simplest demonstration of entanglement is with the EPR or Bell Pair which is a two qubit system whose wave function is given by
 following where the \(\frac{1}{\sqrt 2}\) scale factor is removed for brevity:</p>
 </div>
-<div class="stemblock">
-<div class="content">
-\[\Psi = |00&gt; + |11&gt;\]
-</div>
-</div>
-<div class="stemblock">
-<div class="content">
-\[     = \begin{pmatrix} 1 \\ 0 \\ 0 \\ 0 \end{pmatrix} + \begin{pmatrix} 0 \\ 0 \\ 0 \\ 1 \end{pmatrix} = \begin{pmatrix} 1 \\ 0 \\ 0 \\ 1 \end{pmatrix}\]
-</div>
+<div class="paragraph">
+<p>\begin{equation}
+\begin{split}
+\Psi &amp; = |00 \rangle + |11 \rangle \\
+     &amp; = \begin{pmatrix} 1 \\ 0 \\ 0 \\ 0 \end{pmatrix} + \begin{pmatrix} 0 \\ 0 \\ 0 \\ 1 \end{pmatrix} = \begin{pmatrix} 1 \\ 0 \\ 0 \\ 1 \end{pmatrix}
+\end{split}
+\end{equation}</p>
 </div>
 <div class="paragraph">
-<p>Verify that this 4x1 vector cannot be expressed as a tensor product of two 2x1 vectors which is the definition of entanglement. Physically,
-if the first qubit is <code>1</code> it precludes any possibility that the second qubit can be <code>0</code>. Thus, the state of the second qubit is not <em>independent</em>
+<p>Verify that this \(4 \times 1\) vector cannot be expressed as a tensor product of two \(2 \times 1\) vectors which is the definition of entanglement. Physically,
+if the first qubit is \(1\) it precludes any possibility that the second qubit can be \(0\). Thus, the state of the second qubit is not <em>independent</em>
 of the state of the first qubit (and vice-versa).</p>
 </div>
 </div>
@@ -265,70 +263,53 @@ In fact I don&#8217;t understand it and the reason for making these notes. Here 
 <div class="paragraph">
 <p>In what follows we consider just 2 qubits or the case when <em>n=1</em> in the diagram above.
 Understanding the notation used in this and other diagrams like this that appear commonly in books etc.
-|\(\Psi_0\)&gt;, |\(\Psi_1\)&gt;, |\(\Psi_2\)&gt; and |\(\Psi_3\)&gt; are used to mean the total
-<em>probability amplitude vector</em> at the four stages in the circuit. |\(\Psi_0\)&gt; is easy:</p>
-</div>
-<div class="stemblock">
-<div class="content">
-\[\begin{equation}
-\Psi_0 = |0&gt;|1&gt; = |01&gt; = \begin{pmatrix} 0 \\ 1 \\ 0 \\ 0 \end{pmatrix}
-\end{equation}\]
-</div>
+\(|\Psi_0 \rangle\), \(|\Psi_1 \rangle\), \(|\Psi_2 \rangle\) and \(|\Psi_3 \rangle\) are used to mean the total
+<em>probability amplitude vector</em> at the four stages in the circuit. \(|\Psi_0 \rangle\) is easy:</p>
 </div>
 <div class="paragraph">
-<p>To get |\(\Psi_1\)&gt;, we can try to figure out the 4x4 unitary matrix which will transform |\(\Psi_0\)&gt; to |\(\Psi_1\)&gt;.
+<p>\begin{equation}
+\Psi_0 = |0 \rangle |1 \rangle = |01 \rangle = \begin{pmatrix} 0 \\ 1 \\ 0 \\ 0 \end{pmatrix}
+\end{equation}</p>
+</div>
+<div class="paragraph">
+<p>To get \(|\Psi_1 \rangle\), we can try to figure out the \(4 \times 4\) unitary matrix which will transform \(|\Psi_0 \rangle\) to \(|\Psi_1 \rangle\).
 I have not seen this in any of the books. Rather what they do is to tell the reader to apply the Hadamard transform
-individually to the two qubits. Applying Hadamard transform to the |0&gt; qubit gives (|0&gt; &#43; |1&gt;) (I ignore the scale factor for brevity)
-and applying it to |1&gt; qubit gives (|0&gt; - |1&gt;). |\(\Psi_1\)&gt; is then given by the tensor product of these two:</p>
-</div>
-<div id="psi1" class="stemblock">
-<div class="content">
-\[\begin{equation}
-\Psi_1 = (|0&gt; + |1&gt;) \otimes (|0&gt; - |1&gt;) = |00&gt; - |01&gt; + |10&gt; - |11&gt;
-\end{equation}\]
-</div>
-</div>
-<div class="stemblock">
-<div class="content">
-\[\begin{equation}
-  = \begin{pmatrix} 1 \\ 0 \\ 0 \\ 0 \end{pmatrix} - \begin{pmatrix} 0 \\ 1 \\ 0 \\ 0 \end{pmatrix} + \begin{pmatrix} 0 \\ 0 \\ 1 \\ 0 \end{pmatrix} - \begin{pmatrix} 0 \\ 0 \\ 0 \\ 1 \end{pmatrix}
-\end{equation}\]
-</div>
-</div>
-<div class="stemblock">
-<div class="content">
-\[\begin{equation}
-  = \begin{pmatrix} 1 \\ -1 \\ 1 \\ -1 \end{pmatrix}
-\end{equation}\]
-</div>
+individually to the two qubits. Applying Hadamard transform to the \(|0 \rangle\) qubit gives (\(|0 \rangle + |1 \rangle\)) (I ignore the scale factor for brevity)
+and applying it to \(|1 \rangle\) qubit gives (\(|0 \rangle - |1 \rangle\)). \(|\Psi_1 \rangle\) is then given by the tensor product of these two:</p>
 </div>
 <div class="paragraph">
-<p>The second and third equations are never written in any textbook but that is what \(\Psi_1\) is. It is an equal superposition of all the pure states.</p>
+<p>\begin{equation}
+\begin{split}
+\Psi_1 &amp; = (|0 \rangle + |1 \rangle) \otimes (|0 \rangle - |1 \rangle) \\
+       &amp; = |00 \rangle - |01 \rangle + |10 \rangle - |11 \rangle \\
+       &amp; = \begin{pmatrix} 1 \\ 0 \\ 0 \\ 0 \end{pmatrix} - \begin{pmatrix} 0 \\ 1 \\ 0 \\ 0 \end{pmatrix} + \begin{pmatrix} 0 \\ 0 \\ 1 \\ 0 \end{pmatrix} - \begin{pmatrix} 0 \\ 0 \\ 0 \\ 1 \end{pmatrix} \\
+       &amp; = \begin{pmatrix} 1 \\ -1 \\ 1 \\ -1 \end{pmatrix}
+\end{split}
+\end{equation}</p>
+</div>
+<div class="paragraph">
+<p>The \(4 \times 1\) vectors on RHS are never written in any textbook but that is what \(\Psi_1\) <em>really</em> is. It is an equal superposition of all the pure states.</p>
 </div>
 <div class="paragraph">
 <p>Getting to \(\Psi_2\) is going to take a lot of work. First, we need to explain what <em>f</em> is. <em>f</em> is a classical scalar - actually boolean - function.
 Its input <em>domain</em> is a <em>classical</em> bit string i.e., a number between 0 and 2<sup>n</sup>-1. For the case when <em>n=1</em>, its input can be <code>0</code> or <code>1</code>. For the case when
 <em>n=2</em>, its input can be <code>00</code>, <code>01</code>, <code>10</code>, <code>11</code> or 0, 1, 2, 3 respectively. And its output is a <code>0</code> or <code>1</code>. This is one of the things I find hard to
 understand in this algorithm. <em>f</em> is a classical function but <em>x</em> is not a classical bit. It is a qubit. What is \(f(x)\) when \(x\) is in a superposition
-of states - it is not even defined. Anyway what the books tell us to do is this - the effect of the \(U_f\) circuit is to take |\(x,y\)&gt; and return
-|\(x,y \oplus f(x)\)&gt; and we apply this rule to <a href="#psi1">[psi1]</a> to give:</p>
+of states - it is not even defined. Anyway what the books tell us to do is this - the effect of the \(U_f\) circuit is to take \(|x,y \rangle\) and return
+\(|x,y \oplus f(x) \rangle\) and we apply this rule to \(\Psi_1\) above to give:</p>
 </div>
-<div class="stemblock">
-<div class="content">
-\[\begin{equation}
-\Psi_2  = |0,0 \oplus f(0)&gt;  - |0, 1 \oplus f(0)&gt; + |1, 0 \oplus f(1)&gt; - |1, 1 \oplus f(1)&gt;
-\end{equation}\]
-</div>
+<div class="paragraph">
+<p>\begin{equation}
+\Psi_2  = |0,0 \oplus f(0) \rangle  - |0, 1 \oplus f(0) \rangle + |1, 0 \oplus f(1) \rangle - |1, 1 \oplus f(1) \rangle
+\end{equation}</p>
 </div>
 <div class="paragraph">
 <p>Since \(1 \oplus a = \bar a\), we get:</p>
 </div>
-<div class="stemblock">
-<div class="content">
-\[\begin{equation}
-\Psi_2  = |0, f(0)&gt;  - |0, \bar f(0)&gt; + |1, f(1)&gt; - |1, \bar f(1)&gt;
-\end{equation}\]
-</div>
+<div class="paragraph">
+<p>\begin{equation}
+\Psi_2  = |0, f(0) \rangle  - |0, \bar f(0) \rangle + |1, f(1) \rangle - |1, \bar f(1) \rangle
+\end{equation}</p>
 </div>
 <div class="paragraph">
 <p>This gives following 4 possibilities for \(\Psi_2\):</p>
@@ -350,22 +331,22 @@ of states - it is not even defined. Anyway what the books tell us to do is this 
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">\(|00&gt;  - |01&gt; + |10&gt; - |11&gt; = A\)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\(|00 \rangle  - |01 \rangle + |10 \rangle - |11 \rangle = A\)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">\(|00&gt;  - |01&gt; + |11&gt; - |10&gt; = B\)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\(|00 \rangle  - |01 \rangle + |11 \rangle - |10 \rangle = B\)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">\(|01&gt;  - |00&gt; + |10&gt; - |11&gt; = -B\)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\(|01 \rangle  - |00 \rangle + |10 \rangle - |11 \rangle = -B\)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">\(|01&gt;  - |00&gt; + |11&gt; - |10&gt; = A\)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\(|01 \rangle  - |00 \rangle + |11 \rangle - |10 \rangle = A\)</p></td>
 </tr>
 </tbody>
 </table>
@@ -376,48 +357,40 @@ and when <em>f</em> is balanced i.e., \(f(0) \neq f(1)\), we have \(\Psi_2 = \pm
 <div class="paragraph">
 <p>Now to get \(\Psi_3\) it is convenient to express \(\Psi_2\) as following tensor product of two qubits so that we can just apply the Hadamard to first qubit to get \(\Psi_3\):</p>
 </div>
-<div id="A" class="stemblock">
-<div class="content">
-\[\begin{equation}
-A = (|0&gt; + |1&gt;) \otimes (|0&gt; - |1&gt;) = \Psi_1
-\end{equation}\]
-</div>
-</div>
-<div id="B" class="stemblock">
-<div class="content">
-\[\begin{equation}
-B = (|0&gt; - |1&gt;) \otimes (|0&gt; - |1&gt;)
-\end{equation}\]
-</div>
+<div class="paragraph">
+<p>\begin{equation} \label{A}
+A = (|0 \rangle + |1 \rangle) \otimes (|0 \rangle - |1 \rangle) = \Psi_1
+\end{equation}</p>
 </div>
 <div class="paragraph">
-<p>Now since the Hadmard \(H\) is its own inverse, applying \(H\) to (|0&gt; + |1&gt;) gives back |0&gt; and applying it to (|0&gt; - |1&gt;) gives back |1&gt;.
-And so \(\Psi_3\) equals:</p>
+<p>\begin{equation} \label{B}
+B = (|0 \rangle - |1 \rangle) \otimes (|0 \rangle - |1 \rangle)
+\end{equation}</p>
 </div>
-<div class="stemblock">
-<div class="content">
-\[\begin{equation}
-\Psi_3 = |0&gt; \otimes (|0&gt; - |1&gt;)
-\end{equation}\]
+<div class="paragraph">
+<p>Now since the Hadmard \(H\) is its own inverse, applying \(H\) to (\(|0 \rangle + |1 \rangle\)) gives back \(|0 \rangle\) and applying it to
+(\(|0 \rangle - |1 \rangle\)) gives back \(|1 \rangle\). And so \(\Psi_3\) equals:</p>
 </div>
+<div class="paragraph">
+<p>\begin{equation}
+\Psi_3 = |0 \rangle \otimes (|0 \rangle - |1 \rangle)
+\end{equation}</p>
 </div>
 <div class="paragraph">
 <p>if \(f\) is constant and</p>
 </div>
-<div class="stemblock">
-<div class="content">
-\[\begin{equation}
-\Psi_3 = |1&gt; \otimes (|0&gt; - |1&gt;)
-\end{equation}\]
-</div>
+<div class="paragraph">
+<p>\begin{equation}
+\Psi_3 = |1 \rangle \otimes (|0 \rangle - |1 \rangle)
+\end{equation}</p>
 </div>
 <div class="paragraph">
-<p>if \(f\) is balanced. The first qubit is in a <em>definite</em> state of either <code>0</code> or <code>1</code> with 100% probability.
+<p>if \(f\) is balanced. The first qubit is in a <em>definite</em> state of either \(0\) or \(1\) with \(100\%\) probability.
 And measuring the first qubit will tell if \(f\) is constant or balanced which is the problem the Deutsch-Josza Algorithm is supposed to solve.</p>
 </div>
 <div class="paragraph">
 <p>I find this algorithm extremely confusing and outright &#8220;wrong&#8221; because by definition the \(U_f\) gate is supposed to leave the first qubit
-unchanged - it maps |\(x,y\)&gt; to |\(x,y \oplus f(x)\)&gt; whereas <a href="#A">[A]</a> and <a href="#B">[B]</a> show just the opposite. <em>The first qubit gets messed up
+unchanged - it maps \(|x,y \rangle\) to \(|x,y \oplus f(x) \rangle\) whereas <a href="#A">[A]</a> and <a href="#B">[B]</a> show just the opposite. <em>The first qubit gets messed up
 whereas the second one is unchanged!</em> This is my longstanding dilemma with this algorithm. It is contradictory.
 Also see <a href="https://quantumcomputing.stackexchange.com/questions/15253/why-isnt-output-of-deutsch-jozsa-algorithm-simply-0">this</a> question on StackExchange.</p>
 </div>
@@ -425,48 +398,28 @@ Also see <a href="https://quantumcomputing.stackexchange.com/questions/15253/why
 <p>Let&#8217;s also see how to get \(\Psi_3\) using the long method. We apply Hadamard to the first qubit of \(A\) and \(B\) expressions.
 This gives us following for the case when \(\Psi_2 = A\). I am going to drop off all the ugly brakets to simplify notation:</p>
 </div>
-<div class="stemblock">
-<div class="content">
-\[\Psi_3 = (0 + 1) 0 - (0 + 1) 1 + (0 - 1) 0 - ( 0 - 1) 1\]
-</div>
-</div>
-<div class="stemblock">
-<div class="content">
-\[       = 00 + 10 - 01 - 11 + 00 - 10 - 01 + 11\]
-</div>
-</div>
-<div class="stemblock">
-<div class="content">
-\[       = 00 - 01 (\textrm{scale factor is not important})\]
-</div>
-</div>
-<div class="stemblock">
-<div class="content">
-\[       = |0&gt; \otimes (|0&gt; - |1&gt;) (\textrm{adding back the brakets})\]
-</div>
+<div class="paragraph">
+<p>\begin{equation}
+\begin{split}
+\Psi_3 &amp; = (0 + 1) 0 - (0 + 1) 1 + (0 - 1) 0 - ( 0 - 1) 1 (\textrm{removing brakets to avoid ugly notation}) \\
+       &amp; = 00 + 10 - 01 - 11 + 00 - 10 - 01 + 11 \\
+       &amp; = 00 - 01 (\textrm{scale factor is not important}) \\
+       &amp; = |0 \rangle \otimes (|0 \rangle - |1 \rangle) (\textrm{adding back the brakets})
+\end{split}
+\end{equation}</p>
 </div>
 <div class="paragraph">
 <p>which agrees with previous result. Let&#8217;s also do the exercise for when \(\Psi_2 = B\):</p>
 </div>
-<div class="stemblock">
-<div class="content">
-\[\Psi_3 = (0 + 1) 0 - (0 + 1) 1 + (0 - 1) 1 - ( 0 - 1) 0\]
-</div>
-</div>
-<div class="stemblock">
-<div class="content">
-\[       = 00 + 10 - 01 - 11 + 01 - 11 - 00 + 10\]
-</div>
-</div>
-<div class="stemblock">
-<div class="content">
-\[       = 10 - 11 (\textrm{scale factor is not important})\]
-</div>
-</div>
-<div class="stemblock">
-<div class="content">
-\[       = |1&gt; \otimes (|0&gt; - |1&gt;) (\textrm{adding back the brakets})\]
-</div>
+<div class="paragraph">
+<p>\begin{equation}
+\begin{split}
+\Psi_3 &amp; = (0 + 1) 0 - (0 + 1) 1 + (0 - 1) 1 - ( 0 - 1) 0 \\
+       &amp; = 00 + 10 - 01 - 11 + 01 - 11 - 00 + 10 \\
+       &amp; = 10 - 11 (\textrm{scale factor is not important}) \\
+       &amp; = |1 \rangle \otimes (|0 \rangle - |1 \rangle) (\textrm{adding back the brakets})
+\end{split}
+\end{equation}</p>
 </div>
 <div class="paragraph">
 <p>which again agrees with what we obtained previously using the shortcut method. So at least this much is good.</p>
@@ -485,11 +438,11 @@ This gives us following for the case when \(\Psi_2 = A\). I am going to drop off
 </div>
 </div>
 <div class="paragraph">
-<p>\(\beta_{00}\) is the Bell pair |00&gt; + |11&gt;. Let&#8217;s do the math dropping the ugly brakets:</p>
+<p>\(\beta_{00}\) is the Bell pair \(|00 \rangle + |11 \rangle\). Let&#8217;s do the math:</p>
 </div>
 <div class="stemblock">
 <div class="content">
-\[\Psi_0 = \psi \left( 00 + 11 \right)\]
+\[\Psi_0 = |\psi \rangle \otimes \left( |00 \rangle + |11 \rangle \right)\]
 </div>
 </div>
 <div class="paragraph">
@@ -523,7 +476,7 @@ This gives us following for the case when \(\Psi_2 = A\). I am going to drop off
 <div class="stemblock">
 <div class="content">
 \[\begin{equation}
-\psi = \alpha |0&gt; + \beta |1&gt;
+\psi = \alpha |0 \rangle + \beta |1 \rangle
 \end{equation}\]
 </div>
 </div>
@@ -554,21 +507,11 @@ Now we have to apply Hadamard to the first qubit giving:</p>
 <div class="stemblock">
 <div class="content">
 \[\begin{equation}
-\Psi_2 = \alpha \left( (0 + 1) 00 + (0 + 1) 11 \right) + \beta \left( (0 - 1) 10 + (0 - 1) 01 \right)
-\end{equation}\]
-</div>
-</div>
-<div class="stemblock">
-<div class="content">
-\[\begin{equation}
-      = \alpha \left( 000 + 100 + 011 + 111 \right) + \beta \left( 010 - 110 + 001 - 101 \right)
-\end{equation}\]
-</div>
-</div>
-<div class="stemblock">
-<div class="content">
-\[\begin{equation}
-      = \begin{pmatrix} \alpha \\ \beta \\ \beta \\ \alpha \\ \alpha \\ -\beta \\ -\beta \\ \alpha \end{pmatrix} (\textrm{do it as exercise})
+\begin{split}
+\Psi_2 &amp; = \alpha \left( (0 + 1) 00 + (0 + 1) 11 \right) + \beta \left( (0 - 1) 10 + (0 - 1) 01 \right) \\
+       &amp; = \alpha \left( 000 + 100 + 011 + 111 \right) + \beta \left( 010 - 110 + 001 - 101 \right) \\
+       &amp; = \begin{pmatrix} \alpha \\ \beta \\ \beta \\ \alpha \\ \alpha \\ -\beta \\ -\beta \\ \alpha \end{pmatrix} (\textrm{do it as exercise})
+\end{split}
 \end{equation}\]
 </div>
 </div>
@@ -579,12 +522,12 @@ Now we have to apply Hadamard to the first qubit giving:</p>
 <div class="stemblock">
 <div class="content">
 \[\begin{equation}
-      = \alpha 000 + \beta 001
+\alpha 000 + \beta 001
 \end{equation}\]
 </div>
 </div>
 <div class="paragraph">
-<p>and so \(\psi_3\) is nothing but \(\alpha |0&gt; + \beta |1&gt;\) or just \(\begin{pmatrix} \alpha \\ \beta \end{pmatrix}\). Similarly,
+<p>and so \(\psi_3\) is nothing but \(\alpha |0 \rangle + \beta |1 \rangle\) or just \(\begin{pmatrix} \alpha \\ \beta \end{pmatrix}\). Similarly,
 when we do the exercise for the other cases, we end up with following table of results:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
@@ -641,12 +584,12 @@ But the order of the gates doesn&#8217;t matter. This is <em>quantum teleportati
   <!-- from https://developers.facebook.com/docs/plugins/like-button/ -->
   <!-- page.url will give the URL of the page sans the domain name. refer https://jekyllrb.com/docs/variables/ -->
   <!-- more at https://www.digitalocean.com/community/tutorials/how-to-control-urls-and-links-in-jekyll -->
-  <div class="fb-like" data-href="https://siddjain.github.io/software/2020/12/24/quantum_computing.html" 
+  <div class="fb-like" data-href="https://siddjain.github.io/2020/12/24/quantum_computing.html" 
       data-width="" 
       data-layout="standard"
       data-action="like" 
       data-size="small"
-      data-share="true"></div><a class="u-url" href="/software/2020/12/24/quantum_computing.html" hidden></a>
+      data-share="true"></div><a class="u-url" href="/2020/12/24/quantum_computing.html" hidden></a>
 </article>
       </div>
     </main><footer class="site-footer h-card">

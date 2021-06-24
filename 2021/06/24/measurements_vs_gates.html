@@ -1,0 +1,232 @@
+<!-- from https://github.com/jekyll/minima/blob/master/_layouts/default.html -->
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Measurements vs. Gates | siddharth’s space</title>
+<meta name="generator" content="Jekyll v3.8.7" />
+<meta property="og:title" content="Measurements vs. Gates" />
+<meta name="author" content="Siddharth Jain" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Measuring a single qubit shown diagramatically as" />
+<meta property="og:description" content="Measuring a single qubit shown diagramatically as" />
+<link rel="canonical" href="https://siddjain.github.io/2021/06/24/measurements_vs_gates.html" />
+<meta property="og:url" content="https://siddjain.github.io/2021/06/24/measurements_vs_gates.html" />
+<meta property="og:site_name" content="siddharth’s space" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-06-24T21:43:00+00:00" />
+<script type="application/ld+json">
+{"description":"Measuring a single qubit shown diagramatically as","author":{"@type":"Person","name":"Siddharth Jain"},"@type":"BlogPosting","url":"https://siddjain.github.io/2021/06/24/measurements_vs_gates.html","headline":"Measurements vs. Gates","dateModified":"2021-06-24T21:43:00+00:00","datePublished":"2021-06-24T21:43:00+00:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://siddjain.github.io/2021/06/24/measurements_vs_gates.html"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://siddjain.github.io/feed.xml" title="siddharth's space" /></head>
+<body>
+    
+    <!-- from https://developers.facebook.com/docs/plugins/like-button/ -->
+    <!-- I created a new app to get the appID. https://developers.facebook.com/apps/194621285460565/add/ -->
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous"
+     src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v9.0&appId=194621285460565&autoLogAppEvents=1"
+     nonce="mY2hWZoA"></script><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">siddharth&#39;s space</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Measurements vs. Gates</h1>
+    <p class="post-meta"><time class="dt-published" datetime="2021-06-24T21:43:00+00:00" itemprop="datePublished">
+        Jun 24, 2021
+      </time>• 
+          <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+            <span class="p-author h-card" itemprop="name">Siddharth Jain</span></span></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <div class="paragraph">
+<p>Measuring a single qubit shown diagramatically as</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/images/measurement_gate.png" alt="measurement gate">
+</div>
+</div>
+<div class="paragraph">
+<p>involves measuring the observable \(Z\)</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{equation}
+Z = \begin{pmatrix} 1 &amp;&amp; 0 \\ 0 &amp;&amp; -1 \end{pmatrix}
+\end{equation}\]
+</div>
+</div>
+<div class="paragraph">
+<p>So you might think - esp. based on diagrams like below:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/images/parallel_gates.png" alt="parallel gates">
+</div>
+<div class="title">Figure 1. From <a href="https://en.wikipedia.org/wiki/Quantum_logic_gate">Wikipedia</a></div>
+</div>
+<div class="paragraph">
+<p>that measuring a two qubit system:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/images/two_qubit_measurement.jpg" alt="two qubit measurement">
+</div>
+</div>
+<div class="paragraph">
+<p>involves measuring the observable \(Z \otimes Z\). Let&#8217;s look at the matrix \(Z \otimes Z\):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>⎡1  0   0   0⎤
+⎢            ⎥
+⎢0  -1  0   0⎥
+⎢            ⎥
+⎢0  0   -1  0⎥
+⎢            ⎥
+⎣0  0   0   1⎦</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Verify, there are only two eigenvalues of this matrix \(+1\) and \(-1\).
+So if you measure this observable you are only going to get 2 possible values or answers.
+But a two qubit system can be in one of \(4\) states when its measured (<code>00</code>, <code>01</code>, <code>10</code> or <code>11</code>).</p>
+</div>
+<div class="paragraph">
+<p><em>So what gives?</em> Well the answer is that <em>\(Z \otimes Z\) is not the observable corresponding to measurement of a two qubit system!</em></p>
+</div>
+<div class="paragraph">
+<p>The <em>correct</em> observable (assuming measurement in the &#8220;computational basis&#8221;) is given by a \(4 \times 4\) diagonal matrix with distinct (i.e., no repeated) and non-zero real
+numbers on the diagonal. E.g., one such matrix is:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>⎡-2  0   0  0⎤
+⎢            ⎥
+⎢0   -1  0  0⎥
+⎢            ⎥
+⎢0   0   1  0⎥
+⎢            ⎥
+⎣0   0   0  2⎦</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>It has 4 eigenvalues \({-2,-1,+1,+2}\) corresponding to the 4 states the system can be in when its measured.</p>
+</div>
+<div class="paragraph">
+<p>We can summarize the learning in following figure:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/images/measurements_vs_gates.jpg" alt="measurements vs gates">
+</div>
+</div>
+<div class="paragraph">
+<p>In Quantum Computing, there is a <em>big difference between gates and measurements.</em>
+<em>Gates are characterized by unitary matrices \(UU^\dagger=I\) and represent the time evolution of a quantum system.</em>
+<em>Measurements are characterized by Hermitian matrices \(M=M^\dagger\) and collapse the wavefunction to one of the eigenvectors (also known as eigenstates) of the observable
+(also called as operator). The rule for doing time evolution (<a href="https://en.wikipedia.org/wiki/Schr%C3%B6dinger_equation">Schrodinger&#8217;s equation</a>; it becomes a simple gate or matrix in
+Quantum Computing) is different from the rule for doing measurement (<a href="https://en.wikipedia.org/wiki/Born_rule">Born&#8217;s rule</a>) and that is what all the hungama (drama for English readers)
+is about. This is what Lee Smolin is referring to in his talk:</em></p>
+</div>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/r-L690pQhuo?start=1703" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>(28:23) We have two laws&#8230;&#8203; and that&#8217;s the whole problem!</p>
+</div>
+</blockquote>
+</div>
+<div class="paragraph">
+<p>Nobody said it better.</p>
+</div>
+<div class="paragraph">
+<p>At 32:46 he says: <em>"If we weren&#8217;t around, only Rule 1 would apply"</em>. That is what Einstein had in mind when he said:</p>
+</div>
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>Tell me, do you really think the moon is not there when you don&#8217;t look at it?</p>
+</div>
+</blockquote>
+</div>
+<div class="paragraph">
+<p>Anyway, let&#8217;s come back and consider a follow up question: \(Z \otimes Z\) is a Hermitian matrix as you can verify (\(M=M^\dagger\)). So it corresponds to an <em>observable</em>, but
+what? <em>Answer: it corresponds to measuring value of first qubit (\(+1\) or \(-1\)) \(\times\) value of second qubit.</em> That is the measurement you will get if you measure
+with \(Z \otimes Z\). For a system of \(n\) qubits measuring \(Z^{\otimes n}\) would give \(\Pi_i b_i\) where \(b_i\) is value of the \(i\)<em>-th</em> qubit (\(+1\)
+ or \(-1\)).</p>
+</div>
+  </div>
+
+  <!-- from https://developers.facebook.com/docs/plugins/like-button/ -->
+  <!-- page.url will give the URL of the page sans the domain name. refer https://jekyllrb.com/docs/variables/ -->
+  <!-- more at https://www.digitalocean.com/community/tutorials/how-to-control-urls-and-links-in-jekyll -->
+  <div class="fb-like" data-href="https://siddjain.github.io/2021/06/24/measurements_vs_gates.html" 
+      data-width="" 
+      data-layout="standard"
+      data-action="like" 
+      data-size="small"
+      data-share="true"></div><a class="u-url" href="/2021/06/24/measurements_vs_gates.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">siddharth&#39;s space</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">siddharth&#39;s space</li><li><a class="u-email" href="mailto:siddjain@example.com">siddjain@example.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/siddjain"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">siddjain</span></a></li><li><a href="https://www.twitter.com/fd97207"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">fd97207</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>कोशिश करने वालो की कभी हार नहीं होती…</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+<!-- refer https://github.com/asciidoctor/jekyll-asciidoc#adding-the-stem-assets-to-the-page --><!-- from https://github.com/asciidoctor/jekyll-asciidoc#adding-the-stem-assets-to-the-page -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    messageStyle: "none",
+    tex2jax: {
+        inlineMath: [["\\(", "\\)"]],
+        displayMath: [["\\[", "\\]"]],
+        ignoreClass: "nostem|nolatexmath"
+    },
+    asciimath2jax: {
+        delimiters: [["\\$", "\\$"]],
+        ignoreClass: "nostem|noasciimath"
+    },
+    TeX: { equationNumbers: { autoNumber: "none" } }
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script></body>
+
+</html>
