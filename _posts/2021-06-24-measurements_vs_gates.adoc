@@ -1,0 +1,96 @@
+---
+layout: mathjax-post
+title:  "Measurements vs. Gates"
+date:   2021-06-24 13:09:14 -0800
+categories: quantum-computing
+---
+= Measurements vs. Gates
+Siddharth Jain <siddjain@live.com>
+:revdate: 2021-06-24 13:43:00 -0800
+:doctype: article
+:stem: latexmath
+:eqnums: all
+:xrefstyle: short
+
+Measuring a single qubit shown diagramatically as
+
+image::/assets/images/measurement_gate.png[]
+
+involves measuring the observable stem:[Z]
+
+[latexmath]
+++++
+\begin{equation}
+Z = \begin{pmatrix} 1 && 0 \\ 0 && -1 \end{pmatrix} 
+\end{equation}
+++++
+
+So you might think - esp. based on diagrams like below:
+
+.From https://en.wikipedia.org/wiki/Quantum_logic_gate[Wikipedia]
+image::/assets/images/parallel_gates.png[]
+
+that measuring a two qubit system: 
+
+image::/assets/images/two_qubit_measurement.jpg[]
+
+involves measuring the observable stem:[Z \otimes Z]. Let's look at the matrix stem:[Z \otimes Z]:
+
+----
+⎡1  0   0   0⎤
+⎢            ⎥
+⎢0  -1  0   0⎥
+⎢            ⎥
+⎢0  0   -1  0⎥
+⎢            ⎥
+⎣0  0   0   1⎦
+----
+
+Verify, there are only two eigenvalues of this matrix stem:[+1] and stem:[-1].
+So if you measure this observable you are only going to get 2 possible values or answers.
+But a two qubit system can be in one of stem:[4] states when its measured (`00`, `01`, `10` or `11`).
+
+_So what gives?_ Well the answer is that _stem:[Z \otimes Z] is not the observable corresponding to measurement of a two qubit system!_
+
+The _correct_ observable (assuming measurement in the "`computational basis`") is given by a stem:[4 \times 4] diagonal matrix with distinct (i.e., no repeated) and non-zero real 
+numbers on the diagonal. E.g., one such matrix is:
+
+----
+⎡-2  0   0  0⎤
+⎢            ⎥
+⎢0   -1  0  0⎥
+⎢            ⎥
+⎢0   0   1  0⎥
+⎢            ⎥
+⎣0   0   0  2⎦
+----
+
+It has 4 eigenvalues stem:[{-2,-1,+1,+2}] corresponding to the 4 states the system can be in when its measured.
+
+We can summarize the learning in following figure:
+
+image::/assets/images/measurements_vs_gates.jpg[]
+
+In Quantum Computing, there is a _big difference between gates and measurements._ 
+_Gates are characterized by unitary matrices stem:[UU^\dagger=I] and represent the time evolution of a quantum system._
+_Measurements are characterized by Hermitian matrices stem:[M=M^\dagger] and collapse the wavefunction to one of the eigenvectors (also known as eigenstates) of the observable
+(also called as operator). The rule for doing time evolution (https://en.wikipedia.org/wiki/Schr%C3%B6dinger_equation[Schrodinger's equation]; it becomes a simple gate or matrix in 
+Quantum Computing) is different from the rule for doing measurement (https://en.wikipedia.org/wiki/Born_rule[Born's rule]) and that is what all the hungama (drama for English readers) 
+is about. This is what Lee Smolin is referring to in his talk:_
+
+++++
+<iframe width="560" height="315" src="https://www.youtube.com/embed/r-L690pQhuo?start=1703" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+++++
+
+> (28:23) We have two laws... and that's the whole problem!
+
+Nobody said it better.
+
+At 32:46 he says: _"If we weren't around, only Rule 1 would apply"_. That is what Einstein had in mind when he said: 
+
+> Tell me, do you really think the moon is not there when you don't look at it?
+
+Anyway, let's come back and consider a follow up question: stem:[Z \otimes Z] is a Hermitian matrix as you can verify (stem:[M=M^\dagger]). So it corresponds to an _observable_, but
+what? _Answer: it corresponds to measuring value of first qubit (stem:[+1] or stem:[-1]) stem:[\times] value of second qubit._ That is the measurement you will get if you measure
+with stem:[Z \otimes Z]. For a system of stem:[n] qubits measuring stem:[Z^{\otimes n}] would give stem:[\Pi_i b_i] where stem:[b_i] is value of the stem:[i]_-th_ qubit (stem:[+1]
+ or stem:[-1]).

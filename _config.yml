@@ -42,9 +42,13 @@ exclude:
    - vendor/ruby/
 
 # from https://jekyllrb.com/docs/permalinks/
-permalink: /:categories/:year/:month/:day/:title:output_ext
+permalink: /:year/:month/:day/:title:output_ext
 
 asciidoctor:
   attributes:    
     source-highlighter: pygments
     pygments-css: style
+
+# Publish posts or collection documents with a future date
+# https://jekyllrb.com/docs/configuration/options/
+future: true
