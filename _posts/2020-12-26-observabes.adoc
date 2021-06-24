@@ -278,7 +278,7 @@ M Q = Q \Lambda
 \end{equation}
 ++++
 
-As exercise we can take stem:[\Psi] to be (|00> + |11>)/stem:[\sqrt 2]. 
+As exercise we can take stem:[\Psi] to be stem:[\frac{1}{\sqrt 2}(|00 \rangle + |11 \rangle)]. 
 
 For _i = 0_:
 
