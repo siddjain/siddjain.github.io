@@ -93,40 +93,37 @@ When <<factorizable-pdf>> does not hold i.e., the joint pdf is not factorizable 
 
 === The Ugly notation
 
-Remember that |0> is shorthand for stem:[\begin{pmatrix} 1 \\ 0 \end{pmatrix}] which is the _probability amplitude vector_ of a single qubit
-that is in a definite state. And |1> is shorthand for stem:[\begin{pmatrix} 0 \\ 1 \end{pmatrix}].
+Remember that stem:[|0\rangle] is shorthand for stem:[\begin{pmatrix} 1 \\ 0 \end{pmatrix}] which is the _probability amplitude vector_ of a single qubit
+that is in a definite state. And stem:[|1\rangle] is shorthand for stem:[\begin{pmatrix} 0 \\ 1 \end{pmatrix}].
 
 The pure states of a two qubit system are expressed variously as 
 
 [options=header]
 |===
 | Notation 1 | Notation 2 | Tensor Product | Probability Amplitude Vector
-| \|00> | \|0>\|0> | \|0> stem:[\otimes] \|0> | stem:[\begin{pmatrix} 1 \\ 0 \\ 0 \\ 0 \end{pmatrix}]
-| \|01> | \|0>\|1> | \|0> stem:[\otimes] \|1> | stem:[\begin{pmatrix} 0 \\ 1 \\ 0 \\ 0 \end{pmatrix}]
-| \|10> | \|1>\|0> | \|1> stem:[\otimes] \|0> | stem:[\begin{pmatrix} 0 \\ 0 \\ 1 \\ 0 \end{pmatrix}]
-| \|11> | \|1>\|1> | \|1> stem:[\otimes] \|1> | stem:[\begin{pmatrix} 0 \\ 0 \\ 0 \\ 1 \end{pmatrix}]
+| stem:[\|00 \rangle] | stem:[\|0 \rangle \|0 \rangle] | stem:[\|0\rangle \otimes \|0\rangle] | stem:[\begin{pmatrix} 1 \\ 0 \\ 0 \\ 0 \end{pmatrix}]
+| stem:[\|01 \rangle] | stem:[\|0 \rangle \|1 \rangle] | stem:[\|0\rangle \otimes \|1\rangle] | stem:[\begin{pmatrix} 0 \\ 1 \\ 0 \\ 0 \end{pmatrix}]
+| stem:[\|10 \rangle] | stem:[\|1 \rangle \|0 \rangle] | stem:[\|1\rangle \otimes \|0\rangle] | stem:[\begin{pmatrix} 0 \\ 0 \\ 1 \\ 0 \end{pmatrix}]
+| stem:[\|11 \rangle] | stem:[\|1 \rangle \|1 \rangle] | stem:[\|1\rangle \otimes \|1\rangle] | stem:[\begin{pmatrix} 0 \\ 0 \\ 0 \\ 1 \end{pmatrix}]
 |===
 
-The _probability amplitude vector_ is rarely written down due to its length. It explodes with _n_. But you should always remember that when
-you see |00> it is a shorthand for the actual vector.
+The _probability amplitude vector_ is rarely written down due to its length. It explodes with _n_. But that's the _real thing_.
+You should always remember that when you see stem:[|00\rangle] it is a shorthand for the actual stem:[4 \times 1] vector.
 
 === EPR or Bell Pair
 
 The simplest demonstration of entanglement is with the EPR or Bell Pair which is a two qubit system whose wave function is given by
 following where the stem:[\frac{1}{\sqrt 2}] scale factor is removed for brevity:
 
-[latexmath]
-++++
-\Psi = |00> + |11>
-++++
+\begin{equation}
+\begin{split}
+\Psi & = |00 \rangle + |11 \rangle \\
+     & = \begin{pmatrix} 1 \\ 0 \\ 0 \\ 0 \end{pmatrix} + \begin{pmatrix} 0 \\ 0 \\ 0 \\ 1 \end{pmatrix} = \begin{pmatrix} 1 \\ 0 \\ 0 \\ 1 \end{pmatrix}
+\end{split}
+\end{equation}
 
-[latexmath]
-++++
-     = \begin{pmatrix} 1 \\ 0 \\ 0 \\ 0 \end{pmatrix} + \begin{pmatrix} 0 \\ 0 \\ 0 \\ 1 \end{pmatrix} = \begin{pmatrix} 1 \\ 0 \\ 0 \\ 1 \end{pmatrix}
-++++
-
-Verify that this 4x1 vector cannot be expressed as a tensor product of two 2x1 vectors which is the definition of entanglement. Physically,
-if the first qubit is `1` it precludes any possibility that the second qubit can be `0`. Thus, the state of the second qubit is not _independent_
+Verify that this stem:[4 \times 1] vector cannot be expressed as a tensor product of two stem:[2 \times 1] vectors which is the definition of entanglement. Physically,
+if the first qubit is stem:[1] it precludes any possibility that the second qubit can be stem:[0]. Thus, the state of the second qubit is not _independent_
 of the state of the first qubit (and vice-versa).
 
 == The Deutsch-Josza Algorithm
@@ -138,76 +135,55 @@ image::https://i.stack.imgur.com/SottO.png[link="https://quantumcomputing.stacke
 
 In what follows we consider just 2 qubits or the case when _n=1_ in the diagram above.
 Understanding the notation used in this and other diagrams like this that appear commonly in books etc.
-|stem:[\Psi_0]>, |stem:[\Psi_1]>, |stem:[\Psi_2]> and |stem:[\Psi_3]> are used to mean the total
-_probability amplitude vector_ at the four stages in the circuit. |stem:[\Psi_0]> is easy:
+stem:[|\Psi_0 \rangle], stem:[|\Psi_1 \rangle], stem:[|\Psi_2 \rangle] and stem:[|\Psi_3 \rangle] are used to mean the total
+_probability amplitude vector_ at the four stages in the circuit. stem:[|\Psi_0 \rangle] is easy:
 
-[latexmath]
-++++
 \begin{equation}
-\Psi_0 = |0>|1> = |01> = \begin{pmatrix} 0 \\ 1 \\ 0 \\ 0 \end{pmatrix}
+\Psi_0 = |0 \rangle |1 \rangle = |01 \rangle = \begin{pmatrix} 0 \\ 1 \\ 0 \\ 0 \end{pmatrix}
 \end{equation}
-++++
 
-To get |stem:[\Psi_1]>, we can try to figure out the 4x4 unitary matrix which will transform |stem:[\Psi_0]> to |stem:[\Psi_1]>.
+To get stem:[|\Psi_1 \rangle], we can try to figure out the stem:[4 \times 4] unitary matrix which will transform stem:[|\Psi_0 \rangle] to stem:[|\Psi_1 \rangle].
 I have not seen this in any of the books. Rather what they do is to tell the reader to apply the Hadamard transform
-individually to the two qubits. Applying Hadamard transform to the |0> qubit gives (|0> {plus} |1>) (I ignore the scale factor for brevity)
-and applying it to |1> qubit gives (|0> - |1>). |stem:[\Psi_1]> is then given by the tensor product of these two:
+individually to the two qubits. Applying Hadamard transform to the stem:[|0 \rangle] qubit gives (stem:[|0 \rangle + |1 \rangle]) (I ignore the scale factor for brevity)
+and applying it to stem:[|1 \rangle] qubit gives (stem:[|0 \rangle - |1 \rangle]). stem:[|\Psi_1 \rangle] is then given by the tensor product of these two:
 
-[latexmath#psi1]
-++++
 \begin{equation}
-\Psi_1 = (|0> + |1>) \otimes (|0> - |1>) = |00> - |01> + |10> - |11> 
+\begin{split}
+\Psi_1 & = (|0 \rangle + |1 \rangle) \otimes (|0 \rangle - |1 \rangle) \\
+       & = |00 \rangle - |01 \rangle + |10 \rangle - |11 \rangle \\
+       & = \begin{pmatrix} 1 \\ 0 \\ 0 \\ 0 \end{pmatrix} - \begin{pmatrix} 0 \\ 1 \\ 0 \\ 0 \end{pmatrix} + \begin{pmatrix} 0 \\ 0 \\ 1 \\ 0 \end{pmatrix} - \begin{pmatrix} 0 \\ 0 \\ 0 \\ 1 \end{pmatrix} \\
+       & = \begin{pmatrix} 1 \\ -1 \\ 1 \\ -1 \end{pmatrix} 
+\end{split}
 \end{equation}
-++++
 
-[latexmath]
-++++
-\begin{equation}
-  = \begin{pmatrix} 1 \\ 0 \\ 0 \\ 0 \end{pmatrix} - \begin{pmatrix} 0 \\ 1 \\ 0 \\ 0 \end{pmatrix} + \begin{pmatrix} 0 \\ 0 \\ 1 \\ 0 \end{pmatrix} - \begin{pmatrix} 0 \\ 0 \\ 0 \\ 1 \end{pmatrix}
-\end{equation}
-++++
-
-[latexmath]
-++++
-\begin{equation}
-  = \begin{pmatrix} 1 \\ -1 \\ 1 \\ -1 \end{pmatrix} 
-\end{equation}
-++++
-
-The second and third equations are never written in any textbook but that is what stem:[\Psi_1] is. It is an equal superposition of all the pure states.
+The stem:[4 \times 1] vectors on RHS are never written in any textbook but that is what stem:[\Psi_1] _really_ is. It is an equal superposition of all the pure states.
 
 Getting to stem:[\Psi_2] is going to take a lot of work. First, we need to explain what _f_ is. _f_ is a classical scalar - actually boolean - function.
 Its input _domain_ is a _classical_ bit string i.e., a number between 0 and 2^n^-1. For the case when _n=1_, its input can be `0` or `1`. For the case when
 _n=2_, its input can be `00`, `01`, `10`, `11` or 0, 1, 2, 3 respectively. And its output is a `0` or `1`. This is one of the things I find hard to
 understand in this algorithm. _f_ is a classical function but _x_ is not a classical bit. It is a qubit. What is stem:[f(x)] when stem:[x] is in a superposition
-of states - it is not even defined. Anyway what the books tell us to do is this - the effect of the stem:[U_f] circuit is to take |stem:[x,y]> and return
-|stem:[x,y \oplus f(x)]> and we apply this rule to <<psi1>> to give:
+of states - it is not even defined. Anyway what the books tell us to do is this - the effect of the stem:[U_f] circuit is to take stem:[|x,y \rangle] and return
+stem:[|x,y \oplus f(x) \rangle] and we apply this rule to stem:[\Psi_1] above to give:
 
-[latexmath]
-++++
 \begin{equation}
-\Psi_2  = |0,0 \oplus f(0)>  - |0, 1 \oplus f(0)> + |1, 0 \oplus f(1)> - |1, 1 \oplus f(1)> 
+\Psi_2  = |0,0 \oplus f(0) \rangle  - |0, 1 \oplus f(0) \rangle + |1, 0 \oplus f(1) \rangle - |1, 1 \oplus f(1) \rangle 
 \end{equation}
-++++
 
 Since stem:[1 \oplus a = \bar a], we get:
 
-[latexmath]
-++++
 \begin{equation}
-\Psi_2  = |0, f(0)>  - |0, \bar f(0)> + |1, f(1)> - |1, \bar f(1)> 
+\Psi_2  = |0, f(0) \rangle  - |0, \bar f(0) \rangle + |1, f(1) \rangle - |1, \bar f(1) \rangle
 \end{equation}
-++++
 
 This gives following 4 possibilities for stem:[\Psi_2]:
 
 [options=header]
 |===
 | f(0) | f(1) | stem:[\Psi_2]
-| 0 | 0 | stem:[\|00>  - \|01> + \|10> - \|11> = A] 
-| 0 | 1 | stem:[\|00>  - \|01> + \|11> - \|10> = B] 
-| 1 | 0 | stem:[\|01>  - \|00> + \|10> - \|11> = -B] 
-| 1 | 1 | stem:[\|01>  - \|00> + \|11> - \|10> = A] 
+| 0 | 0 | stem:[\|00 \rangle  - \|01 \rangle + \|10 \rangle - \|11 \rangle = A] 
+| 0 | 1 | stem:[\|00 \rangle  - \|01 \rangle + \|11 \rangle - \|10 \rangle = B] 
+| 1 | 0 | stem:[\|01 \rangle  - \|00 \rangle + \|10 \rangle - \|11 \rangle = -B] 
+| 1 | 1 | stem:[\|01 \rangle  - \|00 \rangle + \|11 \rangle - \|10 \rangle = A] 
 |===
 
 So when _f_ is a constant i.e., stem:[f(0) = f(1)], we have stem:[\Psi_2 = \pm A] (the positive sign is taken when stem:[f(0) = f(1) = 0] and negative sign otherwise)
@@ -215,91 +191,57 @@ and when _f_ is balanced i.e., stem:[f(0) \neq f(1)], we have stem:[\Psi_2 = \pm
 
 Now to get stem:[\Psi_3] it is convenient to express stem:[\Psi_2] as following tensor product of two qubits so that we can just apply the Hadamard to first qubit to get stem:[\Psi_3]:
 
-[latexmath#A]
-++++
-\begin{equation}
-A = (|0> + |1>) \otimes (|0> - |1>) = \Psi_1
+\begin{equation} \label{A}
+A = (|0 \rangle + |1 \rangle) \otimes (|0 \rangle - |1 \rangle) = \Psi_1
 \end{equation}
-++++
 
-[latexmath#B]
-++++
-\begin{equation}
-B = (|0> - |1>) \otimes (|0> - |1>)
+\begin{equation} \label{B}
+B = (|0 \rangle - |1 \rangle) \otimes (|0 \rangle - |1 \rangle)
 \end{equation}
-++++
 
-Now since the Hadmard stem:[H] is its own inverse, applying stem:[H] to (|0> + |1>) gives back |0> and applying it to (|0> - |1>) gives back |1>.
-And so stem:[\Psi_3] equals:
+Now since the Hadmard stem:[H] is its own inverse, applying stem:[H] to (stem:[|0 \rangle + |1 \rangle]) gives back stem:[|0 \rangle] and applying it to 
+(stem:[|0 \rangle - |1 \rangle]) gives back stem:[|1 \rangle]. And so stem:[\Psi_3] equals:
 
-[latexmath]
-++++
 \begin{equation}
-\Psi_3 = |0> \otimes (|0> - |1>)
+\Psi_3 = |0 \rangle \otimes (|0 \rangle - |1 \rangle)
 \end{equation}
-++++
 
 if stem:[f] is constant and
 
-[latexmath]
-++++
 \begin{equation}
-\Psi_3 = |1> \otimes (|0> - |1>)
+\Psi_3 = |1 \rangle \otimes (|0 \rangle - |1 \rangle)
 \end{equation}
-++++
 
-if stem:[f] is balanced. The first qubit is in a _definite_ state of either `0` or `1` with 100% probability.
+if stem:[f] is balanced. The first qubit is in a _definite_ state of either stem:[0] or stem:[1] with stem:[100\%] probability.
 And measuring the first qubit will tell if stem:[f] is constant or balanced which is the problem the Deutsch-Josza Algorithm is supposed to solve.
 
 I find this algorithm extremely confusing and outright "`wrong`" because by definition the stem:[U_f] gate is supposed to leave the first qubit
-unchanged - it maps |stem:[x,y]> to |stem:[x,y \oplus f(x)]> whereas <<A>> and <<B>> show just the opposite. _The first qubit gets messed up
+unchanged - it maps stem:[|x,y \rangle] to stem:[|x,y \oplus f(x) \rangle] whereas <<A>> and <<B>> show just the opposite. _The first qubit gets messed up
 whereas the second one is unchanged!_ This is my longstanding dilemma with this algorithm. It is contradictory.
 Also see https://quantumcomputing.stackexchange.com/questions/15253/why-isnt-output-of-deutsch-jozsa-algorithm-simply-0[this] question on StackExchange.
 
 Let's also see how to get stem:[\Psi_3] using the long method. We apply Hadamard to the first qubit of stem:[A] and stem:[B] expressions.
 This gives us following for the case when stem:[\Psi_2 = A]. I am going to drop off all the ugly brakets to simplify notation:
 
-[latexmath]
-++++
-\Psi_3 = (0 + 1) 0 - (0 + 1) 1 + (0 - 1) 0 - ( 0 - 1) 1
-++++
-
-[latexmath]
-++++
-       = 00 + 10 - 01 - 11 + 00 - 10 - 01 + 11
-++++
-
-[latexmath]
-++++
-       = 00 - 01 (\textrm{scale factor is not important})
-++++
-
-[latexmath]
-++++
-       = |0> \otimes (|0> - |1>) (\textrm{adding back the brakets})
-++++
+\begin{equation}
+\begin{split}
+\Psi_3 & = (0 + 1) 0 - (0 + 1) 1 + (0 - 1) 0 - ( 0 - 1) 1 (\textrm{removing brakets to avoid ugly notation}) \\
+       & = 00 + 10 - 01 - 11 + 00 - 10 - 01 + 11 \\
+       & = 00 - 01 (\textrm{scale factor is not important}) \\
+       & = |0 \rangle \otimes (|0 \rangle - |1 \rangle) (\textrm{adding back the brakets})
+\end{split}
+\end{equation}
 
 which agrees with previous result. Let's also do the exercise for when stem:[\Psi_2 = B]:
 
-[latexmath]
-++++
-\Psi_3 = (0 + 1) 0 - (0 + 1) 1 + (0 - 1) 1 - ( 0 - 1) 0
-++++
-
-[latexmath]
-++++
-       = 00 + 10 - 01 - 11 + 01 - 11 - 00 + 10
-++++
-
-[latexmath]
-++++
-       = 10 - 11 (\textrm{scale factor is not important})
-++++
-
-[latexmath]
-++++
-       = |1> \otimes (|0> - |1>) (\textrm{adding back the brakets})
-++++
+\begin{equation}
+\begin{split}
+\Psi_3 & = (0 + 1) 0 - (0 + 1) 1 + (0 - 1) 1 - ( 0 - 1) 0 \\
+       & = 00 + 10 - 01 - 11 + 01 - 11 - 00 + 10 \\
+       & = 10 - 11 (\textrm{scale factor is not important}) \\
+       & = |1 \rangle \otimes (|0 \rangle - |1 \rangle) (\textrm{adding back the brakets})
+\end{split}
+\end{equation}
 
 which again agrees with what we obtained previously using the shortcut method. So at least this much is good.
 
@@ -309,11 +251,11 @@ The quantum teleportation circuit is shown in:
 
 image::https://miro.medium.com/max/2000/0*97mRZq_jBC8mSOxk.png[link:https://miro.medium.com/max/2000/0*97mRZq_jBC8mSOxk.png]
 
-stem:[\beta_{00}] is the Bell pair |00> + |11>. Let's do the math dropping the ugly brakets:
+stem:[\beta_{00}] is the Bell pair stem:[|00 \rangle + |11 \rangle]. Let's do the math:
 
 [latexmath]
 ++++
-\Psi_0 = \psi \left( 00 + 11 \right) 
+\Psi_0 = |\psi \rangle \otimes \left( |00 \rangle + |11 \rangle \right) 
 ++++
 
 To get stem:[\Psi_1] we have to apply a controlled NOT to the second qubit. So we get following two cases:
@@ -330,7 +272,7 @@ Above is when stem:[\psi] is in a pure state either `0` or `1`. In practice it w
 [latexmath]
 ++++
 \begin{equation}
-\psi = \alpha |0> + \beta |1> 
+\psi = \alpha |0 \rangle + \beta |1 \rangle
 \end{equation}
 ++++
 
@@ -358,21 +300,11 @@ Now we have to apply Hadamard to the first qubit giving:
 [latexmath]
 ++++
 \begin{equation}
-\Psi_2 = \alpha \left( (0 + 1) 00 + (0 + 1) 11 \right) + \beta \left( (0 - 1) 10 + (0 - 1) 01 \right)
-\end{equation}
-++++
-
-[latexmath]
-++++
-\begin{equation}
-      = \alpha \left( 000 + 100 + 011 + 111 \right) + \beta \left( 010 - 110 + 001 - 101 \right)
-\end{equation}
-++++
-
-[latexmath]
-++++
-\begin{equation}
-      = \begin{pmatrix} \alpha \\ \beta \\ \beta \\ \alpha \\ \alpha \\ -\beta \\ -\beta \\ \alpha \end{pmatrix} (\textrm{do it as exercise})
+\begin{split}
+\Psi_2 & = \alpha \left( (0 + 1) 00 + (0 + 1) 11 \right) + \beta \left( (0 - 1) 10 + (0 - 1) 01 \right) \\
+       & = \alpha \left( 000 + 100 + 011 + 111 \right) + \beta \left( 010 - 110 + 001 - 101 \right) \\
+       & = \begin{pmatrix} \alpha \\ \beta \\ \beta \\ \alpha \\ \alpha \\ -\beta \\ -\beta \\ \alpha \end{pmatrix} (\textrm{do it as exercise})
+\end{split}
 \end{equation}
 ++++
 
@@ -382,11 +314,11 @@ stem:[\psi_3] of just a single qubit. Suppose we find the first two qubits collp
 [latexmath]
 ++++
 \begin{equation}
-      = \alpha 000 + \beta 001 
+\alpha 000 + \beta 001 
 \end{equation}
 ++++
 
-and so stem:[\psi_3] is nothing but stem:[\alpha |0> + \beta |1>] or just stem:[\begin{pmatrix} \alpha \\ \beta \end{pmatrix}]. Similarly,
+and so stem:[\psi_3] is nothing but stem:[\alpha |0 \rangle + \beta |1 \rangle] or just stem:[\begin{pmatrix} \alpha \\ \beta \end{pmatrix}]. Similarly,
 when we do the exercise for the other cases, we end up with following table of results:
 
 [options=header]
