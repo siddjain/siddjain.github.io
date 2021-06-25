@@ -11,7 +11,6 @@ Siddharth Jain <siddjain@live.com>
 :stem: latexmath
 :eqnums: all
 :xrefstyle: short
-:icons: font
 
 In previous post we learnt that:
 
@@ -64,13 +63,14 @@ The second outcome (qubit collapsing to `1`) occurs with probability stem:[||c||
 _Amazingly I get the same results if I instead apply the stem:[Z] gate first to the second qubit and measure the first qubit after that! So the two do commute!_
 
 I then followed up this experiment and substituted the stem:[Z] gate with stem:[Y] and stem:[X] gates. In all cases I found that the operations do commute.
-_The result is the same whether we apply the gate first and measure after that or whether we measure first and apply the gate afterwards._ The results
-are summarized in the table below (do it as exercise, don't take my word for it):
+_The result is the same whether we apply the gate first and measure after that or whether we measure first and apply the gate afterwards._
+_This is quite remarkable because the measurement is an irreversible process and not something I had expected (but good relief)._ 
+The results are summarized in the table below (do it as exercise, don't take my word for it):
 
-.Result of measuring the first qubit and applying a gate on second qubit. 
+.Result of measuring the first qubit and applying a gate on second qubit. The order of the two operations does not matter.
 [options="header"]
 |===
-^.^| Gate | | Outcome 1 | Outcome 2
+^.^| Gate | | Outcome 1 (first qubit collapses to `0`) | Outcome 2 (first qubit collapses to `1`)
 .2+^.^| stem:[\textbf{Z}] | probability | 
 stem:[\left\|{a}\right\|^{2} + \left\|{b}\right\|^{2}] | stem:[\left\|{c}\right\|^{2} + \left\|{d}\right\|^{2}] | 
 stem:[\Psi] | 
@@ -187,8 +187,7 @@ Similarly one can show that:
 
 and so _the two tables are actually identical!_. This is good news otherwise there would have been a big problem. 
 
-[verse]
-Khuda ka shukr hai, varna guzarti kaise shaam...
+> Khuda ka shukr hai, varna guzarti kaise shaam...
 
 '''
 
@@ -211,7 +210,7 @@ The answer is:
 .Measure stem:[Z \otimes Z]
 [options="header"]
 |===
-| | Outcome 1 | Outcome 2
+| | Outcome 1 (both qubits are same `00` or `11`) | Outcome 2 (both qubits are different `01` or `10`)
 | probability |
 stem:[\left\|{a}\right\|^{2} + \left\|{d}\right\|^{2}] |
 stem:[\left\|{b}\right\|^{2} + \left\|{c}\right\|^{2}] |
@@ -222,7 +221,6 @@ stem:[\left(\begin{matrix}0\\\frac{b}{\sqrt{\left\|{b}\right\|^{2} + \left\|{c}\
 
 WARNING: _This is different from what we have seen earlier and is incorrect way of "`measuring the first qubit and applying a gate on the second qubit`"._
 
-It is unfortunate that none of the books explain these things. But working them out on my own gives me the confidence that I understand at least some of this difficult topic.
+It is unfortunate that none of the books explain these things. But working them out on my own gives me the confidence that I understand at least some of this difficult subject.
 
-[verse]
-I will never know myself until I do this on my own...
+> I will never know myself until I do this on my own...
