@@ -1,0 +1,479 @@
+<!-- from https://github.com/jekyll/minima/blob/master/_layouts/default.html -->
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Mixing Measurements with Gates | siddharth’s space</title>
+<meta name="generator" content="Jekyll v3.8.7" />
+<meta property="og:title" content="Mixing Measurements with Gates" />
+<meta name="author" content="Siddharth Jain" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="In previous post we learnt that:" />
+<meta property="og:description" content="In previous post we learnt that:" />
+<link rel="canonical" href="https://siddjain.github.io/2021/06/25/mixing_measurements_with_gates.html" />
+<meta property="og:url" content="https://siddjain.github.io/2021/06/25/mixing_measurements_with_gates.html" />
+<meta property="og:site_name" content="siddharth’s space" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-06-25T20:00:00+00:00" />
+<script type="application/ld+json">
+{"description":"In previous post we learnt that:","author":{"@type":"Person","name":"Siddharth Jain"},"@type":"BlogPosting","url":"https://siddjain.github.io/2021/06/25/mixing_measurements_with_gates.html","headline":"Mixing Measurements with Gates","dateModified":"2021-06-25T20:00:00+00:00","datePublished":"2021-06-25T20:00:00+00:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://siddjain.github.io/2021/06/25/mixing_measurements_with_gates.html"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://siddjain.github.io/feed.xml" title="siddharth's space" /></head>
+<body>
+    
+    <!-- from https://developers.facebook.com/docs/plugins/like-button/ -->
+    <!-- I created a new app to get the appID. https://developers.facebook.com/apps/194621285460565/add/ -->
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous"
+     src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v9.0&appId=194621285460565&autoLogAppEvents=1"
+     nonce="mY2hWZoA"></script><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">siddharth&#39;s space</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Mixing Measurements with Gates</h1>
+    <p class="post-meta"><time class="dt-published" datetime="2021-06-25T20:00:00+00:00" itemprop="datePublished">
+        Jun 25, 2021
+      </time>• 
+          <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+            <span class="p-author h-card" itemprop="name">Siddharth Jain</span></span></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <div class="paragraph">
+<p>In previous post we learnt that:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/images/measurements_vs_gates.jpg" alt="measurements vs gates">
+</div>
+</div>
+<div class="paragraph">
+<p>but what about this:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/images/mix_measurement_and_gate.jpg" alt="mix measurement and gate">
+</div>
+</div>
+<div class="paragraph">
+<p>The books will tell you that we measure the first qubit and apply the Z gate to the second qubit. <em>What does that even mean?</em>
+Remember the fundamental object we are dealing with in a 2 qubit system is the \(4 \times 1\) <em>wavefunction</em> which is the joint probability distribution function of the 4 possible
+states the system can be in.</p>
+</div>
+<div class="paragraph">
+<p><em>What do we do to the wavefunction to measure the first qubit and apply the Z gate to the second qubit?
+Can these two things even be done in parallel? It seems NO as the rule for measurement (<a href="https://en.wikipedia.org/wiki/Born_rule">Born&#8217;s rule</a>)
+is different from the rule for doing time evolution (<a href="https://en.wikipedia.org/wiki/Schr%C3%B6dinger_equation">Schrodinger&#8217;s equation</a>) or applying a gate in language of
+quantum computing</em>.</p>
+</div>
+<div class="paragraph">
+<p>So we can either perform the measurement followed by application of the gate or vice-versa. <em>Will the two even commute?</em></p>
+</div>
+<div class="paragraph">
+<p>\begin{equation}
+\textrm{Apply} (Z(q_2)) \cdot \textrm{Measure}(q_1) \stackrel{?}{=} \textrm{Measure}(q_1) \cdot \textrm{Apply} (Z(q_2))
+\end{equation}</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s find out. Given a 2 qubit wavefunction:</p>
+</div>
+<div class="paragraph">
+<p>\begin{equation}
+\left[\begin{matrix}a\\b\\c\\d\end{matrix}\right]
+\end{equation}</p>
+</div>
+<div class="paragraph">
+<p>How do we measure the first qubit in \(\Psi\) - which is a \(4 \times 1\) vector - with a \(2 \times 2\) matrix \(Z\)?
+We need a \(4 \times 4\) matrix to measure a \(4 \times 1\) wavefunction. This matrix is given by \(I \otimes Z\).
+That is how we measure the &#8220;first qubit in \(\Psi\)&#8221;. We did this in previous post. When we do a measurement on the first qubit,
+it gives us two possible outcomes (the qubit will either collapse to <code>0</code> or <code>1</code>). For each outcome, we will then apply the \(Z\) gate
+on the second qubit. The matrix for this will be given by \(Z \otimes I\).</p>
+</div>
+<div class="paragraph">
+<p>This is what I find when I do this. The first outcome (this could be thought of as the qubit collapsing to <code>0</code>) occurs with probability \(||a||^2 + ||b||^2\)
+and the final wavefunction after application of \(Z\) gate is:</p>
+</div>
+<div class="paragraph">
+<p>\begin{equation}
+\left[\begin{matrix}\frac{a}{\sqrt{\left|{a}\right|^{2} + \left|{b}\right|^{2}}}\\- \frac{b}{\sqrt{\left|{a}\right|^{2} + \left|{b}\right|^{2}}}\\0\\0\end{matrix}\right]
+\end{equation}</p>
+</div>
+<div class="paragraph">
+<p>The second outcome (qubit collapsing to <code>1</code>) occurs with probability \(||c||^2 + ||d||^2\) and the final wavefunction after application of \(Z\) gate is:</p>
+</div>
+<div class="paragraph">
+<p>\begin{equation}
+\left[\begin{matrix}0\\0\\\frac{c}{\sqrt{\left|{c}\right|^{2} + \left|{d}\right|^{2}}}\\- \frac{d}{\sqrt{\left|{c}\right|^{2} + \left|{d}\right|^{2}}}\end{matrix}\right]
+\end{equation}</p>
+</div>
+<div class="paragraph">
+<p><em>Amazingly I get the same results if I instead apply the \(Z\) gate first to the second qubit and measure the first qubit after that! So the two do commute!</em></p>
+</div>
+<div class="paragraph">
+<p>I then followed up this experiment and substituted the \(Z\) gate with \(Y\) and \(X\) gates. In all cases I found that the operations do commute.
+<em>The result is the same whether we apply the gate first and measure after that or whether we measure first and apply the gate afterwards.</em>
+<em>This is quite remarkable because the measurement is an irreversible process and not something I had expected (but good relief).</em>
+The results are summarized in the table below (do it as exercise, don&#8217;t take my word for it):</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Result of measuring the first qubit and applying a gate on second qubit. The order of the two operations does not matter.</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-center valign-middle">Gate</th>
+<th class="tableblock halign-left valign-top"></th>
+<th class="tableblock halign-left valign-top">Outcome 1 (first qubit collapses to <code>0</code>)</th>
+<th class="tableblock halign-left valign-top">Outcome 2 (first qubit collapses to <code>1</code>)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle" rowspan="2"><p class="tableblock">\(\textbf{Z}\)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">probability</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\(\left|{a}\right|^{2} + \left|{b}\right|^{2}\)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\(\left|{c}\right|^{2} + \left|{d}\right|^{2}\)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\(\Psi\)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\(\left(\begin{matrix}\frac{a}{\sqrt{\left|{a}\right|^{2} + \left|{b}\right|^{2}}}\\- \frac{b}{\sqrt{\left|{a}\right|^{2} + \left|{b}\right|^{2}}}\\0\\0\end{matrix}\right)\)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\(\left(\begin{matrix}0\\0\\\frac{c}{\sqrt{\left|{c}\right|^{2} + \left|{d}\right|^{2}}}\\- \frac{d}{\sqrt{\left|{c}\right|^{2} + \left|{d}\right|^{2}}}\end{matrix}\right)\)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle" rowspan="2"><p class="tableblock">\(\textbf{Y}\)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">probability</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\(\left|{a}\right|^{2} + \left|{b}\right|^{2}\)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\(\left|{c}\right|^{2} + \left|{d}\right|^{2}\)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\(\Psi\)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\(\left(\begin{matrix}- \frac{i b}{\sqrt{\left|{a}\right|^{2} + \left|{b}\right|^{2}}}\\\frac{i a}{\sqrt{\left|{a}\right|^{2} + \left|{b}\right|^{2}}}\\0\\0\end{matrix}\right)\)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\(\left(\begin{matrix}0\\0\\- \frac{i d}{\sqrt{\left|{c}\right|^{2} + \left|{d}\right|^{2}}}\\\frac{i c}{\sqrt{\left|{c}\right|^{2} + \left|{d}\right|^{2}}}\end{matrix}\right)\)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle" rowspan="2"><p class="tableblock">\(\textbf{X}\)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">probability</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\(\left|{a}\right|^{2} + \left|{b}\right|^{2}\)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\(\left|{c}\right|^{2} + \left|{d}\right|^{2}\)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\(\Psi\)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\(\left(\begin{matrix}\frac{b}{\sqrt{\left|{a}\right|^{2} + \left|{b}\right|^{2}}}\\\frac{a}{\sqrt{\left|{a}\right|^{2} + \left|{b}\right|^{2}}}\\0\\0\end{matrix}\right)\)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\(\left(\begin{matrix}0\\0\\\frac{d}{\sqrt{\left|{c}\right|^{2} + \left|{d}\right|^{2}}}\\\frac{c}{\sqrt{\left|{c}\right|^{2} + \left|{d}\right|^{2}}}\end{matrix}\right)\)</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>My final experiment was to generalize using a gate \(G\) whose entries are given by:</p>
+</div>
+<div class="paragraph">
+<p>\begin{equation}
+\begin{pmatrix}
+e &amp;&amp; f \\
+g &amp;&amp; h
+\end{pmatrix}
+\end{equation}</p>
+</div>
+<div class="paragraph">
+<p>In this case, the results are not that simple. Measuring the qubit first and applying the gate afterwards gives:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 2. First measure and then apply</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-center valign-middle">Gate</th>
+<th class="tableblock halign-left valign-top"></th>
+<th class="tableblock halign-left valign-top">Outcome 1</th>
+<th class="tableblock halign-left valign-top">Outcome 2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle" rowspan="2"><p class="tableblock">\(\textbf{G}\)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">probability</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\(\left|{a}\right|^{2} + \left|{b}\right|^{2}\)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\(\left|{c}\right|^{2} + \left|{d}\right|^{2}\)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\(\Psi\)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\(\left(\begin{matrix}\frac{a e}{\sqrt{\left|{a}\right|^{2} + \left|{b}\right|^{2}}} + \frac{b f}{\sqrt{\left|{a}\right|^{2} + \left|{b}\right|^{2}}}\\\frac{a g}{\sqrt{\left|{a}\right|^{2} + \left|{b}\right|^{2}}} + \frac{b h}{\sqrt{\left|{a}\right|^{2} + \left|{b}\right|^{2}}}\\0\\0\end{matrix}\right)\)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\(\left(\begin{matrix}0\\0\\\frac{c e}{\sqrt{\left|{c}\right|^{2} + \left|{d}\right|^{2}}} + \frac{d f}{\sqrt{\left|{c}\right|^{2} + \left|{d}\right|^{2}}}\\\frac{c g}{\sqrt{\left|{c}\right|^{2} + \left|{d}\right|^{2}}} + \frac{d h}{\sqrt{\left|{c}\right|^{2} + \left|{d}\right|^{2}}}\end{matrix}\right)\)</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>whereas applying the gate first and measuring the qubit afterwards gives:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 3. First apply and then measure</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-center valign-middle">Gate</th>
+<th class="tableblock halign-left valign-top"></th>
+<th class="tableblock halign-left valign-top">Outcome 1</th>
+<th class="tableblock halign-left valign-top">Outcome 2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle" rowspan="2"><p class="tableblock">\(\textbf{G}\)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">probability</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\(\left|{a e + b f}\right|^{2} + \left|{a g + b h}\right|^{2}\)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\(\left|{c e + d f}\right|^{2} + \left|{c g + d h}\right|^{2}\)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\(\Psi\)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\(\left(\begin{matrix}\frac{a e + b f}{\sqrt{\left|{a e + b f}\right|^{2} + \left|{a g + b h}\right|^{2}}}\\\frac{a g + b h}{\sqrt{\left|{a e + b f}\right|^{2} + \left|{a g + b h}\right|^{2}}}\\0\\0\end{matrix}\right)\)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\(\left(\begin{matrix}0\\0\\\frac{c e + d f}{\sqrt{\left|{c e + d f}\right|^{2} + \left|{c g + d h}\right|^{2}}}\\\frac{c g + d h}{\sqrt{\left|{c e + d f}\right|^{2} + \left|{c g + d h}\right|^{2}}}\end{matrix}\right)\)</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The two cases seem to give different results. The tables don&#8217;t seem to be identical. However, remember that \(G\) has to be a unitary matrix meaning</p>
+</div>
+<div class="paragraph">
+<p>\begin{equation}
+GG^\dagger = G^\dagger G = I
+\end{equation}</p>
+</div>
+<div class="paragraph">
+<p>and this leads to some strong constraints on what \(e, f, g, h\) can be. Below are all the constraints that must apply to \(e, f, g, h\):</p>
+</div>
+<div class="paragraph">
+<p>\begin{align}
+|e|^2 + |f|^2 &amp; = 1 \\
+|e|^2 + |g|^2 &amp; = 1 \\
+|g|^2 + |h|^2 &amp; = 1 \\
+|f|^2 + |h|^2 &amp; = 1 \\
+eg^* + fh^* &amp; = 0 \\
+e^* g + f^* h &amp; = 0 \\
+ef^* + gh^* &amp; = 0 \\
+e^* f + g^* h &amp; = 0
+\end{align}</p>
+</div>
+<div class="paragraph">
+<p>With this and the fact that given two complex numbers \(z_1\) and \(z_2\):</p>
+</div>
+<div class="paragraph">
+<p>\begin{equation}
+|z_1 + z_2|^2 = |z_1|^2 + |z_2|^2 + 2\textrm{Re}(z_1 z_2^*)
+\end{equation}</p>
+</div>
+<div class="paragraph">
+<p>we have:</p>
+</div>
+<div class="paragraph">
+<p>\begin{equation}
+|ae + bf|^2 = |a|^2 |e|^2 + |b|^2 |f|^2 + 2\textrm{Re}(ae b^* f^*)
+\end{equation}</p>
+</div>
+<div class="paragraph">
+<p>and:</p>
+</div>
+<div class="paragraph">
+<p>\begin{equation}
+|ag + bh|^2 = |a|^2 |g|^2 + |b|^2 |h|^2 + 2\textrm{Re}(ag b^* h^*)
+\end{equation}</p>
+</div>
+<div class="paragraph">
+<p>and so:</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{equation}
+\begin{split}
+|ae + bf|^2 + |ag + bh|^2 &amp; = |a|^2 (|e|^2 + |g|^2) + |b|^2 (|f|^2 + |h|^2) + 2\textrm{Re}(ab^* (ef^* + gh^*)) \\
+                          &amp; = |a|^2 \cdot 1 + |b|^2 \cdot 1 + 2\textrm{Re}(ab^* \cdot 0) \\
+                          &amp; = |a|^2 + |b|^2
+\end{split}
+\end{equation}\]
+</div>
+</div>
+<div class="paragraph">
+<p>Similarly one can show that:</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{equation}
+|ce + df|^2 + |cg + dh|^2 = |c|^2 + |d|^2
+\end{equation}\]
+</div>
+</div>
+<div class="paragraph">
+<p>and so <em>the two tables are actually identical!</em>. This is good news otherwise there would have been a big problem.</p>
+</div>
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>Khuda ka shukr hai, varna guzarti kaise shaam&#8230;&#8203;</p>
+</div>
+</blockquote>
+</div>
+<hr>
+<div class="paragraph">
+<p>One more thing before we wrap up. We have seen that to measure a qubit:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/images/measure_qubit.jpg" alt="measure qubit">
+</div>
+</div>
+<div class="paragraph">
+<p>we need to form \(I \otimes Z\) and perform the measurement with this observable.
+The circuit can also be written as:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/images/measure_qubit_equivalent_circuit.jpg" alt="measure qubit equivalent circuit">
+</div>
+</div>
+<div class="paragraph">
+<p>where \(I\) is identity matrix. So putting 2 and 2 together if we instead have the circuit that we began with:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/images/mix_measurement_and_gate.jpg" alt="mix measurement and gate">
+</div>
+</div>
+<div class="paragraph">
+<p><em>What if we form \(Z \otimes Z\) and perform a measurement with \(M = Z \otimes Z\). What does that give?</em>
+The answer is:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 4. Measure \(Z \otimes Z\)</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"></th>
+<th class="tableblock halign-left valign-top">Outcome 1 (both qubits are same <code>00</code> or <code>11</code>)</th>
+<th class="tableblock halign-left valign-top">Outcome 2 (both qubits are different <code>01</code> or <code>10</code>)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">probability</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\(\left|{a}\right|^{2} + \left|{d}\right|^{2}\)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\(\left|{b}\right|^{2} + \left|{c}\right|^{2}\)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\(\Psi\)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\(\left(\begin{matrix}\frac{a}{\sqrt{\left|{a}\right|^{2} + \left|{d}\right|^{2}}}\\0\\0\\\frac{d}{\sqrt{\left|{a}\right|^{2} + \left|{d}\right|^{2}}}\end{matrix}\right)\)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\(\left(\begin{matrix}0\\\frac{b}{\sqrt{\left|{b}\right|^{2} + \left|{c}\right|^{2}}}\\\frac{c}{\sqrt{\left|{b}\right|^{2} + \left|{c}\right|^{2}}}\\0\end{matrix}\right)\)</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Warning</div>
+</td>
+<td class="content">
+<em>This is different from what we have seen earlier and is incorrect way of &#8220;measuring the first qubit and applying a gate on the second qubit&#8221;.</em>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>It is unfortunate that none of the books explain these things. But working them out on my own gives me the confidence that I understand at least some of this difficult subject.</p>
+</div>
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>I will never know myself until I do this on my own&#8230;&#8203;</p>
+</div>
+</blockquote>
+</div>
+  </div>
+
+  <!-- from https://developers.facebook.com/docs/plugins/like-button/ -->
+  <!-- page.url will give the URL of the page sans the domain name. refer https://jekyllrb.com/docs/variables/ -->
+  <!-- more at https://www.digitalocean.com/community/tutorials/how-to-control-urls-and-links-in-jekyll -->
+  <div class="fb-like" data-href="https://siddjain.github.io/2021/06/25/mixing_measurements_with_gates.html" 
+      data-width="" 
+      data-layout="standard"
+      data-action="like" 
+      data-size="small"
+      data-share="true"></div><a class="u-url" href="/2021/06/25/mixing_measurements_with_gates.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">siddharth&#39;s space</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">siddharth&#39;s space</li><li><a class="u-email" href="mailto:siddjain@example.com">siddjain@example.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/siddjain"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">siddjain</span></a></li><li><a href="https://www.twitter.com/fd97207"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">fd97207</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>कोशिश करने वालो की कभी हार नहीं होती…</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+<!-- refer https://github.com/asciidoctor/jekyll-asciidoc#adding-the-stem-assets-to-the-page --><!-- from https://github.com/asciidoctor/jekyll-asciidoc#adding-the-stem-assets-to-the-page -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    messageStyle: "none",
+    tex2jax: {
+        inlineMath: [["\\(", "\\)"]],
+        displayMath: [["\\[", "\\]"]],
+        ignoreClass: "nostem|nolatexmath"
+    },
+    asciimath2jax: {
+        delimiters: [["\\$", "\\$"]],
+        ignoreClass: "nostem|noasciimath"
+    },
+    TeX: { equationNumbers: { autoNumber: "none" } }
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script></body>
+
+</html>
