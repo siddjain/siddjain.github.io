@@ -32,7 +32,7 @@ quantum computing_.
 So we can either perform the measurement followed by application of the gate or vice-versa. _Will the two even commute?_
 
 \begin{equation}
-\textrm{Apply(Z)} \cdot \textrm{Measure}(q_1) \stackrel{?}{=} \textrm{Measure}(q_1) \cdot \textrm{Apply(Z)}
+\textrm{Apply} (Z(q_2)) \cdot \textrm{Measure}(q_1) \stackrel{?}{=} \textrm{Measure}(q_1) \cdot \textrm{Apply} (Z(q_2))
 \end{equation}
 
 Let's find out. Given a 2 qubit wavefunction: 
@@ -47,14 +47,14 @@ That is how we measure the "`first qubit in stem:[\Psi]`". We did this in previo
 it gives us two possible outcomes (the qubit will either collapse to `0` or `1`). For each outcome, we will then apply the stem:[Z] gate 
 on the second qubit. The matrix for this will be given by stem:[Z \otimes I].
 
-This is what I find when I do this in Python. The first outcome (eigenvalue stem:[+1]) occurs with probability stem:[||a||^2 + ||b||^2]
+This is what I find when I do this in Python. The first outcome (this could be thought of as the qubit collapsing to `0`) occurs with probability stem:[||a||^2 + ||b||^2]
 and the final wavefunction after application of stem:[Z] gate is:
 
 \begin{equation}
 \left[\begin{matrix}\frac{a}{\sqrt{\left|{a}\right|^{2} + \left|{b}\right|^{2}}}\\- \frac{b}{\sqrt{\left|{a}\right|^{2} + \left|{b}\right|^{2}}}\\0\\0\end{matrix}\right]
 \end{equation}
 
-The second outcome (stem:[-1]) occurs with probability stem:[||c||^2 + ||d||^2] and the final wavefunction after application of stem:[Z] gate is:
+The second outcome (qubit collapsing to `1`) occurs with probability stem:[||c||^2 + ||d||^2] and the final wavefunction after application of stem:[Z] gate is:
 
 \begin{equation}
 \left[\begin{matrix}0\\0\\\frac{c}{\sqrt{\left|{c}\right|^{2} + \left|{d}\right|^{2}}}\\- \frac{d}{\sqrt{\left|{c}\right|^{2} + \left|{d}\right|^{2}}}\end{matrix}\right]
@@ -62,10 +62,48 @@ The second outcome (stem:[-1]) occurs with probability stem:[||c||^2 + ||d||^2] 
 
 _Amazingly I get the same results if I instead apply the stem:[Z] gate first to the second qubit and measure the first qubit after that! So the two do commute!_
 
-.Cell spans rows
+I then followed up this experiment and substituted the stem:[Z] gate with stem:[Y] and stem:[X] gates. In all cases I found that the operations do commute.
+_The result is the same whether we apply the gate first and measure after that or whether we measure first and apply the gate afterwards._ The results
+are summarized in the table below (do it as exercise, don't take my word for it):
+
+.Result of measuring the first qubit and applying a gate on second qubit. 
+[options="header"]
 |===
-| | Outcome 1 | Outcome 2
-.2+| Z | stem:[\left\|{a}\right\|^{2} + \left\|{b}\right\|^{2}] | stem:[\left\|{c}\right\|^{2} + \left\|{d}\right\|^{2}] | stem:[\left(\begin{matrix}\frac{a}{\sqrt{\left\|{a}\right\|^{2} + \left\|{b}\right\|^{2}}}\\- \frac{b}{\sqrt{\left\|{a}\right\|^{2} + \left\|{b}\right\|^{2}}}\\0\\0\end{matrix}\right)] | stem:[\left(\begin{matrix}0\\0\\\frac{c}{\sqrt{\left\|{c}\right\|^{2} + \left\|{d}\right\|^{2}}}\\- \frac{d}{\sqrt{\left\|{c}\right\|^{2} + \left\|{d}\right\|^{2}}}\end{matrix}\right)]
-.2+| Y | stem:[\left\|{a}\right\|^{2} + \left\|{b}\right\|^{2}] | stem:[\left\|{c}\right\|^{2} + \left\|{d}\right\|^{2}] | stem:[\left(\begin{matrix}- \frac{i b}{\sqrt{\left\|{a}\right\|^{2} + \left\|{b}\right\|^{2}}}\\\frac{i a}{\sqrt{\left\|{a}\right\|^{2} + \left\|{b}\right\|^{2}}}\\0\\0\end{matrix}\right)] | stem:[\left(\begin{matrix}0\\0\\- \frac{i d}{\sqrt{\left\|{c}\right\|^{2} + \left\|{d}\right\|^{2}}}\\\frac{i c}{\sqrt{\left\|{c}\right\|^{2} + \left\|{d}\right\|^{2}}}\end{matrix}\right)]
-.2+| X | stem:[\left\|{a}\right\|^{2} + \left\|{b}\right\|^{2}] | stem:[\left\|{c}\right\|^{2} + \left\|{d}\right\|^{2}] | stem:[\left(\begin{matrix}\frac{b}{\sqrt{\left\|{a}\right\|^{2} + \left\|{b}\right\|^{2}}}\\\frac{a}{\sqrt{\left\|{a}\right\|^{2} + \left\|{b}\right\|^{2}}}\\0\\0\end{matrix}\right)] | stem:[\left(\begin{matrix}0\\0\\\frac{d}{\sqrt{\left\|{c}\right\|^{2} + \left\|{d}\right\|^{2}}}\\\frac{c}{\sqrt{\left\|{c}\right\|^{2} + \left\|{d}\right\|^{2}}}\end{matrix}\right)]
+^.^| Gate | | Outcome 1 | Outcome 2
+.2+^.^| stem:[\textbf{Z}] | probability | stem:[\left\|{a}\right\|^{2} + \left\|{b}\right\|^{2}] | stem:[\left\|{c}\right\|^{2} + \left\|{d}\right\|^{2}] | stem:[\Psi] | stem:[\left(\begin{matrix}\frac{a}{\sqrt{\left\|{a}\right\|^{2} + \left\|{b}\right\|^{2}}}\\- \frac{b}{\sqrt{\left\|{a}\right\|^{2} + \left\|{b}\right\|^{2}}}\\0\\0\end{matrix}\right)] | stem:[\left(\begin{matrix}0\\0\\\frac{c}{\sqrt{\left\|{c}\right\|^{2} + \left\|{d}\right\|^{2}}}\\- \frac{d}{\sqrt{\left\|{c}\right\|^{2} + \left\|{d}\right\|^{2}}}\end{matrix}\right)]
+.2+^.^| stem:[\textbf{Y}] | probability | stem:[\left\|{a}\right\|^{2} + \left\|{b}\right\|^{2}] | stem:[\left\|{c}\right\|^{2} + \left\|{d}\right\|^{2}] | stem:[\Psi] | stem:[\left(\begin{matrix}- \frac{i b}{\sqrt{\left\|{a}\right\|^{2} + \left\|{b}\right\|^{2}}}\\\frac{i a}{\sqrt{\left\|{a}\right\|^{2} + \left\|{b}\right\|^{2}}}\\0\\0\end{matrix}\right)] | stem:[\left(\begin{matrix}0\\0\\- \frac{i d}{\sqrt{\left\|{c}\right\|^{2} + \left\|{d}\right\|^{2}}}\\\frac{i c}{\sqrt{\left\|{c}\right\|^{2} + \left\|{d}\right\|^{2}}}\end{matrix}\right)]
+.2+^.^| stem:[\textbf{X}] | probability | stem:[\left\|{a}\right\|^{2} + \left\|{b}\right\|^{2}] | stem:[\left\|{c}\right\|^{2} + \left\|{d}\right\|^{2}] | stem:[\Psi] | stem:[\left(\begin{matrix}\frac{b}{\sqrt{\left\|{a}\right\|^{2} + \left\|{b}\right\|^{2}}}\\\frac{a}{\sqrt{\left\|{a}\right\|^{2} + \left\|{b}\right\|^{2}}}\\0\\0\end{matrix}\right)] | stem:[\left(\begin{matrix}0\\0\\\frac{d}{\sqrt{\left\|{c}\right\|^{2} + \left\|{d}\right\|^{2}}}\\\frac{c}{\sqrt{\left\|{c}\right\|^{2} + \left\|{d}\right\|^{2}}}\end{matrix}\right)]
 |===
+
+My final experiment was to generalize using a gate stem:[G] whose entries are given by:
+
+\begin{equation}
+\begin{pmatrix}
+e && f \\
+g && h
+\end{pmatrix}
+\end{equation}
+
+In this case, the results are not that simple. Measuring the qubit first and applying the gate afterwards gives:
+
+.First measure and then apply 
+[options="header"]
+|===
+^.^| Gate | | Outcome 1 | Outcome 2
+.2+^.^| stem:[\textbf{G}] | probability | stem:[\left\|{a}\right\|^{2} + \left\|{b}\right\|^{2}] | stem:[\left\|{c}\right\|^{2} + \left\|{d}\right\|^{2}] | stem:[\Psi] | stem:[\left(\begin{matrix}\frac{a e}{\sqrt{\left\|{a}\right\|^{2} + \left\|{b}\right\|^{2}}} + \frac{b f}{\sqrt{\left\|{a}\right\|^{2} + \left\|{b}\right\|^{2}}}\\\frac{a g}{\sqrt{\left\|{a}\right\|^{2} + \left\|{b}\right\|^{2}}} + \frac{b h}{\sqrt{\left\|{a}\right\|^{2} + \left\|{b}\right\|^{2}}}\\0\\0\end{matrix}\right)] | stem:[\left(\begin{matrix}0\\0\\\frac{c e}{\sqrt{\left\|{c}\right\|^{2} + \left\|{d}\right\|^{2}}} + \frac{d f}{\sqrt{\left\|{c}\right\|^{2} + \left\|{d}\right\|^{2}}}\\\frac{c g}{\sqrt{\left\|{c}\right\|^{2} + \left\|{d}\right\|^{2}}} + \frac{d h}{\sqrt{\left\|{c}\right\|^{2} + \left\|{d}\right\|^{2}}}\end{matrix}\right)]
+|===
+
+whereas applying the gate first and measuring the qubit afterwards gives:
+
+.First apply and then measure
+[options="header"]
+|===
+^.^| Gate | | Outcome 1 | Outcome 2
+.2+^.^| stem:[\textbf{G}] | probability |
+stem:[\left\|{a e + b f}\right\|^{2} + \left\|{a g + b h}\right\|^{2}] |
+stem:[\left\|{c e + d f}\right\|^{2} + \left\|{c g + d h}\right\|^{2}] |
+stem:[\Psi] |
+stem:[\left(\begin{matrix}\frac{a e + b f}{\sqrt{\left\|{a e + b f}\right\|^{2} + \left\|{a g + b h}\right\|^{2}}}\\\frac{a g + b h}{\sqrt{\left\|{a e + b f}\right\|^{2} + \left\|{a g + b h}\right\|^{2}}}\\0\\0\end{matrix}\right)] |
+stem:[\left(\begin{matrix}0\\0\\\frac{c e + d f}{\sqrt{\left\|{c e + d f}\right\|^{2} + \left\|{c g + d h}\right\|^{2}}}\\\frac{c g + d h}{\sqrt{\left\|{c e + d f}\right\|^{2} + \left\|{c g + d h}\right\|^{2}}}\end{matrix}\right)]
+|===
+
