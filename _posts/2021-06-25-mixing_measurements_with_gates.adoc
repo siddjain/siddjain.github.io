@@ -11,6 +11,7 @@ Siddharth Jain <siddjain@live.com>
 :stem: latexmath
 :eqnums: all
 :xrefstyle: short
+:icons: font
 
 In previous post we learnt that:
 
@@ -20,7 +21,7 @@ but what about this:
 
 image::/assets/images/mix_measurement_and_gate.jpg[]
 
-The books will tell you that we measure the first qubit and apply the Z gate to the second qubit. What does that even mean?
+The books will tell you that we measure the first qubit and apply the Z gate to the second qubit. _What does that even mean?_
 Remember the fundamental object we are dealing with in a 2 qubit system is the stem:[4 \times 1] _wavefunction_ which is the joint probability distribution function of the 4 possible
 states the system can be in. 
 
@@ -41,13 +42,13 @@ Let's find out. Given a 2 qubit wavefunction:
 \left[\begin{matrix}a\\b\\c\\d\end{matrix}\right]
 \end{equation}
 
-How do we measure the first qubit in stem:[\Psi] which is a stem:[4 \times 1] vector with a stem:[2 \times 2] matrix stem:[Z]?
+How do we measure the first qubit in stem:[\Psi] - which is a stem:[4 \times 1] vector - with a stem:[2 \times 2] matrix stem:[Z]?
 We need a stem:[4 \times 4] matrix to measure a stem:[4 \times 1] wavefunction. This matrix is given by stem:[I \otimes Z].
 That is how we measure the "`first qubit in stem:[\Psi]`". We did this in previous post. When we do a measurement on the first qubit,
 it gives us two possible outcomes (the qubit will either collapse to `0` or `1`). For each outcome, we will then apply the stem:[Z] gate 
 on the second qubit. The matrix for this will be given by stem:[Z \otimes I].
 
-This is what I find when I do this in Python. The first outcome (this could be thought of as the qubit collapsing to `0`) occurs with probability stem:[||a||^2 + ||b||^2]
+This is what I find when I do this. The first outcome (this could be thought of as the qubit collapsing to `0`) occurs with probability stem:[||a||^2 + ||b||^2]
 and the final wavefunction after application of stem:[Z] gate is:
 
 \begin{equation}
@@ -70,9 +71,22 @@ are summarized in the table below (do it as exercise, don't take my word for it)
 [options="header"]
 |===
 ^.^| Gate | | Outcome 1 | Outcome 2
-.2+^.^| stem:[\textbf{Z}] | probability | stem:[\left\|{a}\right\|^{2} + \left\|{b}\right\|^{2}] | stem:[\left\|{c}\right\|^{2} + \left\|{d}\right\|^{2}] | stem:[\Psi] | stem:[\left(\begin{matrix}\frac{a}{\sqrt{\left\|{a}\right\|^{2} + \left\|{b}\right\|^{2}}}\\- \frac{b}{\sqrt{\left\|{a}\right\|^{2} + \left\|{b}\right\|^{2}}}\\0\\0\end{matrix}\right)] | stem:[\left(\begin{matrix}0\\0\\\frac{c}{\sqrt{\left\|{c}\right\|^{2} + \left\|{d}\right\|^{2}}}\\- \frac{d}{\sqrt{\left\|{c}\right\|^{2} + \left\|{d}\right\|^{2}}}\end{matrix}\right)]
-.2+^.^| stem:[\textbf{Y}] | probability | stem:[\left\|{a}\right\|^{2} + \left\|{b}\right\|^{2}] | stem:[\left\|{c}\right\|^{2} + \left\|{d}\right\|^{2}] | stem:[\Psi] | stem:[\left(\begin{matrix}- \frac{i b}{\sqrt{\left\|{a}\right\|^{2} + \left\|{b}\right\|^{2}}}\\\frac{i a}{\sqrt{\left\|{a}\right\|^{2} + \left\|{b}\right\|^{2}}}\\0\\0\end{matrix}\right)] | stem:[\left(\begin{matrix}0\\0\\- \frac{i d}{\sqrt{\left\|{c}\right\|^{2} + \left\|{d}\right\|^{2}}}\\\frac{i c}{\sqrt{\left\|{c}\right\|^{2} + \left\|{d}\right\|^{2}}}\end{matrix}\right)]
-.2+^.^| stem:[\textbf{X}] | probability | stem:[\left\|{a}\right\|^{2} + \left\|{b}\right\|^{2}] | stem:[\left\|{c}\right\|^{2} + \left\|{d}\right\|^{2}] | stem:[\Psi] | stem:[\left(\begin{matrix}\frac{b}{\sqrt{\left\|{a}\right\|^{2} + \left\|{b}\right\|^{2}}}\\\frac{a}{\sqrt{\left\|{a}\right\|^{2} + \left\|{b}\right\|^{2}}}\\0\\0\end{matrix}\right)] | stem:[\left(\begin{matrix}0\\0\\\frac{d}{\sqrt{\left\|{c}\right\|^{2} + \left\|{d}\right\|^{2}}}\\\frac{c}{\sqrt{\left\|{c}\right\|^{2} + \left\|{d}\right\|^{2}}}\end{matrix}\right)]
+.2+^.^| stem:[\textbf{Z}] | probability | 
+stem:[\left\|{a}\right\|^{2} + \left\|{b}\right\|^{2}] | stem:[\left\|{c}\right\|^{2} + \left\|{d}\right\|^{2}] | 
+stem:[\Psi] | 
+stem:[\left(\begin{matrix}\frac{a}{\sqrt{\left\|{a}\right\|^{2} + \left\|{b}\right\|^{2}}}\\- \frac{b}{\sqrt{\left\|{a}\right\|^{2} + \left\|{b}\right\|^{2}}}\\0\\0\end{matrix}\right)] | 
+stem:[\left(\begin{matrix}0\\0\\\frac{c}{\sqrt{\left\|{c}\right\|^{2} + \left\|{d}\right\|^{2}}}\\- \frac{d}{\sqrt{\left\|{c}\right\|^{2} + \left\|{d}\right\|^{2}}}\end{matrix}\right)]
+.2+^.^| 
+stem:[\textbf{Y}] | probability | 
+stem:[\left\|{a}\right\|^{2} + \left\|{b}\right\|^{2}] | stem:[\left\|{c}\right\|^{2} + \left\|{d}\right\|^{2}] | 
+stem:[\Psi] | 
+stem:[\left(\begin{matrix}- \frac{i b}{\sqrt{\left\|{a}\right\|^{2} + \left\|{b}\right\|^{2}}}\\\frac{i a}{\sqrt{\left\|{a}\right\|^{2} + \left\|{b}\right\|^{2}}}\\0\\0\end{matrix}\right)] | 
+stem:[\left(\begin{matrix}0\\0\\- \frac{i d}{\sqrt{\left\|{c}\right\|^{2} + \left\|{d}\right\|^{2}}}\\\frac{i c}{\sqrt{\left\|{c}\right\|^{2} + \left\|{d}\right\|^{2}}}\end{matrix}\right)]
+.2+^.^| stem:[\textbf{X}] | probability | 
+stem:[\left\|{a}\right\|^{2} + \left\|{b}\right\|^{2}] | 
+stem:[\left\|{c}\right\|^{2} + \left\|{d}\right\|^{2}] | 
+stem:[\Psi] | 
+stem:[\left(\begin{matrix}\frac{b}{\sqrt{\left\|{a}\right\|^{2} + \left\|{b}\right\|^{2}}}\\\frac{a}{\sqrt{\left\|{a}\right\|^{2} + \left\|{b}\right\|^{2}}}\\0\\0\end{matrix}\right)] | stem:[\left(\begin{matrix}0\\0\\\frac{d}{\sqrt{\left\|{c}\right\|^{2} + \left\|{d}\right\|^{2}}}\\\frac{c}{\sqrt{\left\|{c}\right\|^{2} + \left\|{d}\right\|^{2}}}\end{matrix}\right)]
 |===
 
 My final experiment was to generalize using a gate stem:[G] whose entries are given by:
@@ -90,7 +104,12 @@ In this case, the results are not that simple. Measuring the qubit first and app
 [options="header"]
 |===
 ^.^| Gate | | Outcome 1 | Outcome 2
-.2+^.^| stem:[\textbf{G}] | probability | stem:[\left\|{a}\right\|^{2} + \left\|{b}\right\|^{2}] | stem:[\left\|{c}\right\|^{2} + \left\|{d}\right\|^{2}] | stem:[\Psi] | stem:[\left(\begin{matrix}\frac{a e}{\sqrt{\left\|{a}\right\|^{2} + \left\|{b}\right\|^{2}}} + \frac{b f}{\sqrt{\left\|{a}\right\|^{2} + \left\|{b}\right\|^{2}}}\\\frac{a g}{\sqrt{\left\|{a}\right\|^{2} + \left\|{b}\right\|^{2}}} + \frac{b h}{\sqrt{\left\|{a}\right\|^{2} + \left\|{b}\right\|^{2}}}\\0\\0\end{matrix}\right)] | stem:[\left(\begin{matrix}0\\0\\\frac{c e}{\sqrt{\left\|{c}\right\|^{2} + \left\|{d}\right\|^{2}}} + \frac{d f}{\sqrt{\left\|{c}\right\|^{2} + \left\|{d}\right\|^{2}}}\\\frac{c g}{\sqrt{\left\|{c}\right\|^{2} + \left\|{d}\right\|^{2}}} + \frac{d h}{\sqrt{\left\|{c}\right\|^{2} + \left\|{d}\right\|^{2}}}\end{matrix}\right)]
+.2+^.^| stem:[\textbf{G}] | probability | 
+stem:[\left\|{a}\right\|^{2} + \left\|{b}\right\|^{2}] |
+stem:[\left\|{c}\right\|^{2} + \left\|{d}\right\|^{2}] | 
+stem:[\Psi] | 
+stem:[\left(\begin{matrix}\frac{a e}{\sqrt{\left\|{a}\right\|^{2} + \left\|{b}\right\|^{2}}} + \frac{b f}{\sqrt{\left\|{a}\right\|^{2} + \left\|{b}\right\|^{2}}}\\\frac{a g}{\sqrt{\left\|{a}\right\|^{2} + \left\|{b}\right\|^{2}}} + \frac{b h}{\sqrt{\left\|{a}\right\|^{2} + \left\|{b}\right\|^{2}}}\\0\\0\end{matrix}\right)] | 
+stem:[\left(\begin{matrix}0\\0\\\frac{c e}{\sqrt{\left\|{c}\right\|^{2} + \left\|{d}\right\|^{2}}} + \frac{d f}{\sqrt{\left\|{c}\right\|^{2} + \left\|{d}\right\|^{2}}}\\\frac{c g}{\sqrt{\left\|{c}\right\|^{2} + \left\|{d}\right\|^{2}}} + \frac{d h}{\sqrt{\left\|{c}\right\|^{2} + \left\|{d}\right\|^{2}}}\end{matrix}\right)]
 |===
 
 whereas applying the gate first and measuring the qubit afterwards gives:
@@ -107,3 +126,103 @@ stem:[\left(\begin{matrix}\frac{a e + b f}{\sqrt{\left\|{a e + b f}\right\|^{2} 
 stem:[\left(\begin{matrix}0\\0\\\frac{c e + d f}{\sqrt{\left\|{c e + d f}\right\|^{2} + \left\|{c g + d h}\right\|^{2}}}\\\frac{c g + d h}{\sqrt{\left\|{c e + d f}\right\|^{2} + \left\|{c g + d h}\right\|^{2}}}\end{matrix}\right)]
 |===
 
+The two cases seem to give different results. The tables don't seem to be identical. However, remember that stem:[G] has to be a unitary matrix meaning
+
+\begin{equation}
+GG^\dagger = G^\dagger G = I
+\end{equation}
+
+and this leads to some strong constraints on what stem:[e, f, g, h] can be. Below are all the constraints that must apply to stem:[e, f, g, h]:
+
+\begin{align}
+|e|^2 + |f|^2 & = 1 \\
+|e|^2 + |g|^2 & = 1 \\
+|g|^2 + |h|^2 & = 1 \\
+|f|^2 + |h|^2 & = 1 \\
+eg^* + fh^* & = 0 \\
+e^* g + f^* h & = 0 \\
+ef^* + gh^* & = 0 \\
+e^* f + g^* h & = 0 
+\end{align}
+
+With this and the fact that given two complex numbers stem:[z_1] and stem:[z_2]:
+
+\begin{equation}
+|z_1 + z_2|^2 = |z_1|^2 + |z_2|^2 + 2\textrm{Re}(z_1 z_2^*)
+\end{equation}
+
+we have:
+
+\begin{equation}
+|ae + bf|^2 = |a|^2 |e|^2 + |b|^2 |f|^2 + 2\textrm{Re}(ae b^* f^*) 
+\end{equation}
+
+and:
+
+\begin{equation}
+|ag + bh|^2 = |a|^2 |g|^2 + |b|^2 |h|^2 + 2\textrm{Re}(ag b^* h^*) 
+\end{equation}
+
+and so:
+
+[stem]
+++++
+\begin{equation}
+\begin{split}
+|ae + bf|^2 + |ag + bh|^2 & = |a|^2 (|e|^2 + |g|^2) + |b|^2 (|f|^2 + |h|^2) + 2\textrm{Re}(ab^* (ef^* + gh^*)) \\
+                          & = |a|^2 \cdot 1 + |b|^2 \cdot 1 + 2\textrm{Re}(ab^* \cdot 0) \\
+                          & = |a|^2 + |b|^2
+\end{split}
+\end{equation}
+++++
+
+Similarly one can show that:
+
+[stem]
+++++
+\begin{equation}
+|ce + df|^2 + |cg + dh|^2 = |c|^2 + |d|^2
+\end{equation}
+++++
+
+and so _the two tables are actually identical!_. This is good news otherwise there would have been a big problem. 
+
+[verse]
+Khuda ka shukr hai, varna guzarti kaise shaam...
+
+'''
+
+One more thing before we wrap up. We have seen that to measure a qubit:
+
+image::/assets/images/measure_qubit.jpg[]
+
+we need to form stem:[I \otimes Z] and perform the measurement with this observable.
+The circuit can also be written as:
+
+image::/assets/images/measure_qubit_equivalent_circuit.jpg[]
+
+where stem:[I] is identity matrix. So putting 2 and 2 together if we instead have the circuit that we began with:
+
+image::/assets/images/mix_measurement_and_gate.jpg[]
+
+_What if we form stem:[Z \otimes Z] and perform a measurement with stem:[M = Z \otimes Z]. What does that give?_
+The answer is:
+
+.Measure stem:[Z \otimes Z]
+[options="header"]
+|===
+| | Outcome 1 | Outcome 2
+| probability |
+stem:[\left\|{a}\right\|^{2} + \left\|{d}\right\|^{2}] |
+stem:[\left\|{b}\right\|^{2} + \left\|{c}\right\|^{2}] |
+stem:[\Psi] |
+stem:[\left(\begin{matrix}\frac{a}{\sqrt{\left\|{a}\right\|^{2} + \left\|{d}\right\|^{2}}}\\0\\0\\\frac{d}{\sqrt{\left\|{a}\right\|^{2} + \left\|{d}\right\|^{2}}}\end{matrix}\right)] |
+stem:[\left(\begin{matrix}0\\\frac{b}{\sqrt{\left\|{b}\right\|^{2} + \left\|{c}\right\|^{2}}}\\\frac{c}{\sqrt{\left\|{b}\right\|^{2} + \left\|{c}\right\|^{2}}}\\0\end{matrix}\right)]
+|===
+
+WARNING: _This is different from what we have seen earlier and is incorrect way of "`measuring the first qubit and applying a gate on the second qubit`"._
+
+It is unfortunate that none of the books explain these things. But working them out on my own gives me the confidence that I understand at least some of this difficult topic.
+
+[verse]
+I will never know myself until I do this on my own...
