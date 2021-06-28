@@ -48,6 +48,7 @@ asciidoctor:
   attributes:    
     source-highlighter: pygments
     pygments-css: style
+    icons: font
 
 # Publish posts or collection documents with a future date
 # https://jekyllrb.com/docs/configuration/options/
