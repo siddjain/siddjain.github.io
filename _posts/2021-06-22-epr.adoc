@@ -2,7 +2,8 @@
 layout: mathjax-post
 title:  "Learning Quantum Mechanics The Hard Way"
 date:   2021-06-22 14:54:14 -0700
-categories: quantum-mechanics
+categories: quantum-computing
+description: understand what is the EPR Paradox
 ---
 = Learning Quantum Mechanics The Hard Way
 Siddharth Jain <siddjain@live.com>
