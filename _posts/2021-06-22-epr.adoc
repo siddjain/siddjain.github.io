@@ -159,3 +159,62 @@ All that is left is to compute stem:[\langle \psi | M_B \otimes M_A | \psi \rang
 >>> t
 [-a₁⋅b₁ - a₂⋅b₂ - a₃⋅b₃]
 ----
+
+'''
+
+Note that the expected value of the product of spins is different from the probability that the spins are equal. This
+probability is used in e.g., https://youtu.be/RxbTEw0Pz08?t=263[this] video.
+
+[stem]
+++++
+\begin{equation}
+\begin{split}
+E[s_a \times s_b] & = (s_a \times s_b) \textrm{Prob}(s_a = s_b) + (s_a \times s_b) \textrm{Prob}(s_a \neq s_b) \\
+                  & = +1 \cdot \textrm{Prob}(s_a = s_b) - 1 \cdot \textrm{Prob}(s_a \neq s_b) \\
+                  & = p - (1 - p) \\
+                  & = 2 p - 1
+\end{split}
+\end{equation}
+++++
+
+which gives:
+
+[stem]
+++++
+\begin{equation}
+\begin{split}
+\textrm{Prob}(s_a = s_b) & = \frac{1 + E[s_a \times s_b]}{2} \\
+             & = \frac{1 + \cos \theta}{2} \\
+             & = \cos^2 \frac{\theta}{2}
+\end{split}
+\end{equation}
+++++
+
+which is the formula in that video. There is a problem though. stem:[E[s_a \times s_b\]] is equal to stem:[-\cos \theta] and not stem:[+ \cos \theta]
+as we have done above. Buth then the stem:[\Psi] we have used is different from the stem:[\Psi] used in the video. In the video he is using:
+
+[stem]
+++++
+\begin{equation}
+\begin{split}
+\Psi & = \frac{1}{\sqrt 2}|00\rangle + \frac{1}{\sqrt 2}|11\rangle \\
+     & = \left[\begin{matrix}\frac{\sqrt{2}}{2}\\0\\0\\\frac{\sqrt{2}}{2}\end{matrix}\right]
+\end{split}
+\end{equation}
+++++
+
+and if we do that:
+
+----
+t = psi.H * TensorProduct(M_A, M_B) * psi
+----
+
+gives:
+
+----
+>>> t.simplify()
+>>> t
+[a₁⋅b₁ - a₂⋅b₂ + a₃⋅b₃]
+----
+
+but this also is not stem:[+ \cos \theta]. What gives?
