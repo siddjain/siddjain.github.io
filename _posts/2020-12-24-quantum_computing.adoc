@@ -13,9 +13,7 @@ Siddharth Jain <siddjain@live.com>
 :eqnums: all
 :xrefstyle: short
 
-== Preliminaries 
-
-=== The Probability Amplitude Vector or the Wave Function
+== The Probability Amplitude Vector or the Wave Function
 
 A big hurdle in understanding quantum computing is the obnoxious notation that really gets in the way esp. when writing equations on paper.
 Anyway begin by recalling that given a system of _n_ qubits, the state of the system is represented by a _probability amplitude vector_
@@ -53,7 +51,7 @@ which is saying the sum of probabilities should equal 1. The LHS is also known v
 * the squared length of the vector
 * inner product of the vector with itself
 
-=== Quantum Circuits as Unitary Matrix Computations
+== Quantum Circuits as Unitary Matrix Computations
 
 A quantum circuit can be expressed as a series of matrix transforms i.e., a series of matrix multiplications.
 Each matrix transform is such that the transformed _probability amplitude vector_ should obey the law of probability (<<law-of-prob>>)
@@ -66,7 +64,7 @@ Given a unitary matrix stem:[U] the _ij-th_ entry in this matrix is nothing but 
 the _j-th_ state, they will end up in _i-th_ state after _measurement_. The complex probability amplitude has to be mod-squared to get the
 actual probability.
 
-=== Unitary Matrices: Deeper Dive
+== Unitary Matrices: Deeper Dive
 
 A quantum gate has to preserve the "`total probability`" of the input wave function i.e., the total prob. should equal to stem:[1] after the
 operation of the gate. The total probability is nothing but the length of the vector. _So the matrix corresponding to the gate has to preserve lengths._
@@ -100,7 +98,9 @@ U^\dagger U = U U ^\dagger = I
 ++++
 
 Its easier to prove than I thought. _Note that in order to prove this nowhere did we use the Schrodinger equation._
-_The only thing we used is the requirement that probability must be conserved._
+_The only thing we used is the requirement that probability must be conserved and an assumption that the evolution of the wave function can be described by a linear map (a matrix)._
+What is the Schrodinger equation about then? The Schrodinger equation tells us the form of the unitary matrix and relates it to the Hamiltonian of the system.
+That is what it brings to the table.
 
 We have seen that unitary matrices preserve lengths. What about angles? As exercise prove that unitary matrices preserve angles (i.e., inner products)
 as well. See Nielsen and Chuang equation 2.36 p. 71. 
@@ -117,20 +117,20 @@ Finally, remember that if stem:[H] is Hermitian, then stem:[\exp(iH)] is unitary
 stem:[U] is unitary, then stem:[-i\log(U)] is Hermitian. See exercises 2.55, 2.56 on p.84 in Nielsen and Chuang. So behind every unitary matrix
 is a Hermitian matrix and vice-versa.
 
-=== Vector space vs. Hilbert Space
+== Vector space vs. Hilbert Space
 
 Books on QM always talk of a Hilbert space. It sounds something very special from a normal vector space. In reality it isn't that special.
 A Hilbert space is simply a vector space with a well-defined _inner product_ - that is all there is to it. See NC p. 66.
-Technically, a vector space does not have to have a inner product defined on it. Hilbert space is just the more accurate term.
+Technically, a vector space does not have to have a inner product defined on it. Hilbert space is just the more accurate term. 
 
-=== Definition: Superposition
+== Definition: Superposition
 
 When the _probability amplitude vector_ stem:[\Psi] is such that all entries are `0` except for one which is `1`, it is in a 
 _pure state_ or a _computational basis state_. This is the case after _measurement_ when all qubits collapse into definite `0` s or `1` s.
 In any other case the _probability amplitude vector_ is in a state of _superposition_. i.e., _superposition_ is defined to be the state when 
 stem:[\Psi] is not a "`Kronecker delta`" vector.
 
-=== Definition: Entanglement
+== Definition: Entanglement
 
 All statements below are equivalent and correspond to the case when the qubits are _not_ in entanglement:
 
@@ -150,7 +150,7 @@ _Note carefully that in above equation, the LHS is a vector of length 2^n^ where
 
 When <<factorizable-pdf>> does not hold i.e., the joint pdf is not factorizable the qubits are in a state of _entanglement_.
 
-=== The Ugly notation
+== The Ugly notation
 
 Remember that stem:[|0\rangle] is shorthand for stem:[\begin{pmatrix} 1 \\ 0 \end{pmatrix}] which is the _probability amplitude vector_ of a single qubit
 that is in a definite state. And stem:[|1\rangle] is shorthand for stem:[\begin{pmatrix} 0 \\ 1 \end{pmatrix}].
@@ -169,7 +169,7 @@ The pure states of a two qubit system are expressed variously as (see https://yo
 The _probability amplitude vector_ is rarely written down due to its length. It explodes with _n_. But that's the _real thing_.
 You should always remember that when you see stem:[|00\rangle] it is a shorthand for the actual stem:[4 \times 1] vector.
 
-=== EPR or Bell Pair
+== EPR or Bell Pair
 
 The simplest demonstration of entanglement is with the EPR or Bell Pair which is a two qubit system whose wave function is given by
 following where the stem:[\frac{1}{\sqrt 2}] scale factor is removed for brevity:
@@ -403,17 +403,83 @@ But the order of the gates doesn't matter. This is _quantum teleportation_. QED.
 
 Quantum computers manipulate qubits using unitary matrices, but that is not what we are taught in
 physics classes on Quantum Mechanics. QM teaches us the time evolution of a quantum system is described by the Schrodinger equation. How does an equation become a gate?
-What gives? This is important concept to understand. See Nielsen and Chuang p. 83 for the connection.
-_The gate is nothing but stem:[U = \exp(iH)] where stem:[H] is Hamiltonian of the system describing its energy._
-If you think about how a quantum gate is physically implemented and realized, it would require controlling the Hamiltonian stem:[H] of the system.
-And if we can programmatically control this, the system legitimately becomes a computer.
+What gives? This is important concept to understand. See Nielsen and Chuang p. 83 for the connection. The Schrodinger equation is:
+
+[stem]
+++++
+\begin{equation}
+i \hbar \frac{\partial}{\partial t} \Psi = H \Psi
+\end{equation}
+++++
+
+where I have omitted bra-ket notation. stem:[H], known as Hamiltonian of the system, is an _operator_ that acts on the wavefunction. So its more like
+stem:[H(\Psi)]. There are two variables at play here. One is time stem:[t] and another is for example stem:[x] - the position of the particle.
+When stem:[x] is a continuous variable, stem:[H] is a differential operator and stem:[\Psi] cannot be written as a vector - or you could write it but it will
+have infinite length; hence we hear of infinite dimensional spaces. In quantum computing, we confine ourselves to cases when stem:[x] is not continuous. It is discrete.
+In fact, its binary and can take on only two values. An example of such stem:[x] is the spin of an electron. stem:[\Psi] in this case is a stem:[2 \times 1] vector
+ - considering a system made up of only one particle. And stem:[H] is a matrix. The time variable in quantum computing is simply the sequence of gates we apply to stem:[\Psi].
+
+If stem:[H] is not a function of time, then the solution to the equation is simply:
+
+[stem]
+++++
+\begin{equation}
+\Psi(t) = \exp (- \frac{i}{\hbar} H t) \Psi(0)
+\end{equation}
+++++
+
+and so the unitary matrices or gates we encounter in quantum computing are nothing but:
+
+[stem]
+++++
+\begin{equation}
+U = \exp (- \frac{i}{\hbar} H ) 
+\end{equation}
+++++
+
+where stem:[t] is removed. Think of it as a tiny constant like the reciprocal of the clock speed of the computer.
+So to apply different gates to the system we need to manipulate its Hamiltonian. Quantum computer allows us to program and control the Hamiltonian with time.
+
+Another analysis I did which did not lead me anywhere was as follows: to a first order approximation, assuming stem:[H] is not a function of time, the Schrodinger equation can
+then be simplified to (considering an infinitestimal step in time):
+
+[stem]
+++++
+\begin{equation}
+i \hbar (\Psi_2 - \Psi_1) = H \Psi_1
+\end{equation}
+++++
+
+or, stem:[\Psi_2] is simply:
+
+[stem]
+++++
+\begin{equation}
+\Psi_2 = (I - i H) \Psi_1
+\end{equation}
+++++
+
+and by this logic the gate is given by stem:[I - i H]. Compare to stem:[\exp (- i H )]. To first order approximation, stem:[\exp (- i H )] is indeed
+stem:[I - i H].
+
+In summary QM can be formulated in a matrix form when the state vector stem:[\Psi] is finite dimensional (i.e., stem:[x] is discrete and takes on only finite number of values).
+Quantum computing relies on this formulation of QM and the matrix formulation actually goes all the way back to Werner Heisenberg. See 
+https://en.wikipedia.org/wiki/Matrix_mechanics[this] for reference.
 
 == Gate-based computation vs. quantum annealing
 
 D-Wave is a company that makes quantum computers. Its machines have been subject of some controversy e.g., see 
 https://quantumcomputing.stackexchange.com/questions/171/is-there-proof-that-the-d-wave-one-is-a-quantum-computer-and-is-effective[this] and references therein.
 _D-Wave's machine does not apply gates to a system of qubits._ Instead what it does is a process known as _quantum annealing_.
-In this process a system of qubits is prepared in a ground state and the Hamiltonian of the system is gradually evolved to a target Hamiltonian.
+In this process a system of qubits is prepared in a ground state stem:[H_0] and the Hamiltonian of the system is gradually evolved to a target Hamiltonian stem:[H_1].
+
+[stem]
+++++
+\begin{equation}
+H(t) = (1 - t) \cdot H_0 + t \cdot H_1
+\end{equation}
+++++
+
 If the process is done slow enough, then there is a https://en.wikipedia.org/wiki/Adiabatic_theorem[theorem] that guarantees that the qubits will remain in their
 lowest energy state as the system is evolved. What is the upshot? The upshot is that the target Hamiltonian is such that its ground state will give the solution of 
 the problem that we wanted to solve. This is also known as _quantum adiabatic computation_ to distingush it from _gate-based computation_. It has been shown that
@@ -426,4 +492,5 @@ quantum adiabatic computation. See 5:27 in https://youtu.be/zvfkXjzzYOo?t=327[th
 <iframe width="560" height="315" src="https://www.youtube.com/embed/zvfkXjzzYOo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 ++++
 
-More on adiabatic quantum computation in https://youtu.be/vFpNNrt-baE[this] video.
+According to https://youtu.be/NwoD82hDImM?t=672[this] video, for a problem to be solved by a quantum annealer, it must be cast into a QUBO - quadratic unconstrained binary
+optimization. More on adiabatic quantum computation in https://youtu.be/vFpNNrt-baE[this] video.
