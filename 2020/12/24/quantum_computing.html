@@ -65,7 +65,8 @@
 <div class="paragraph">
 <p>A big hurdle in understanding quantum computing is the obnoxious notation that really gets in the way esp. when writing equations on paper.
 Anyway begin by recalling that given a system of <em>n</em> qubits, the state of the system is represented by a <em>probability amplitude vector</em>
-aka <em>the wave function</em> \(\Psi\) of length <strong>2<sup>n</sup></strong>. <em>It is nothing but the joint probability distribution of the 2<sup>n</sup> states that the qubit register can end up in when measured</em>.
+aka <em>the wave function</em> aka <em>the state vector</em> (all 3 are the same thing) \(\Psi\) of length <strong>2<sup>n</sup></strong>.
+<em>It is nothing but the joint probability distribution of the 2<sup>n</sup> states that the qubit register can end up in when measured</em>.
 When the qubit register is <em>measured</em> all the qubits will collapse into <code>0</code> s and <code>1</code> s giving
 a binary number between 0 and 2<sup>n</sup>-1.
 <em>Different measurements will yield different values according to the probability amplitude vector</em>.
@@ -130,6 +131,74 @@ actual probability.</p>
 </div>
 </div>
 <div class="sect2">
+<h3 id="unitary-matrices-deeper-dive">Unitary Matrices: Deeper Dive</h3>
+<div class="paragraph">
+<p>A quantum gate has to preserve the &#8220;total probability&#8221; of the input wave function i.e., the total prob. should equal to \(1\) after the
+operation of the gate. The total probability is nothing but the length of the vector. <em>So the matrix corresponding to the gate has to preserve lengths.</em>
+Let \(\textbf{u}\) be a vector and \(U\) be matrix corresponding to a quantum gate acting on this vector. The new vector is given by
+\(\textbf{v} = U\textbf{u}\). The length of the new vector is inner product of the vector with itself by definition. Let&#8217;s calculate it:</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{equation}
+|| \textbf{v} ||^2 = \textbf{v}^\dagger \textbf{v} = (U\textbf{u})^\dagger (U\textbf{u}) = \textbf{u}^\dagger U^\dagger U \textbf{u}
+\end{equation}\]
+</div>
+</div>
+<div class="paragraph">
+<p>For this to equal length of the input vector \(\textbf{u}^\dagger \textbf{u}\) we require:</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{equation}
+U^\dagger U = I
+\end{equation}\]
+</div>
+</div>
+<div class="paragraph">
+<p>The constraint \(U U ^\dagger = I\) can be derived similarly by computing the inner product as \(\textbf{v} \textbf{v}^\dagger\) instead of
+\(\textbf{v}^\dagger \textbf{v}\). In summary we require:</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{equation}
+U^\dagger U = U U ^\dagger = I
+\end{equation}\]
+</div>
+</div>
+<div class="paragraph">
+<p>Its easier to prove than I thought. <em>Note that in order to prove this nowhere did we use the Schrodinger equation.</em>
+<em>The only thing we used is the requirement that probability must be conserved.</em></p>
+</div>
+<div class="paragraph">
+<p>We have seen that unitary matrices preserve lengths. What about angles? As exercise prove that unitary matrices preserve angles (i.e., inner products)
+as well. See Nielsen and Chuang equation 2.36 p. 71.</p>
+</div>
+<div class="paragraph">
+<p><em>So a unitary matrix preserves lengths and even angles (inner products) but note that it does not have to be a rotation matrix.
+Rotation matrices are even more special. They are a special case of unitary matrices containing only real values with
+the additional constraint that the determinant has to be \(+1\). \(-1\) corresponds to a reflection matrix. A reflection is not the
+same as rotation. A rotation by \(\pi\) does not give you a reflection.</em></p>
+</div>
+<div class="paragraph">
+<p>Vazirani in his videos talks about the action of the unitary matrix as rotating the Hilbert space but that is a simplification to aid in teaching.
+A unitary matrix can do more than rotation.</p>
+</div>
+<div class="paragraph">
+<p>Finally, remember that if \(H\) is Hermitian, then \(\exp(iH)\) is unitary and if
+\(U\) is unitary, then \(-i\log(U)\) is Hermitian. See exercises 2.55, 2.56 on p.84 in Nielsen and Chuang. So behind every unitary matrix
+is a Hermitian matrix and vice-versa.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="vector-space-vs-hilbert-space">Vector space vs. Hilbert Space</h3>
+<div class="paragraph">
+<p>Books on QM always talk of a Hilbert space. It sounds something very special from a normal vector space. In reality it isn&#8217;t that special.
+A Hilbert space is simply a vector space with a well-defined <em>inner product</em> - that is all there is to it. See NC p. 66.
+Technically, a vector space does not have to have a inner product defined on it. Hilbert space is just the more accurate term.</p>
+</div>
+</div>
+<div class="sect2">
 <h3 id="definition-superposition">Definition: Superposition</h3>
 <div class="paragraph">
 <p>When the <em>probability amplitude vector</em> \(\Psi\) is such that all entries are <code>0</code> except for one which is <code>1</code>, it is in a
@@ -178,7 +247,7 @@ In any other case the <em>probability amplitude vector</em> is in a state of <em
 that is in a definite state. And \(|1\rangle\) is shorthand for \(\begin{pmatrix} 0 \\ 1 \end{pmatrix}\).</p>
 </div>
 <div class="paragraph">
-<p>The pure states of a two qubit system are expressed variously as</p>
+<p>The pure states of a two qubit system are expressed variously as (see <a href="https://youtu.be/392t0hBkcwM?t=362">this</a> for reference)</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -577,6 +646,41 @@ inconsequential as quantum states are indistinguishable
 modulo a global phase factor i.e., the state \(\psi\) cannot be distinguished from \(e^{i\theta}\psi\).
 If you want to get \(\psi\) you will apply \(X\) followed by \(Z\).
 But the order of the gates doesn&#8217;t matter. This is <em>quantum teleportation</em>. QED.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="the-connection-between-qm-and-qc">The connection between QM and QC</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Quantum computers manipulate qubits using unitary matrices, but that is not what we are taught in
+physics classes on Quantum Mechanics. QM teaches us the time evolution of a quantum system is described by the Schrodinger equation. How does an equation become a gate?
+What gives? This is important concept to understand. See Nielsen and Chuang p. 83 for the connection.
+<em>The gate is nothing but \(U = \exp(iH)\) where \(H\) is Hamiltonian of the system describing its energy.</em>
+If you think about how a quantum gate is physically implemented and realized, it would require controlling the Hamiltonian \(H\) of the system.
+And if we can programmatically control this, the system legitimately becomes a computer.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="gate-based-computation-vs-quantum-annealing">Gate-based computation vs. quantum annealing</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>D-Wave is a company that makes quantum computers. Its machines have been subject of some controversy e.g., see
+<a href="https://quantumcomputing.stackexchange.com/questions/171/is-there-proof-that-the-d-wave-one-is-a-quantum-computer-and-is-effective">this</a> and references therein.
+<em>D-Wave&#8217;s machine does not apply gates to a system of qubits.</em> Instead what it does is a process known as <em>quantum annealing</em>.
+In this process a system of qubits is prepared in a ground state and the Hamiltonian of the system is gradually evolved to a target Hamiltonian.
+If the process is done slow enough, then there is a <a href="https://en.wikipedia.org/wiki/Adiabatic_theorem">theorem</a> that guarantees that the qubits will remain in their
+lowest energy state as the system is evolved. What is the upshot? The upshot is that the target Hamiltonian is such that its ground state will give the solution of
+the problem that we wanted to solve. This is also known as <em>quantum adiabatic computation</em> to distingush it from <em>gate-based computation</em>. It has been shown that
+quantum computing by adiabatic evolution is equivalent to unitary gate computation in power:
+<em>anything that a unitary gate quantum computer can do in polynomial time, an adiabatic computer can as well, and vice-versa.</em>
+But if you go down the rabbit hole, it seems - I am still learning - quantum annealing (i.e., D-Wave) is not exactly the same as
+quantum adiabatic computation. See 5:27 in <a href="https://youtu.be/zvfkXjzzYOo?t=327">this</a> video:</p>
+</div>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/zvfkXjzzYOo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div class="paragraph">
+<p>More on adiabatic quantum computation in <a href="https://youtu.be/vFpNNrt-baE">this</a> video.</p>
 </div>
 </div>
 </div>

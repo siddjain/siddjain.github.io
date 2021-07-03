@@ -244,6 +244,149 @@ eigenvalues of Alice and Bob&#8217;s matrices. And we are done. QED.</p>
 [-a₁⋅b₁ - a₂⋅b₂ - a₃⋅b₃]</pre>
 </div>
 </div>
+<hr>
+<div class="paragraph">
+<p>Note that the expected value of the product of spins is different from the probability that the spins are equal. This
+probability is used in e.g., <a href="https://youtu.be/RxbTEw0Pz08?t=263">this</a> video (Fast Forward to 4:30 if you like).
+Also see section 2.2 on p.21 in <a href="https://people.eecs.berkeley.edu/~vazirani/f19quantum/notes/191.pdf">this</a> pdf.</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{equation}
+\begin{split}
+E[s_a \times s_b] &amp; = (s_a \times s_b) \textrm{Prob}(s_a = s_b) + (s_a \times s_b) \textrm{Prob}(s_a \neq s_b) \\
+                  &amp; = +1 \cdot \textrm{Prob}(s_a = s_b) - 1 \cdot \textrm{Prob}(s_a \neq s_b) \\
+                  &amp; = p - (1 - p) \\
+                  &amp; = 2 p - 1
+\end{split}
+\end{equation}\]
+</div>
+</div>
+<div class="paragraph">
+<p>which gives:</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{equation}
+\begin{split}
+\textrm{Prob}(s_a = s_b) &amp; = \frac{1 + E[s_a \times s_b]}{2} \\
+             &amp; = \frac{1 + \cos \theta}{2} \\
+             &amp; = \cos^2 \frac{\theta}{2}
+\end{split}
+\end{equation}\]
+</div>
+</div>
+<div class="paragraph">
+<p>which is the formula in that video - or is it? The formula in the video is \(\cos^2 \theta\).
+Another problem is that \(E[s_a \times s_b]\) is equal to \(-\cos \theta\) (refer Bell equation again if you like) and not \(+ \cos \theta\).
+What gives? The \(\Psi\) we have used is different from the \(\Psi\) used in the video. In the video he is using:</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{equation}
+\begin{split}
+\Psi &amp; = \frac{1}{\sqrt 2}|00\rangle + \frac{1}{\sqrt 2}|11\rangle \\
+     &amp; = \left[\begin{matrix}\frac{\sqrt{2}}{2}\\0\\0\\\frac{\sqrt{2}}{2}\end{matrix}\right]
+\end{split}
+\end{equation}\]
+</div>
+</div>
+<div class="paragraph">
+<p>and if we do that:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>t = psi.H * TensorProduct(M_A, M_B) * psi</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>gives:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>&gt;&gt;&gt; t.simplify()
+&gt;&gt;&gt; t
+[a₁⋅b₁ - a₂⋅b₂ + a₃⋅b₃]</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This formula is also worked out in <a href="https://www.physicsforums.com/insights/bell-states-and-conservation-of-spin-angular-momentum/">this</a> article.
+But this also is not \(+ \cos \theta\). What gives now? Well the answer is this: consider what happens to the state
+\(\frac{1}{\sqrt 2}|00\rangle + \frac{1}{\sqrt 2}|11\rangle\) when it is subjected to an arbitrary Unitary transform with bases
+\(u\) and \(u^ \perp\). Thus, let:</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{align}
+|0\rangle &amp; = \alpha|u\rangle + \beta|u^\perp\rangle \\
+|1\rangle &amp; = \gamma|u\rangle + \delta|u^\perp\rangle \\
+\end{align}\]
+</div>
+</div>
+<div class="paragraph">
+<p>giving:</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{align}
+|00\rangle &amp; = (\alpha|u\rangle + \beta|u^\perp\rangle) (\alpha|u\rangle + \beta|u^\perp\rangle) \\
+           &amp; = \alpha^2 |uu\rangle + \alpha\beta |uu^\perp\rangle + \beta\alpha|u^\perp u\rangle + \beta^2|u^\perp u^\perp\rangle
+\end{align}\]
+</div>
+</div>
+<div class="paragraph">
+<p>Here \(\alpha^2\) is \(\alpha^2\). It is not \(|\alpha|^2\). For \(|11\rangle\) we get:</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{equation}
+|11\rangle = \gamma^2 |uu\rangle + \gamma\delta |uu^\perp\rangle + \delta\gamma|u^\perp u\rangle + \delta^2|u^\perp u^\perp\rangle
+\end{equation}\]
+</div>
+</div>
+<div class="paragraph">
+<p>and so in the new basis:</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{split}
+|\Phi^+\rangle &amp; =  (\alpha^2 + \gamma^2) |uu\rangle \\
+               &amp; + (\beta^2 + \delta^2) |u^\perp u^\perp\rangle \\
+               &amp; + (\alpha\beta + \gamma\delta) (|u u^\perp \rangle +  |u^\perp u \rangle )
+\end{split}\]
+</div>
+</div>
+<div class="paragraph">
+<p>and <em>this is equal to \(|uu\rangle + |u^\perp u^\perp \rangle\) (an assumption Vazirani is making in his video if you analyze his logic carefully) only if</em>:</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{equation}
+\begin{pmatrix}
+\alpha &amp;&amp; \beta \\
+\gamma &amp;&amp; \delta
+\end{pmatrix}
+=
+\begin{pmatrix}
+\cos \theta &amp;&amp; -\sin \theta \\
+\sin \theta &amp;&amp; \cos \theta
+\end{pmatrix}
+\end{equation}\]
+</div>
+</div>
+<div class="paragraph">
+<p>thus the tranform cannot be arbitrary. It has to be a rotation. In other words, \(|\Phi^+\rangle\) is invariant
+to a rotation but not otherwise. This is actually called out in <a href="https://www.physicsforums.com/insights/bell-states-and-conservation-of-spin-angular-momentum/">this</a> article
+as well. At the very top of his slide Vazirani does say in bold Rotational Invariance of the Bell State. So he is not considering any arbitrary transform.
+He is only considering rotational transforms and the axes \(u, u^\perp, v, v^\perp\) lie in the \(xz\) plane i.e., the \(y\) component is zero.
+When that is the case, then a₁⋅b₁ - a₂⋅b₂ + a₃⋅b₃ reduces to a₁⋅b₁ + a₃⋅b₃ and is equal to \(\cos \theta\). There is still a problem.
+There is a fctor of \(2\) mismatch. The formula in his video is \(\cos^2 \theta\) but we get \(\cos^2 \frac{\theta}{2}\). What gives? I don&#8217;t know.</p>
+</div>
+<div class="paragraph">
+<p>Of the 4 <a href="https://en.wikipedia.org/wiki/Bell_state">bell states</a>, the spin-singlet state also denoted as \(\Psi^-\) is the only state that is invariant to any unitary transform.
+All other states are invariant only to rotations. Again, read <a href="https://www.physicsforums.com/insights/bell-states-and-conservation-of-spin-angular-momentum/">this</a> article which
+explains it.</p>
+</div>
 </div>
 </div>
   </div>

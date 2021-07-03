@@ -204,27 +204,7 @@ M = M ^ \dagger
 <div class="paragraph">
 <p>where \(\dagger\) denotes the <em>adjoint</em> which
 is formed by taking element-wise complex conjugate followed by transpose operation which turns
-column vectors into row vectors.
-In addition rules of QM only allow unitary transformations:</p>
-</div>
-<div class="stemblock">
-<div class="title">Definition of Unitary operator</div>
-<div class="content">
-\[\begin{equation}
-M ^ \dagger M = I
-\end{equation}\]
-</div>
-</div>
-<div class="paragraph">
-<p>Therefore:</p>
-</div>
-<div class="stemblock">
-<div class="title">Hermitian + Unitary operator</div>
-<div class="content">
-\[\begin{equation}
-M ^ 2 = I
-\end{equation}\]
-</div>
+column vectors into row vectors. Note that measurement operator need not be unitary.</p>
 </div>
 <div class="paragraph">
 <p>What does the measurement process do? It does two things:</p>
@@ -244,7 +224,7 @@ M ^ 2 = I
 <p>The collapse is given by:</p>
 </div>
 <div id="collapse" class="stemblock">
-<div class="title">Wavefunction collapse into the i-th eigenvector \(\textbf{q}_i\)</div>
+<div class="title">Wavefunction collapse onto the i-th eigenvector \(\textbf{q}_i\)</div>
 <div class="content">
 \[\begin{equation}
 \Psi^{'} = e^{i\theta} \textbf{q}_i
@@ -289,6 +269,11 @@ p_i = \langle\Psi|\textbf{q}_i\rangle\langle\textbf{q}_i|\Psi\rangle
 <p>By default, when we see circuit diagrams with a measurement gate, it is measuring with
 \(M=Z\) where \(Z\) is the Pauli \(Z\) matrix with eigen states \(|0\rangle\)
 and \(|1\rangle\). This is also known as <em>measurement in the computational basis</em>.</p>
+</div>
+<div class="paragraph">
+<p><em>What if we have repeated eigenvalues? What eigenvector does the wavefunction collapse to?</em>
+In this case the wavefunction will collapse to the Hilbert space spanned by the associated eigenvectors.
+Umesh Vazirani talks about this in <a href="https://youtu.be/Aw-8NDnNG-8?t=501">this</a> video.</p>
 </div>
 </div>
 </div>
@@ -411,8 +396,9 @@ p_0 = \Psi ^ \dagger \textbf{v}_0 \textbf{v}_0 ^ \dagger \Psi = \frac{1}{4}
 </div>
 <div class="paragraph">
 <p>which in this case will be 0. The best book I have found on QM is not a book but the
-<a href="https://inst.eecs.berkeley.edu/~cs191/fa10/">Lecture Notes</a> by Umesh Vazirani. The book by Nielsen
-and Chuang in typical fashion of a grad book does not explain anything with examples.</p>
+<a href="https://inst.eecs.berkeley.edu/~cs191/fa10/">Lecture Notes</a> by Umesh Vazirani.
+<a href="https://www.youtube.com/watch?v=VPsl_5RQe1A&amp;list=PLnhoxwUZN7-6hB2iWNhLrakuODLaxPTOG">Here</a> are videos of his lectures.
+This is a must watch for anyone.</p>
 </div>
 </div>
 </div>
