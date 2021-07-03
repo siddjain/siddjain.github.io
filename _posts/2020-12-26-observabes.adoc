@@ -146,26 +146,7 @@ M = M ^ \dagger
 
 where stem:[\dagger] denotes the _adjoint_ which
 is formed by taking element-wise complex conjugate followed by transpose operation which turns
-column vectors into row vectors.
-In addition rules of QM only allow unitary transformations:
-
-[latexmath]
-.Definition of Unitary operator
-++++
-\begin{equation}
-M ^ \dagger M = I
-\end{equation}
-++++
-
-Therefore:
-
-[latexmath]
-.Hermitian + Unitary operator
-++++
-\begin{equation}
-M ^ 2 = I
-\end{equation}
-++++
+column vectors into row vectors. Note that measurement operator need not be unitary.
 
 What does the measurement process do? It does two things:
 
@@ -176,7 +157,7 @@ What does the measurement process do? It does two things:
 The collapse is given by:
 
 [latexmath#collapse]
-.Wavefunction collapse into the i-th eigenvector stem:[\textbf{q}_i]
+.Wavefunction collapse onto the i-th eigenvector stem:[\textbf{q}_i]
 ++++
 \begin{equation}
 \Psi^{'} = e^{i\theta} \textbf{q}_i
@@ -217,6 +198,10 @@ p_i = \langle\Psi|\textbf{q}_i\rangle\langle\textbf{q}_i|\Psi\rangle
 By default, when we see circuit diagrams with a measurement gate, it is measuring with
 stem:[M=Z] where stem:[Z] is the Pauli stem:[Z] matrix with eigen states stem:[|0\rangle]
 and stem:[|1\rangle]. This is also known as _measurement in the computational basis_.
+
+_What if we have repeated eigenvalues? What eigenvector does the wavefunction collapse to?_
+In this case the wavefunction will collapse to the Hilbert space spanned by the associated eigenvectors.
+Umesh Vazirani talks about this in https://youtu.be/Aw-8NDnNG-8?t=501[this] video.
 
 == An Example
 
@@ -325,5 +310,6 @@ and turns out to be same as:
 ++++
 
 which in this case will be 0. The best book I have found on QM is not a book but the
-https://inst.eecs.berkeley.edu/~cs191/fa10/[Lecture Notes] by Umesh Vazirani. The book by Nielsen
-and Chuang in typical fashion of a grad book does not explain anything with examples.
+https://inst.eecs.berkeley.edu/~cs191/fa10/[Lecture Notes] by Umesh Vazirani. 
+https://www.youtube.com/watch?v=VPsl_5RQe1A&list=PLnhoxwUZN7-6hB2iWNhLrakuODLaxPTOG[Here] are videos of his lectures.
+This is a must watch for anyone. 

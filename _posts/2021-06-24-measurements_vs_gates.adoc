@@ -76,7 +76,8 @@ In Quantum Computing, there is a _big difference between gates and measurements.
 _Gates are characterized by unitary matrices stem:[UU^\dagger=I] and represent the time evolution of a quantum system._
 _Measurements are characterized by Hermitian matrices stem:[M=M^\dagger] and collapse the wavefunction to one of the eigenvectors (also known as eigenstates) of the observable
 (also called as operator). The rule for doing time evolution (https://en.wikipedia.org/wiki/Schr%C3%B6dinger_equation[Schrodinger's equation]; it becomes a simple gate or matrix in 
-Quantum Computing) is different from the rule for doing measurement (https://en.wikipedia.org/wiki/Born_rule[Born's rule]) and that is what all the hungama (drama for English readers) 
+Quantum Computing; read Nielsen and Chuang p. 83 to see how the equation becomes a gate) is different from the rule for doing measurement
+(https://en.wikipedia.org/wiki/Born_rule[Born's rule]) and that is what all the hungama (drama for English readers) 
 is about. This is what Lee Smolin is referring to in his talk:_
 
 ++++

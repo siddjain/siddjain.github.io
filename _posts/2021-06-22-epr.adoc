@@ -163,7 +163,8 @@ All that is left is to compute stem:[\langle \psi | M_B \otimes M_A | \psi \rang
 '''
 
 Note that the expected value of the product of spins is different from the probability that the spins are equal. This
-probability is used in e.g., https://youtu.be/RxbTEw0Pz08?t=263[this] video.
+probability is used in e.g., https://youtu.be/RxbTEw0Pz08?t=263[this] video (Fast Forward to 4:30 if you like).
+Also see section 2.2 on p.21 in https://people.eecs.berkeley.edu/~vazirani/f19quantum/notes/191.pdf[this] pdf.
 
 [stem]
 ++++
@@ -190,8 +191,9 @@ which gives:
 \end{equation}
 ++++
 
-which is the formula in that video. There is a problem though. stem:[E[s_a \times s_b\]] is equal to stem:[-\cos \theta] and not stem:[+ \cos \theta]
-as we have done above. Buth then the stem:[\Psi] we have used is different from the stem:[\Psi] used in the video. In the video he is using:
+which is the formula in that video - or is it? The formula in the video is stem:[\cos^2 \theta].
+Another problem is that stem:[E[s_a \times s_b\]] is equal to stem:[-\cos \theta] (refer Bell equation again if you like) and not stem:[+ \cos \theta].
+What gives? The stem:[\Psi] we have used is different from the stem:[\Psi] used in the video. In the video he is using:
 
 [stem]
 ++++
@@ -217,4 +219,73 @@ gives:
 [a₁⋅b₁ - a₂⋅b₂ + a₃⋅b₃]
 ----
 
-but this also is not stem:[+ \cos \theta]. What gives?
+This formula is also worked out in https://www.physicsforums.com/insights/bell-states-and-conservation-of-spin-angular-momentum/[this] article.
+But this also is not stem:[+ \cos \theta]. What gives now? Well the answer is this: consider what happens to the state
+stem:[\frac{1}{\sqrt 2}|00\rangle + \frac{1}{\sqrt 2}|11\rangle] when it is subjected to an arbitrary Unitary transform with bases
+stem:[u] and stem:[u^ \perp]. Thus, let:
+
+[stem]
+++++
+\begin{align}
+|0\rangle & = \alpha|u\rangle + \beta|u^\perp\rangle \\
+|1\rangle & = \gamma|u\rangle + \delta|u^\perp\rangle \\
+\end{align}
+++++
+
+giving:
+
+[stem]
+++++
+\begin{align}
+|00\rangle & = (\alpha|u\rangle + \beta|u^\perp\rangle) (\alpha|u\rangle + \beta|u^\perp\rangle) \\
+           & = \alpha^2 |uu\rangle + \alpha\beta |uu^\perp\rangle + \beta\alpha|u^\perp u\rangle + \beta^2|u^\perp u^\perp\rangle
+\end{align}
+++++
+
+Here stem:[\alpha^2] is stem:[\alpha^2]. It is not stem:[|\alpha|^2]. For stem:[|11\rangle] we get:
+
+[stem]
+++++
+\begin{equation}
+|11\rangle = \gamma^2 |uu\rangle + \gamma\delta |uu^\perp\rangle + \delta\gamma|u^\perp u\rangle + \delta^2|u^\perp u^\perp\rangle
+\end{equation}
+++++
+
+and so in the new basis:
+
+[stem]
+++++
+\begin{split}
+|\Phi^+\rangle & =  (\alpha^2 + \gamma^2) |uu\rangle \\
+               & + (\beta^2 + \delta^2) |u^\perp u^\perp\rangle \\
+               & + (\alpha\beta + \gamma\delta) (|u u^\perp \rangle +  |u^\perp u \rangle )
+\end{split}
+++++
+
+and _this is equal to stem:[|uu\rangle + |u^\perp u^\perp \rangle] (an assumption Vazirani is making in his video if you analyze his logic carefully) only if_:
+
+[stem]
+++++
+\begin{equation}
+\begin{pmatrix}
+\alpha && \beta \\
+\gamma && \delta
+\end{pmatrix} 
+=
+\begin{pmatrix}
+\cos \theta && -\sin \theta \\
+\sin \theta && \cos \theta
+\end{pmatrix} 
+\end{equation}
+++++
+
+thus the tranform cannot be arbitrary. It has to be a rotation. In other words, stem:[|\Phi^+\rangle] is invariant
+to a rotation but not otherwise. This is actually called out in https://www.physicsforums.com/insights/bell-states-and-conservation-of-spin-angular-momentum/[this] article
+as well. At the very top of his slide Vazirani does say in bold Rotational Invariance of the Bell State. So he is not considering any arbitrary transform.
+He is only considering rotational transforms and the axes stem:[u, u^\perp, v, v^\perp] lie in the stem:[xz] plane i.e., the stem:[y] component is zero.
+When that is the case, then a₁⋅b₁ - a₂⋅b₂ + a₃⋅b₃ reduces to a₁⋅b₁ + a₃⋅b₃ and is equal to stem:[\cos \theta]. There is still a problem.
+There is a fctor of stem:[2] mismatch. The formula in his video is stem:[\cos^2 \theta] but we get stem:[\cos^2 \frac{\theta}{2}]. What gives? I don't know.
+
+Of the 4 https://en.wikipedia.org/wiki/Bell_state[bell states], the spin-singlet state also denoted as stem:[\Psi^-] is the only state that is invariant to any unitary transform.
+All other states are invariant only to rotations. Again, read https://www.physicsforums.com/insights/bell-states-and-conservation-of-spin-angular-momentum/[this] article which
+explains it.

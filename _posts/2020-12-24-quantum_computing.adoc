@@ -19,7 +19,8 @@ Siddharth Jain <siddjain@live.com>
 
 A big hurdle in understanding quantum computing is the obnoxious notation that really gets in the way esp. when writing equations on paper.
 Anyway begin by recalling that given a system of _n_ qubits, the state of the system is represented by a _probability amplitude vector_
-aka _the wave function_ stem:[\Psi] of length **2^n^**. _It is nothing but the joint probability distribution of the 2^n^ states that the qubit register can end up in when measured_.
+aka _the wave function_ aka _the state vector_ (all 3 are the same thing) stem:[\Psi] of length **2^n^**.
+_It is nothing but the joint probability distribution of the 2^n^ states that the qubit register can end up in when measured_.
 When the qubit register is _measured_ all the qubits will collapse into `0` s and `1` s giving
 a binary number between 0 and 2^n^-1.
 _Different measurements will yield different values according to the probability amplitude vector_. 
@@ -65,6 +66,63 @@ Given a unitary matrix stem:[U] the _ij-th_ entry in this matrix is nothing but 
 the _j-th_ state, they will end up in _i-th_ state after _measurement_. The complex probability amplitude has to be mod-squared to get the
 actual probability.
 
+=== Unitary Matrices: Deeper Dive
+
+A quantum gate has to preserve the "`total probability`" of the input wave function i.e., the total prob. should equal to stem:[1] after the
+operation of the gate. The total probability is nothing but the length of the vector. _So the matrix corresponding to the gate has to preserve lengths._
+Let stem:[\textbf{u}] be a vector and stem:[U] be matrix corresponding to a quantum gate acting on this vector. The new vector is given by
+stem:[\textbf{v} = U\textbf{u}]. The length of the new vector is inner product of the vector with itself by definition. Let's calculate it:
+
+[stem]
+++++
+\begin{equation}
+|| \textbf{v} ||^2 = \textbf{v}^\dagger \textbf{v} = (U\textbf{u})^\dagger (U\textbf{u}) = \textbf{u}^\dagger U^\dagger U \textbf{u}
+\end{equation}
+++++
+
+For this to equal length of the input vector stem:[\textbf{u}^\dagger \textbf{u}] we require:
+
+[stem]
+++++
+\begin{equation}
+U^\dagger U = I
+\end{equation}
+++++
+
+The constraint stem:[U U ^\dagger = I] can be derived similarly by computing the inner product as stem:[\textbf{v} \textbf{v}^\dagger] instead of
+stem:[\textbf{v}^\dagger \textbf{v}]. In summary we require:
+
+[stem]
+++++
+\begin{equation}
+U^\dagger U = U U ^\dagger = I
+\end{equation}
+++++
+
+Its easier to prove than I thought. _Note that in order to prove this nowhere did we use the Schrodinger equation._
+_The only thing we used is the requirement that probability must be conserved._
+
+We have seen that unitary matrices preserve lengths. What about angles? As exercise prove that unitary matrices preserve angles (i.e., inner products)
+as well. See Nielsen and Chuang equation 2.36 p. 71. 
+
+_So a unitary matrix preserves lengths and even angles (inner products) but note that it does not have to be a rotation matrix.
+Rotation matrices are even more special. They are a special case of unitary matrices containing only real values with
+the additional constraint that the determinant has to be stem:[+1]. stem:[-1] corresponds to a reflection matrix. A reflection is not the
+same as rotation. A rotation by stem:[\pi] does not give you a reflection._ 
+
+Vazirani in his videos talks about the action of the unitary matrix as rotating the Hilbert space but that is a simplification to aid in teaching.
+A unitary matrix can do more than rotation.
+
+Finally, remember that if stem:[H] is Hermitian, then stem:[\exp(iH)] is unitary and if 
+stem:[U] is unitary, then stem:[-i\log(U)] is Hermitian. See exercises 2.55, 2.56 on p.84 in Nielsen and Chuang. So behind every unitary matrix
+is a Hermitian matrix and vice-versa.
+
+=== Vector space vs. Hilbert Space
+
+Books on QM always talk of a Hilbert space. It sounds something very special from a normal vector space. In reality it isn't that special.
+A Hilbert space is simply a vector space with a well-defined _inner product_ - that is all there is to it. See NC p. 66.
+Technically, a vector space does not have to have a inner product defined on it. Hilbert space is just the more accurate term.
+
 === Definition: Superposition
 
 When the _probability amplitude vector_ stem:[\Psi] is such that all entries are `0` except for one which is `1`, it is in a 
@@ -97,7 +155,7 @@ When <<factorizable-pdf>> does not hold i.e., the joint pdf is not factorizable 
 Remember that stem:[|0\rangle] is shorthand for stem:[\begin{pmatrix} 1 \\ 0 \end{pmatrix}] which is the _probability amplitude vector_ of a single qubit
 that is in a definite state. And stem:[|1\rangle] is shorthand for stem:[\begin{pmatrix} 0 \\ 1 \end{pmatrix}].
 
-The pure states of a two qubit system are expressed variously as 
+The pure states of a two qubit system are expressed variously as (see https://youtu.be/392t0hBkcwM?t=362[this] for reference)
 
 [options=header]
 |===
@@ -340,3 +398,32 @@ inconsequential as quantum states are indistinguishable
 modulo a global phase factor i.e., the state stem:[\psi] cannot be distinguished from stem:[e^{i\theta}\psi].
 If you want to get stem:[\psi] you will apply stem:[X] followed by stem:[Z]. 
 But the order of the gates doesn't matter. This is _quantum teleportation_. QED.
+
+== The connection between QM and QC
+
+Quantum computers manipulate qubits using unitary matrices, but that is not what we are taught in
+physics classes on Quantum Mechanics. QM teaches us the time evolution of a quantum system is described by the Schrodinger equation. How does an equation become a gate?
+What gives? This is important concept to understand. See Nielsen and Chuang p. 83 for the connection.
+_The gate is nothing but stem:[U = \exp(iH)] where stem:[H] is Hamiltonian of the system describing its energy._
+If you think about how a quantum gate is physically implemented and realized, it would require controlling the Hamiltonian stem:[H] of the system.
+And if we can programmatically control this, the system legitimately becomes a computer.
+
+== Gate-based computation vs. quantum annealing
+
+D-Wave is a company that makes quantum computers. Its machines have been subject of some controversy e.g., see 
+https://quantumcomputing.stackexchange.com/questions/171/is-there-proof-that-the-d-wave-one-is-a-quantum-computer-and-is-effective[this] and references therein.
+_D-Wave's machine does not apply gates to a system of qubits._ Instead what it does is a process known as _quantum annealing_.
+In this process a system of qubits is prepared in a ground state and the Hamiltonian of the system is gradually evolved to a target Hamiltonian.
+If the process is done slow enough, then there is a https://en.wikipedia.org/wiki/Adiabatic_theorem[theorem] that guarantees that the qubits will remain in their
+lowest energy state as the system is evolved. What is the upshot? The upshot is that the target Hamiltonian is such that its ground state will give the solution of 
+the problem that we wanted to solve. This is also known as _quantum adiabatic computation_ to distingush it from _gate-based computation_. It has been shown that
+quantum computing by adiabatic evolution is equivalent to unitary gate computation in power:
+_anything that a unitary gate quantum computer can do in polynomial time, an adiabatic computer can as well, and vice-versa._
+But if you go down the rabbit hole, it seems - I am still learning - quantum annealing (i.e., D-Wave) is not exactly the same as
+quantum adiabatic computation. See 5:27 in https://youtu.be/zvfkXjzzYOo?t=327[this] video:
+
+++++
+<iframe width="560" height="315" src="https://www.youtube.com/embed/zvfkXjzzYOo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+++++
+
+More on adiabatic quantum computation in https://youtu.be/vFpNNrt-baE[this] video.
