@@ -58,10 +58,8 @@
 
   <div class="post-content e-content" itemprop="articleBody">
     <div class="sect1">
-<h2 id="preliminaries">Preliminaries</h2>
+<h2 id="the-probability-amplitude-vector-or-the-wave-function">The Probability Amplitude Vector or the Wave Function</h2>
 <div class="sectionbody">
-<div class="sect2">
-<h3 id="the-probability-amplitude-vector-or-the-wave-function">The Probability Amplitude Vector or the Wave Function</h3>
 <div class="paragraph">
 <p>A big hurdle in understanding quantum computing is the obnoxious notation that really gets in the way esp. when writing equations on paper.
 Anyway begin by recalling that given a system of <em>n</em> qubits, the state of the system is represented by a <em>probability amplitude vector</em>
@@ -114,8 +112,10 @@ the <em>i-th</em> <em>computational basis state</em> (i.e., will have the numeri
 </ul>
 </div>
 </div>
-<div class="sect2">
-<h3 id="quantum-circuits-as-unitary-matrix-computations">Quantum Circuits as Unitary Matrix Computations</h3>
+</div>
+<div class="sect1">
+<h2 id="quantum-circuits-as-unitary-matrix-computations">Quantum Circuits as Unitary Matrix Computations</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>A quantum circuit can be expressed as a series of matrix transforms i.e., a series of matrix multiplications.
 Each matrix transform is such that the transformed <em>probability amplitude vector</em> should obey the law of probability (<a href="#law-of-prob">Law of probability</a>)
@@ -130,8 +130,10 @@ the <em>j-th</em> state, they will end up in <em>i-th</em> state after <em>measu
 actual probability.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="unitary-matrices-deeper-dive">Unitary Matrices: Deeper Dive</h3>
+</div>
+<div class="sect1">
+<h2 id="unitary-matrices-deeper-dive">Unitary Matrices: Deeper Dive</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>A quantum gate has to preserve the &#8220;total probability&#8221; of the input wave function i.e., the total prob. should equal to \(1\) after the
 operation of the gate. The total probability is nothing but the length of the vector. <em>So the matrix corresponding to the gate has to preserve lengths.</em>
@@ -168,7 +170,9 @@ U^\dagger U = U U ^\dagger = I
 </div>
 <div class="paragraph">
 <p>Its easier to prove than I thought. <em>Note that in order to prove this nowhere did we use the Schrodinger equation.</em>
-<em>The only thing we used is the requirement that probability must be conserved.</em></p>
+<em>The only thing we used is the requirement that probability must be conserved and an assumption that the evolution of the wave function can be described by a linear map (a matrix).</em>
+What is the Schrodinger equation about then? The Schrodinger equation tells us the form of the unitary matrix and relates it to the Hamiltonian of the system.
+That is what it brings to the table.</p>
 </div>
 <div class="paragraph">
 <p>We have seen that unitary matrices preserve lengths. What about angles? As exercise prove that unitary matrices preserve angles (i.e., inner products)
@@ -190,16 +194,20 @@ A unitary matrix can do more than rotation.</p>
 is a Hermitian matrix and vice-versa.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="vector-space-vs-hilbert-space">Vector space vs. Hilbert Space</h3>
+</div>
+<div class="sect1">
+<h2 id="vector-space-vs-hilbert-space">Vector space vs. Hilbert Space</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>Books on QM always talk of a Hilbert space. It sounds something very special from a normal vector space. In reality it isn&#8217;t that special.
 A Hilbert space is simply a vector space with a well-defined <em>inner product</em> - that is all there is to it. See NC p. 66.
 Technically, a vector space does not have to have a inner product defined on it. Hilbert space is just the more accurate term.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="definition-superposition">Definition: Superposition</h3>
+</div>
+<div class="sect1">
+<h2 id="definition-superposition">Definition: Superposition</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>When the <em>probability amplitude vector</em> \(\Psi\) is such that all entries are <code>0</code> except for one which is <code>1</code>, it is in a
 <em>pure state</em> or a <em>computational basis state</em>. This is the case after <em>measurement</em> when all qubits collapse into definite <code>0</code> s or <code>1</code> s.
@@ -207,8 +215,10 @@ In any other case the <em>probability amplitude vector</em> is in a state of <em
 \(\Psi\) is not a &#8220;Kronecker delta&#8221; vector.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="definition-entanglement">Definition: Entanglement</h3>
+</div>
+<div class="sect1">
+<h2 id="definition-entanglement">Definition: Entanglement</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>All statements below are equivalent and correspond to the case when the qubits are <em>not</em> in entanglement:</p>
 </div>
@@ -240,8 +250,10 @@ In any other case the <em>probability amplitude vector</em> is in a state of <em
 <p>When <a href="#factorizable-pdf">Un-entangled qubits or factorizable probability amplitude vector</a> does not hold i.e., the joint pdf is not factorizable the qubits are in a state of <em>entanglement</em>.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="the-ugly-notation">The Ugly notation</h3>
+</div>
+<div class="sect1">
+<h2 id="the-ugly-notation">The Ugly notation</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>Remember that \(|0\rangle\) is shorthand for \(\begin{pmatrix} 1 \\ 0 \end{pmatrix}\) which is the <em>probability amplitude vector</em> of a single qubit
 that is in a definite state. And \(|1\rangle\) is shorthand for \(\begin{pmatrix} 0 \\ 1 \end{pmatrix}\).</p>
@@ -296,8 +308,10 @@ that is in a definite state. And \(|1\rangle\) is shorthand for \(\begin{pmatrix
 You should always remember that when you see \(|00\rangle\) it is a shorthand for the actual \(4 \times 1\) vector.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="epr-or-bell-pair">EPR or Bell Pair</h3>
+</div>
+<div class="sect1">
+<h2 id="epr-or-bell-pair">EPR or Bell Pair</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>The simplest demonstration of entanglement is with the EPR or Bell Pair which is a two qubit system whose wave function is given by
 following where the \(\frac{1}{\sqrt 2}\) scale factor is removed for brevity:</p>
@@ -314,7 +328,6 @@ following where the \(\frac{1}{\sqrt 2}\) scale factor is removed for brevity:</
 <p>Verify that this \(4 \times 1\) vector cannot be expressed as a tensor product of two \(2 \times 1\) vectors which is the definition of entanglement. Physically,
 if the first qubit is \(1\) it precludes any possibility that the second qubit can be \(0\). Thus, the state of the second qubit is not <em>independent</em>
 of the state of the first qubit (and vice-versa).</p>
-</div>
 </div>
 </div>
 </div>
@@ -655,10 +668,52 @@ But the order of the gates doesn&#8217;t matter. This is <em>quantum teleportati
 <div class="paragraph">
 <p>Quantum computers manipulate qubits using unitary matrices, but that is not what we are taught in
 physics classes on Quantum Mechanics. QM teaches us the time evolution of a quantum system is described by the Schrodinger equation. How does an equation become a gate?
-What gives? This is important concept to understand. See Nielsen and Chuang p. 83 for the connection.
-<em>The gate is nothing but \(U = \exp(iH)\) where \(H\) is Hamiltonian of the system describing its energy.</em>
-If you think about how a quantum gate is physically implemented and realized, it would require controlling the Hamiltonian \(H\) of the system.
-And if we can programmatically control this, the system legitimately becomes a computer.</p>
+What gives? This is important concept to understand. See Nielsen and Chuang p. 83 for the connection. The Schrodinger equation is:</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{equation}
+i \hbar \frac{\partial}{\partial t} \Psi = H \Psi
+\end{equation}\]
+</div>
+</div>
+<div class="paragraph">
+<p>where I have omitted bra-ket notation. \(H\), known as Hamiltonian of the system, is an <em>operator</em> that acts on the wavefunction. So its more like
+\(H(\Psi)\). There are two variables at play here. One is time \(t\) and another is for example \(x\) - the position of the particle.
+When \(x\) is a continuous variable, \(H\) is a differential operator and \(\Psi\) cannot be written as a vector - or you could write it but it will
+have infinite length; hence we hear of infinite dimensional spaces. In quantum computing, we confine ourselves to cases when \(x\) is not continuous. It is discrete.
+In fact, its binary and can take on only two values. An example of such \(x\) is the spin of an electron. \(\Psi\) in this case is a \(2 \times 1\) vector
+ - considering a system made up of only one particle. And \(H\) is a matrix. The time variable in quantum computing is simply the sequence of gates we apply to \(\Psi\).</p>
+</div>
+<div class="paragraph">
+<p>Consider a very small duration of time during which we can assume that \(H\) is constant and unchanging, then the solution to the equation is simply:</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{equation}
+\Psi(t) = \exp (- \frac{i}{\hbar} H t) \Psi(0)
+\end{equation}\]
+</div>
+</div>
+<div class="paragraph">
+<p>and so the unitary matrices or gates we encounter in quantum computing are nothing but:</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{equation}
+U = \exp (- \frac{i}{\hbar} H T)
+\end{equation}\]
+</div>
+</div>
+<div class="paragraph">
+<p>where \(T\) is a tiny constant like the reciprocal of the clock speed of the computer. This is just a metaphor. Quantum computers don&#8217;t have a clock-rate per se
+(refer <a href="https://quantumcomputing.stackexchange.com/questions/8441/does-a-quantum-computer-have-a-clock-signal-and-if-yes-how-big-is-it">this</a>).
+If we remove the constants, then \(U = \exp(-iH)\). So to apply different gates to the system we need to manipulate its Hamiltonian.</p>
+</div>
+<div class="paragraph">
+<p>In summary QM can be formulated in a matrix form when the state vector \(\Psi\) is finite dimensional (i.e., \(x\) is discrete and takes on only finite number of values).
+Quantum computing relies on this formulation of QM and the matrix formulation actually goes all the way back to Werner Heisenberg. See
+<a href="https://en.wikipedia.org/wiki/Matrix_mechanics">this</a> for reference.</p>
 </div>
 </div>
 </div>
@@ -669,18 +724,32 @@ And if we can programmatically control this, the system legitimately becomes a c
 <p>D-Wave is a company that makes quantum computers. Its machines have been subject of some controversy e.g., see
 <a href="https://quantumcomputing.stackexchange.com/questions/171/is-there-proof-that-the-d-wave-one-is-a-quantum-computer-and-is-effective">this</a> and references therein.
 <em>D-Wave&#8217;s machine does not apply gates to a system of qubits.</em> Instead what it does is a process known as <em>quantum annealing</em>.
-In this process a system of qubits is prepared in a ground state and the Hamiltonian of the system is gradually evolved to a target Hamiltonian.
-If the process is done slow enough, then there is a <a href="https://en.wikipedia.org/wiki/Adiabatic_theorem">theorem</a> that guarantees that the qubits will remain in their
+In this process a system of qubits is prepared in a ground state \(H_0\) and the Hamiltonian of the system is gradually evolved to a target Hamiltonian \(H_1\).</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{equation}
+H(t) = (1 - t) \cdot H_0 + t \cdot H_1
+\end{equation}\]
+</div>
+</div>
+<div class="paragraph">
+<p>If the process is done slow enough, then there is a <a href="https://en.wikipedia.org/wiki/Adiabatic_theorem">theorem</a> that guarantees that the qubits will remain in their
 lowest energy state as the system is evolved. What is the upshot? The upshot is that the target Hamiltonian is such that its ground state will give the solution of
-the problem that we wanted to solve. This is also known as <em>quantum adiabatic computation</em> to distingush it from <em>gate-based computation</em>. It has been shown that
-quantum computing by adiabatic evolution is equivalent to unitary gate computation in power:
+the problem that we wanted to solve. This is also known as <em>quantum adiabatic computation</em> to distingush it from <em>gate-based computation</em>. It has been shown
+(see <a href="https://arxiv.org/abs/quant-ph/0405098">this</a> paper)
+that quantum computing by adiabatic evolution is equivalent to unitary gate computation in power:
 <em>anything that a unitary gate quantum computer can do in polynomial time, an adiabatic computer can as well, and vice-versa.</em>
 But if you go down the rabbit hole, it seems - I am still learning - quantum annealing (i.e., D-Wave) is not exactly the same as
 quantum adiabatic computation. See 5:27 in <a href="https://youtu.be/zvfkXjzzYOo?t=327">this</a> video:</p>
 </div>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/zvfkXjzzYOo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <div class="paragraph">
-<p>More on adiabatic quantum computation in <a href="https://youtu.be/vFpNNrt-baE">this</a> video.</p>
+<p>and <a href="https://quantumcomputing.stackexchange.com/questions/1577/what-is-the-difference-between-quantum-annealing-and-adiabatic-quantum-computati">this</a> post.</p>
+</div>
+<div class="paragraph">
+<p>According to <a href="https://youtu.be/NwoD82hDImM?t=672">this</a> video, for a problem to be solved by a quantum annealer, it must be cast into a QUBO - quadratic unconstrained binary
+optimization. More on adiabatic quantum computation in <a href="https://youtu.be/vFpNNrt-baE">this</a> video.</p>
 </div>
 </div>
 </div>
