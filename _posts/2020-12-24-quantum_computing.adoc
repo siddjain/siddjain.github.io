@@ -419,7 +419,7 @@ have infinite length; hence we hear of infinite dimensional spaces. In quantum c
 In fact, its binary and can take on only two values. An example of such stem:[x] is the spin of an electron. stem:[\Psi] in this case is a stem:[2 \times 1] vector
  - considering a system made up of only one particle. And stem:[H] is a matrix. The time variable in quantum computing is simply the sequence of gates we apply to stem:[\Psi].
 
-If stem:[H] is not a function of time, then the solution to the equation is simply:
+Consider a very small duration of time during which we can assume that stem:[H] is constant and unchanging, then the solution to the equation is simply:
 
 [stem]
 ++++
@@ -433,34 +433,13 @@ and so the unitary matrices or gates we encounter in quantum computing are nothi
 [stem]
 ++++
 \begin{equation}
-U = \exp (- \frac{i}{\hbar} H ) 
+U = \exp (- \frac{i}{\hbar} H T) 
 \end{equation}
 ++++
 
-where stem:[t] is removed. Think of it as a tiny constant like the reciprocal of the clock speed of the computer.
-So to apply different gates to the system we need to manipulate its Hamiltonian. Quantum computer allows us to program and control the Hamiltonian with time.
-
-Another analysis I did which did not lead me anywhere was as follows: to a first order approximation, assuming stem:[H] is not a function of time, the Schrodinger equation can
-then be simplified to (considering an infinitestimal step in time):
-
-[stem]
-++++
-\begin{equation}
-i \hbar (\Psi_2 - \Psi_1) = H \Psi_1
-\end{equation}
-++++
-
-or, stem:[\Psi_2] is simply:
-
-[stem]
-++++
-\begin{equation}
-\Psi_2 = (I - i H) \Psi_1
-\end{equation}
-++++
-
-and by this logic the gate is given by stem:[I - i H]. Compare to stem:[\exp (- i H )]. To first order approximation, stem:[\exp (- i H )] is indeed
-stem:[I - i H].
+where stem:[T] is a tiny constant like the reciprocal of the clock speed of the computer. This is just a metaphor. Quantum computers don't have a clock-rate per se
+(refer https://quantumcomputing.stackexchange.com/questions/8441/does-a-quantum-computer-have-a-clock-signal-and-if-yes-how-big-is-it[this]).
+If we remove the constants, then stem:[U = \exp(-iH)]. So to apply different gates to the system we need to manipulate its Hamiltonian.
 
 In summary QM can be formulated in a matrix form when the state vector stem:[\Psi] is finite dimensional (i.e., stem:[x] is discrete and takes on only finite number of values).
 Quantum computing relies on this formulation of QM and the matrix formulation actually goes all the way back to Werner Heisenberg. See 
@@ -482,8 +461,9 @@ H(t) = (1 - t) \cdot H_0 + t \cdot H_1
 
 If the process is done slow enough, then there is a https://en.wikipedia.org/wiki/Adiabatic_theorem[theorem] that guarantees that the qubits will remain in their
 lowest energy state as the system is evolved. What is the upshot? The upshot is that the target Hamiltonian is such that its ground state will give the solution of 
-the problem that we wanted to solve. This is also known as _quantum adiabatic computation_ to distingush it from _gate-based computation_. It has been shown that
-quantum computing by adiabatic evolution is equivalent to unitary gate computation in power:
+the problem that we wanted to solve. This is also known as _quantum adiabatic computation_ to distingush it from _gate-based computation_. It has been shown 
+(see https://arxiv.org/abs/quant-ph/0405098[this] paper)
+that quantum computing by adiabatic evolution is equivalent to unitary gate computation in power:
 _anything that a unitary gate quantum computer can do in polynomial time, an adiabatic computer can as well, and vice-versa._
 But if you go down the rabbit hole, it seems - I am still learning - quantum annealing (i.e., D-Wave) is not exactly the same as
 quantum adiabatic computation. See 5:27 in https://youtu.be/zvfkXjzzYOo?t=327[this] video:
@@ -491,6 +471,8 @@ quantum adiabatic computation. See 5:27 in https://youtu.be/zvfkXjzzYOo?t=327[th
 ++++
 <iframe width="560" height="315" src="https://www.youtube.com/embed/zvfkXjzzYOo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 ++++
+
+and https://quantumcomputing.stackexchange.com/questions/1577/what-is-the-difference-between-quantum-annealing-and-adiabatic-quantum-computati[this] post.
 
 According to https://youtu.be/NwoD82hDImM?t=672[this] video, for a problem to be solved by a quantum annealer, it must be cast into a QUBO - quadratic unconstrained binary
 optimization. More on adiabatic quantum computation in https://youtu.be/vFpNNrt-baE[this] video.
