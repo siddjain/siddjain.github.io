@@ -110,8 +110,8 @@ Rotation matrices are even more special. They are a special case of unitary matr
 the additional constraint that the determinant has to be stem:[+1]. stem:[-1] corresponds to a reflection matrix. A reflection is not the
 same as rotation. A rotation by stem:[\pi] does not give you a reflection._ 
 
-Vazirani in his videos talks about the action of the unitary matrix as rotating the Hilbert space but that is a simplification to aid in teaching.
-A unitary matrix can do more than rotation.
+Vazirani in his https://www.youtube.com/watch?v=VPsl_5RQe1A&list=PLnhoxwUZN7-6hB2iWNhLrakuODLaxPTOG[videos] talks about the action of the unitary matrix as rotating the Hilbert space 
+but that is a simplification to aid in teaching. A unitary matrix can do more than rotation in general.
 
 Finally, remember that if stem:[H] is Hermitian, then stem:[\exp(iH)] is unitary and if 
 stem:[U] is unitary, then stem:[-i\log(U)] is Hermitian. See exercises 2.55, 2.56 on p.84 in Nielsen and Chuang. So behind every unitary matrix
@@ -192,8 +192,8 @@ In fact I don't understand it and the reason for making these notes. Here is the
 
 image::https://i.stack.imgur.com/SottO.png[link="https://quantumcomputing.stackexchange.com/questions/15253/why-isnt-output-of-deutsch-jozsa-algorithm-simply-0"]
 
-In what follows we consider just 2 qubits or the case when _n=1_ in the diagram above.
-Understanding the notation used in this and other diagrams like this that appear commonly in books etc.
+In what follows we consider just 2 qubits or the case when _n=1_ in the diagram above. First of all, let's
+understand the notation used in this and other diagrams like this that appear commonly in books etc.
 stem:[|\Psi_0 \rangle], stem:[|\Psi_1 \rangle], stem:[|\Psi_2 \rangle] and stem:[|\Psi_3 \rangle] are used to mean the total
 _probability amplitude vector_ at the four stages in the circuit. stem:[|\Psi_0 \rangle] is easy:
 
@@ -250,13 +250,10 @@ and when _f_ is balanced i.e., stem:[f(0) \neq f(1)], we have stem:[\Psi_2 = \pm
 
 Now to get stem:[\Psi_3] it is convenient to express stem:[\Psi_2] as following tensor product of two qubits so that we can just apply the Hadamard to first qubit to get stem:[\Psi_3]:
 
-\begin{equation} \label{A}
-A = (|0 \rangle + |1 \rangle) \otimes (|0 \rangle - |1 \rangle) = \Psi_1
-\end{equation}
-
-\begin{equation} \label{B}
-B = (|0 \rangle - |1 \rangle) \otimes (|0 \rangle - |1 \rangle)
-\end{equation}
+\begin{align} \label{A}
+A & = (|0 \rangle + |1 \rangle) \otimes (|0 \rangle - |1 \rangle) \\
+B & = (|0 \rangle - |1 \rangle) \otimes (|0 \rangle - |1 \rangle)
+\end{align}
 
 Now since the Hadmard stem:[H] is its own inverse, applying stem:[H] to (stem:[|0 \rangle + |1 \rangle]) gives back stem:[|0 \rangle] and applying it to 
 (stem:[|0 \rangle - |1 \rangle]) gives back stem:[|1 \rangle]. And so stem:[\Psi_3] equals:
@@ -275,9 +272,35 @@ if stem:[f] is balanced. The first qubit is in a _definite_ state of either stem
 And measuring the first qubit will tell if stem:[f] is constant or balanced which is the problem the Deutsch-Josza Algorithm is supposed to solve.
 
 I find this algorithm extremely confusing and outright "`wrong`" because by definition the stem:[U_f] gate is supposed to leave the first qubit
-unchanged - it maps stem:[|x,y \rangle] to stem:[|x,y \oplus f(x) \rangle] whereas <<A>> and <<B>> show just the opposite. _The first qubit gets messed up
+unchanged - it maps stem:[|x,y \rangle] to stem:[|x,y \oplus f(x) \rangle] whereas equations above show just the opposite. _The first qubit gets messed up
 whereas the second one is unchanged!_ This is my longstanding dilemma with this algorithm. It is contradictory.
 Also see https://quantumcomputing.stackexchange.com/questions/15253/why-isnt-output-of-deutsch-jozsa-algorithm-simply-0[this] question on StackExchange.
+
+'''
+
+Finally after many months I get it. The problem here is with the way stem:[U_f] circuit is labelled which leads to incorrect understanding of the circuit - at least to me. 
+The output of the circuit is stem:[x] unchanged and stem:[y \oplus f(x)] _only when stem:[x] is a classical stem:[n]-bit string._
+When stem:[x] is a superposition of states stem:[f(x)] is not even defined. This was the first thing that tripped me when I encountered this circuit.
+The way to predict the output of the circuit when its fed a superposition is to use linearity stem:[T(A + B) = T(A) + T(B)]. 
+Thus if stem:[x] is a superposition of two states stem:[a] and stem:[b], we need to calculate the output of the circuit to the individual states and then superimpose those outputs
+to get the final result. This is exactly what we did above. And when we do that we find the circuit can affect the input superposition.
+In particular when stem:[y = |-\rangle], this circuit acts like a _phase-inversion_ (aka _phase-kickback_) circuit and is pervasive in quantum algorithms. 
+
+image::/assets/images/uf_circuit.png[]
+
+In the last equation, stem:[|-\rangle] is a constant and can be pulled outside the summation sign, _but the rest cannot_. So as a final step what we have is:
+
+[stem]
+++++
+\begin{equation}
+\left(\sum_x (-1)^{f(x)} \alpha_x |x\rangle\right) \otimes |-\rangle
+\end{equation}
+++++
+
+and variable stem:[x] enumerates the stem:[2^n] pure states. The circuit leaves the stem:[|-\rangle] unchanged and "`messes up`" input superposition. 
+Watch https://youtu.be/XumGT8Ed84Q?t=111[this] video if you like.
+
+'''
 
 Let's also see how to get stem:[\Psi_3] using the long method. We apply Hadamard to the first qubit of stem:[A] and stem:[B] expressions.
 This gives us following for the case when stem:[\Psi_2 = A]. I am going to drop off all the ugly brakets to simplify notation:

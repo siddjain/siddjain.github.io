@@ -160,7 +160,7 @@ All that is left is to compute stem:[\langle \psi | M_B \otimes M_A | \psi \rang
 [-a₁⋅b₁ - a₂⋅b₂ - a₃⋅b₃]
 ----
 
-'''
+== Probability that qubits are the same
 
 Note that the expected value of the product of spins is different from the probability that the spins are equal. This
 probability is used in e.g., https://youtu.be/RxbTEw0Pz08?t=263[this] video (Fast Forward to 4:30 if you like).
