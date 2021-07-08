@@ -244,7 +244,11 @@ eigenvalues of Alice and Bob&#8217;s matrices. And we are done. QED.</p>
 [-a₁⋅b₁ - a₂⋅b₂ - a₃⋅b₃]</pre>
 </div>
 </div>
-<hr>
+</div>
+</div>
+<div class="sect1">
+<h2 id="probability-that-qubits-are-the-same">Probability that qubits are the same</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>Note that the expected value of the product of spins is different from the probability that the spins are equal. This
 probability is used in e.g., <a href="https://youtu.be/RxbTEw0Pz08?t=263">this</a> video (Fast Forward to 4:30 if you like).
@@ -386,6 +390,147 @@ There is a fctor of \(2\) mismatch. The formula in his video is \(\cos^2 \theta\
 <p>Of the 4 <a href="https://en.wikipedia.org/wiki/Bell_state">bell states</a>, the spin-singlet state also denoted as \(\Psi^-\) is the only state that is invariant to any unitary transform.
 All other states are invariant only to rotations. Again, read <a href="https://www.physicsforums.com/insights/bell-states-and-conservation-of-spin-angular-momentum/">this</a> article which
 explains it.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="measuring-single-qubit-in-two-different-bases">Measuring single qubit in two different bases</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In <a href="https://youtu.be/hWodwNNDSu8?t=655">this</a> video and <a href="https://inst.eecs.berkeley.edu/~cs191/fa10/notes/spins.pdf">lecture note</a> Umesh Vazirani considers the problem
+of measuring a single qubit in two different bases and calculating the probability that the qubit is in the same state in both the bases. The problem can be equivalently stated
+as measuring the spin of an electron - first through a detector (SG magnet) oriented along \(\hat{n}\) and then through a detector oriented along \(\hat{m}\).
+What is the probability that the second detector gives same spin as the first detector? The problem is similar to the 2 qubit system.
+He claims following formula:</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{equation}
+P(|\hat{n}+\rangle \rightarrow |\hat{m}+\rangle) = \frac{1}{2} \left( 1 + \hat{n} \cdot \hat{m} \right)
+\end{equation}\]
+</div>
+</div>
+<div class="paragraph">
+<p>but I think this formula is incorrect in general. It only holds when \(\hat{n} = \hat{z}\). In practice this is always the case because when the experiment is performed in practice,
+the orientation of the first magnet is used to establish and <em>define</em> the \(\hat{z}\) direction. Let&#8217;s see why I think the formula is incorrect in general.</p>
+</div>
+<div class="paragraph">
+<p>Our goal is to calculate \(P(|\hat{n} + \rangle \rightarrow |\hat{m} + \rangle)\). So we start with the wavefunction in the quantum state \(|\Psi\rangle = |\hat{n} + \rangle\)
+and \(P(|\hat{n} + \rangle \rightarrow |\hat{m} + \rangle)\) is simply the probability that the wavefunction will collapse to \(|\hat{m} + \rangle\) when it passes through
+the second magnet. To calculate this we need to express \(|\hat{n} + \rangle\) in terms of the orthonormal basis formed by \(|\hat{m} + \rangle\) and \(|\hat{m} - \rangle\)
+ i.e.,</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{equation}
+|\hat{n}+\rangle = \alpha |\hat{m}+\rangle + \beta |\hat{m}-\rangle
+\end{equation}\]
+</div>
+</div>
+<div class="paragraph">
+<p>and then our answer is simply \(|\alpha|^2\). So how to do it?</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>First, we need to find the \(2 \times 1\) vector corresponding to \(|\hat{n} + \rangle\).</p>
+</li>
+<li>
+<p>Then, we need to find the \(2 \times 1\) vectors corresponding to \(|\hat{m} + \rangle\) and \(|\hat{m} - \rangle\).</p>
+</li>
+<li>
+<p>The rest is basic linear algebra you learned in undergrad classes.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Now step 1 is nothing but finding eigenvectors of \(S(\hat{n})\) - the matrix used to measure spin in the \(\hat{n}\) direction. We can get this from
+<a href="https://en.wikipedia.org/wiki/Pauli_matrices">wikipedia</a>:</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{align}
+|\hat{n} + \rangle = \textbf{q}_1 &amp; = \frac{1}{\sqrt{2 (1 + n_z)}} \begin{pmatrix} 1 + n_z \\ n_x + i n_y \end{pmatrix} \\
+|\hat{n} - \rangle = \textbf{q}_2 &amp; = \frac{1}{\sqrt{2 (1 + n_z)}} \begin{pmatrix} - n_x + i n_y \\ 1 + n_z \end{pmatrix}
+\end{align}\]
+</div>
+</div>
+<hr>
+<div class="paragraph">
+<p>as exercise it can be shown that the vectors above can be written in following equivalent form (see the
+<a href="https://inst.eecs.berkeley.edu/~cs191/fa10/notes/spins.pdf">lecture note</a> and <a href="https://en.wikipedia.org/wiki/Eigenspinor">wikipedia</a> for comparison):</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/images/eigenspinors.png" alt="eigenspinors">
+</div>
+</div>
+<div class="paragraph">
+<p>where \((\theta, \phi)\) are the spherical coordinates of \(\hat{n}\) i.e.,:</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{align}
+n_z &amp; = \cos \theta \\
+n_x &amp; = \cos \phi \sin \theta \\
+n_y &amp; = \sin \phi \sin \theta
+\end{align}\]
+</div>
+</div>
+<hr>
+<div class="paragraph">
+<p>If we substitute \(n\) with \(m\) we will get \(|\hat{m} + \rangle\) and \(|\hat{m} - \rangle\).
+Let \(|\hat{m} + \rangle = \textbf{r}_1\) and \(|\hat{m} - \rangle = \textbf{r}_2\). Then \(\alpha\) is nothing but
+\(r_1^\dagger q_1\). Let&#8217;s calculate it:</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{split}
+\alpha &amp; = r_1^\dagger q_1 = \frac{1}{\sqrt{2 (1 + m_z)}} \begin{pmatrix} 1 + m_z &amp; m_x - i m_y \end{pmatrix}
+                           \frac{1}{\sqrt{2 (1 + n_z)}} \begin{pmatrix} 1 + n_z \\ n_x + i n_y \end{pmatrix} \\
+       &amp; = \frac{1}{2\sqrt{(1+m_z)(1+n_z)}} \left( (1+m_z)(1+n_z) + (m_x - i m_y)(n_x + i n_y) \right)
+\end{split}\]
+</div>
+</div>
+<div class="paragraph">
+<p>Finally remember what we want is \(|\alpha|^2\). That will give \(P(|\hat{n} + \rangle \rightarrow |\hat{m} + \rangle)\).
+I don&#8217;t think the expression for \(\alpha\) above can be simplified to give:</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{equation}
+|\alpha|^2 = \frac{1}{2} \left( 1 + \hat{n} \cdot \hat{m} \right)
+\end{equation}\]
+</div>
+</div>
+<div class="paragraph">
+<p>If \(n_x = n_y = 0\) however, then:</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{split}
+\alpha &amp; = \frac{1}{2\sqrt{(1+m_z)(1+n_z)}} \left[ (1+m_z)(1+n_z) + 0 \right] \\
+       &amp; = \frac{1}{2} \sqrt{(1+m_z)(1+n_z)}
+\end{split}\]
+</div>
+</div>
+<div class="paragraph">
+<p>and</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{split}
+|\alpha|^2 &amp; = \frac{1}{4} (1 + m_z) (1 + n_z) \\
+           &amp; = \frac{1}{4} (1 + m_z) (1 + 1) \textrm{  } (\textrm{since} \textrm{  } n_x = n_y = 0 \Rightarrow n_z = 1) \\
+           &amp; = \frac{1}{2} (1 + m_z) \\
+           &amp; = \frac{1}{2} (1 + \hat{n} \cdot \hat{m})
+\end{split}\]
+</div>
+</div>
+<div class="paragraph">
+<p>Note to self: I think in the <a href="https://inst.eecs.berkeley.edu/~cs191/fa10/notes/spins.pdf">lecture note</a> he is trying to derive the fact that measuring spin along \(\hat{n}\)
+amounts to expressing the wavefunction in the eigenbasis formed by the eigenvectors of \(S(\hat{n})\) whereas I have always taken it as an a-priori assumption or rule.
+He is trying to explain from where that assumption came from.</p>
 </div>
 </div>
 </div>

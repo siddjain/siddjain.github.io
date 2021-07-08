@@ -185,8 +185,21 @@ the additional constraint that the determinant has to be \(+1\). \(-1\) correspo
 same as rotation. A rotation by \(\pi\) does not give you a reflection.</em></p>
 </div>
 <div class="paragraph">
-<p>Vazirani in his videos talks about the action of the unitary matrix as rotating the Hilbert space but that is a simplification to aid in teaching.
-A unitary matrix can do more than rotation.</p>
+<p>In general a \(2 \times 2\) unitary matrix can be written as (refer NC p. 20 Box 1.1):</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{equation}
+U = e^{i\alpha}
+     \begin{pmatrix} e^{-i\beta/2} &amp; 0 \\ 0 &amp; e^{+i\beta/2} \end{pmatrix}
+     \begin{pmatrix} \cos \frac{\gamma}{2} &amp; -\sin \frac{\gamma}{2} \\ \sin \frac{\gamma}{2} &amp; \cos \frac{\gamma}{2} \end{pmatrix}
+     \begin{pmatrix} e^{-i\delta/2} &amp; 0 \\ 0 &amp; e^{+i\delta/2} \end{pmatrix}
+\end{equation}\]
+</div>
+</div>
+<div class="paragraph">
+<p>where \(\alpha, \beta, \gamma, \delta\) are <em>real</em> numbers. The matrix in the middle is a proper rotation matrix. The rest are not strictly rotation matrices but
+depending on who you ask can be understood as &#8220;rotations in a different plane&#8221; (quoting NC).</p>
 </div>
 <div class="paragraph">
 <p>Finally, remember that if \(H\) is Hermitian, then \(\exp(iH)\) is unitary and if
@@ -344,8 +357,8 @@ In fact I don&#8217;t understand it and the reason for making these notes. Here 
 </div>
 </div>
 <div class="paragraph">
-<p>In what follows we consider just 2 qubits or the case when <em>n=1</em> in the diagram above.
-Understanding the notation used in this and other diagrams like this that appear commonly in books etc.
+<p>In what follows we consider just 2 qubits or the case when <em>n=1</em> in the diagram above. First of all, let&#8217;s
+understand the notation used in this and other diagrams like this that appear commonly in books etc.
 \(|\Psi_0 \rangle\), \(|\Psi_1 \rangle\), \(|\Psi_2 \rangle\) and \(|\Psi_3 \rangle\) are used to mean the total
 <em>probability amplitude vector</em> at the four stages in the circuit. \(|\Psi_0 \rangle\) is easy:</p>
 </div>
@@ -441,14 +454,10 @@ and when <em>f</em> is balanced i.e., \(f(0) \neq f(1)\), we have \(\Psi_2 = \pm
 <p>Now to get \(\Psi_3\) it is convenient to express \(\Psi_2\) as following tensor product of two qubits so that we can just apply the Hadamard to first qubit to get \(\Psi_3\):</p>
 </div>
 <div class="paragraph">
-<p>\begin{equation} \label{A}
-A = (|0 \rangle + |1 \rangle) \otimes (|0 \rangle - |1 \rangle) = \Psi_1
-\end{equation}</p>
-</div>
-<div class="paragraph">
-<p>\begin{equation} \label{B}
-B = (|0 \rangle - |1 \rangle) \otimes (|0 \rangle - |1 \rangle)
-\end{equation}</p>
+<p>\begin{align} \label{A}
+A &amp; = (|0 \rangle + |1 \rangle) \otimes (|0 \rangle - |1 \rangle) \\
+B &amp; = (|0 \rangle - |1 \rangle) \otimes (|0 \rangle - |1 \rangle)
+\end{align}</p>
 </div>
 <div class="paragraph">
 <p>Now since the Hadmard \(H\) is its own inverse, applying \(H\) to (\(|0 \rangle + |1 \rangle\)) gives back \(|0 \rangle\) and applying it to
@@ -473,7 +482,7 @@ And measuring the first qubit will tell if \(f\) is constant or balanced which i
 </div>
 <div class="paragraph">
 <p>I find this algorithm extremely confusing and outright &#8220;wrong&#8221; because by definition the \(U_f\) gate is supposed to leave the first qubit
-unchanged - it maps \(|x,y \rangle\) to \(|x,y \oplus f(x) \rangle\) whereas <a href="#A">[A]</a> and <a href="#B">[B]</a> show just the opposite. <em>The first qubit gets messed up
+unchanged - it maps \(|x,y \rangle\) to \(|x,y \oplus f(x) \rangle\) whereas equations above show just the opposite. <em>The first qubit gets messed up
 whereas the second one is unchanged!</em> This is my longstanding dilemma with this algorithm. It is contradictory.
 Also see <a href="https://quantumcomputing.stackexchange.com/questions/15253/why-isnt-output-of-deutsch-jozsa-algorithm-simply-0">this</a> question on StackExchange.</p>
 </div>
@@ -506,6 +515,66 @@ This gives us following for the case when \(\Psi_2 = A\). I am going to drop off
 </div>
 <div class="paragraph">
 <p>which again agrees with what we obtained previously using the shortcut method. So at least this much is good.</p>
+</div>
+<hr>
+<div class="paragraph">
+<p>Finally after many months I get it. The problem here is with the way \(U_f\) circuit is labelled which leads to incorrect understanding of the circuit - at least to me.
+The output of the circuit is \(x\) unchanged and \(y \oplus f(x)\) <em>only when \(x\) is a classical \(n\)-bit string.</em>
+When \(x\) is a superposition of states \(f(x)\) is not even defined. This was the first thing that tripped me when I encountered this circuit.
+The way to predict the output of the circuit when its fed a superposition is to use linearity \(T(A + B) = T(A) + T(B)\).
+Thus if \(x\) is a superposition of two states \(a\) and \(b\), we need to calculate the output of the circuit to the individual states and then superimpose those outputs
+to get the final result. This is exactly what we did above. And when we do that we find the circuit can affect the input superposition.
+In particular when \(y = |-\rangle\), this circuit acts like a <em>phase-inversion</em> (aka <em>phase-kickback</em>) circuit and is pervasive in quantum algorithms.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/images/uf_circuit.png" alt="uf circuit">
+</div>
+</div>
+<div class="paragraph">
+<p>To get the last equation, solve for the two cases: case 1 when \(f(x) = 0\) and case 2 when \(f(x) = 1\) and you&#8217;ll see how we get the final formula.
+In the last equation, \(|-\rangle\) is a constant and can be pulled outside the summation sign, <em>but the rest cannot</em>. So as a final step what we have is:</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{equation}
+\left(\sum_x (-1)^{f(x)} \alpha_x |x\rangle\right) \otimes |-\rangle
+\end{equation}\]
+</div>
+</div>
+<div class="paragraph">
+<p>and variable \(x\) enumerates the \(2^n\) classical states. The circuit leaves the \(|-\rangle\) unchanged and &#8220;messes up&#8221; input superposition.</p>
+</div>
+<div class="paragraph">
+<p>In summary, given a quantum circuit \(U_f\) whose behavior is characterized under classical inputs as:</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{equation}
+|x, y\rangle \xrightarrow{U_f} |x, y \oplus f(x)\rangle
+\end{equation}\]
+</div>
+</div>
+<div class="paragraph">
+<p>where:</p>
+</div>
+<div class="paragraph">
+<p>\(x\) is a \(n\) bit classical string,
+\(y\) is a single classical bit, and
+\(f(\cdot)\) is a boolean function</p>
+</div>
+<div class="paragraph">
+<p>we have shown that:</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{equation}
+\sum_x \alpha_x |x,-\rangle \xrightarrow{U_f} \left(\sum_x (-1)^{f(x)} \alpha_x |x\rangle\right) \otimes |-\rangle
+\end{equation}\]
+</div>
+</div>
+<div class="paragraph">
+<p>Watch <a href="https://youtu.be/XumGT8Ed84Q?t=111">this</a> video if you like.</p>
 </div>
 </div>
 </div>
