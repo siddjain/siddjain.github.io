@@ -284,8 +284,123 @@ to a rotation but not otherwise. This is actually called out in https://www.phys
 as well. At the very top of his slide Vazirani does say in bold Rotational Invariance of the Bell State. So he is not considering any arbitrary transform.
 He is only considering rotational transforms and the axes stem:[u, u^\perp, v, v^\perp] lie in the stem:[xz] plane i.e., the stem:[y] component is zero.
 When that is the case, then a₁⋅b₁ - a₂⋅b₂ + a₃⋅b₃ reduces to a₁⋅b₁ + a₃⋅b₃ and is equal to stem:[\cos \theta]. There is still a problem.
-There is a fctor of stem:[2] mismatch. The formula in his video is stem:[\cos^2 \theta] but we get stem:[\cos^2 \frac{\theta}{2}]. What gives? I don't know.
+There is a fctor of stem:[2] mismatch. The formula in his video is stem:[\cos^2 \theta] but we get stem:[\cos^2 \frac{\theta}{2}]. What gives? I don't know. 
 
 Of the 4 https://en.wikipedia.org/wiki/Bell_state[bell states], the spin-singlet state also denoted as stem:[\Psi^-] is the only state that is invariant to any unitary transform.
 All other states are invariant only to rotations. Again, read https://www.physicsforums.com/insights/bell-states-and-conservation-of-spin-angular-momentum/[this] article which
 explains it.
+
+== Measuring single qubit in two different bases
+
+In https://youtu.be/hWodwNNDSu8?t=655[this] video and https://inst.eecs.berkeley.edu/~cs191/fa10/notes/spins.pdf[lecture note] Umesh Vazirani considers the problem
+of measuring a single qubit in two different bases and calculating the probability that the qubit is in the same state in both the bases. The problem can be equivalently stated
+as measuring the spin of an electron - first through a detector (SG magnet) oriented along stem:[\hat{n}] and then through a detector oriented along stem:[\hat{m}].
+What is the probability that the second detector gives same spin as the first detector? The problem is similar to the 2 qubit system.
+He claims following formula:
+
+[stem]
+++++
+\begin{equation}
+P(|\hat{n}+\rangle \rightarrow |\hat{m}+\rangle) = \frac{1}{2} \left( 1 + \hat{n} \cdot \hat{m} \right)
+\end{equation}
+++++
+
+but I think this formula is incorrect in general. It only holds when stem:[\hat{n} = \hat{z}]. In practice this is always the case because when the experiment is performed in practice,
+the orientation of the first magnet is used to establish and _define_ the stem:[\hat{z}] direction. Let's see why I think the formula is incorrect in general.
+
+Our goal is to calculate stem:[P(|\hat{n} + \rangle \rightarrow |\hat{m} + \rangle)]. So we start with the wavefunction in the quantum state stem:[|\Psi\rangle = |\hat{n} + \rangle]
+and stem:[P(|\hat{n} + \rangle \rightarrow |\hat{m} + \rangle)] is simply the probability that the wavefunction will collapse to stem:[|\hat{m} + \rangle] when it passes through
+the second magnet. To calculate this we need to express stem:[|\hat{n} + \rangle] in terms of the orthonormal basis formed by stem:[|\hat{m} + \rangle] and stem:[|\hat{m} - \rangle]
+ i.e., 
+
+[stem]
+++++
+\begin{equation}
+|\hat{n}+\rangle = \alpha |\hat{m}+\rangle + \beta |\hat{m}-\rangle
+\end{equation}
+++++
+
+and then our answer is simply stem:[|\alpha|^2]. So how to do it?
+
+. First, we need to find the stem:[2 \times 1] vector corresponding to stem:[|\hat{n} + \rangle].
+. Then, we need to find the stem:[2 \times 1] vectors corresponding to stem:[|\hat{m} + \rangle] and stem:[|\hat{m} - \rangle].
+. The rest is basic linear algebra you learned in undergrad classes.
+
+Now step 1 is nothing but finding eigenvectors of stem:[S(\hat{n})] - the matrix used to measure spin in the stem:[\hat{n}] direction. We can get this from 
+https://en.wikipedia.org/wiki/Pauli_matrices[wikipedia]:
+
+[stem]
+++++
+\begin{align}
+|\hat{n} + \rangle = \textbf{q}_1 & = \frac{1}{\sqrt{2 (1 + n_z)}} \begin{pmatrix} 1 + n_z \\ n_x + i n_y \end{pmatrix} \\
+|\hat{n} - \rangle = \textbf{q}_2 & = \frac{1}{\sqrt{2 (1 + n_z)}} \begin{pmatrix} - n_x + i n_y \\ 1 + n_z \end{pmatrix}
+\end{align}
+++++
+
+'''
+as exercise it can be shown that the vectors above can be written in following equivalent form (see the 
+https://inst.eecs.berkeley.edu/~cs191/fa10/notes/spins.pdf[lecture note] and https://en.wikipedia.org/wiki/Eigenspinor[wikipedia] for comparison):
+
+image::/assets/images/eigenspinors.png[]
+
+where stem:[(\theta, \phi)] are the spherical coordinates of stem:[\hat{n}] i.e.,:
+
+[stem]
+++++
+\begin{align}
+n_z & = \cos \theta \\
+n_x & = \cos \phi \sin \theta \\
+n_y & = \sin \phi \sin \theta
+\end{align}
+++++
+
+'''
+
+If we substitute stem:[n] with stem:[m] we will get stem:[|\hat{m} + \rangle] and stem:[|\hat{m} - \rangle]. 
+Let stem:[|\hat{m} + \rangle = \textbf{r}_1] and stem:[|\hat{m} - \rangle = \textbf{r}_2]. Then stem:[\alpha] is nothing but
+stem:[r_1^\dagger q_1]. Let's calculate it:
+
+[stem]
+++++
+\begin{split}
+\alpha & = r_1^\dagger q_1 = \frac{1}{\sqrt{2 (1 + m_z)}} \begin{pmatrix} 1 + m_z & m_x - i m_y \end{pmatrix} 
+                           \frac{1}{\sqrt{2 (1 + n_z)}} \begin{pmatrix} 1 + n_z \\ n_x + i n_y \end{pmatrix} \\
+       & = \frac{1}{2\sqrt{(1+m_z)(1+n_z)}} \left( (1+m_z)(1+n_z) + (m_x - i m_y)(n_x + i n_y) \right)
+\end{split}
+++++
+
+Finally remember what we want is stem:[|\alpha|^2]. That will give stem:[P(|\hat{n} + \rangle \rightarrow |\hat{m} + \rangle)].
+I don't think the expression for stem:[\alpha] above can be simplified to give:
+
+[stem]
+++++
+\begin{equation}
+|\alpha|^2 = \frac{1}{2} \left( 1 + \hat{n} \cdot \hat{m} \right)
+\end{equation}
+++++
+
+If stem:[n_x = n_y = 0] however, then:
+
+[stem]
+++++
+\begin{split}
+\alpha & = \frac{1}{2\sqrt{(1+m_z)(1+n_z)}} \left[ (1+m_z)(1+n_z) + 0 \right] \\
+       & = \frac{1}{2} \sqrt{(1+m_z)(1+n_z)}
+\end{split}
+++++
+
+and
+
+[stem]
+++++
+\begin{split}
+|\alpha|^2 & = \frac{1}{4} (1 + m_z) (1 + n_z) \\
+           & = \frac{1}{4} (1 + m_z) (1 + 1) \textrm{  } (\textrm{since} \textrm{  } n_x = n_y = 0 \Rightarrow n_z = 1) \\
+           & = \frac{1}{2} (1 + m_z) \\
+           & = \frac{1}{2} (1 + \hat{n} \cdot \hat{m})
+\end{split}
+++++
+
+Note to self: I think in the https://inst.eecs.berkeley.edu/~cs191/fa10/notes/spins.pdf[lecture note] he is trying to derive the fact that measuring spin along stem:[\hat{n}]
+amounts to expressing the wavefunction in the eigenbasis formed by the eigenvectors of stem:[S(\hat{n})] whereas I have always taken it as an a-priori assumption or rule.
+He is trying to explain from where that assumption came from. 

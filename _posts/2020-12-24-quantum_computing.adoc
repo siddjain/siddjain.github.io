@@ -110,8 +110,20 @@ Rotation matrices are even more special. They are a special case of unitary matr
 the additional constraint that the determinant has to be stem:[+1]. stem:[-1] corresponds to a reflection matrix. A reflection is not the
 same as rotation. A rotation by stem:[\pi] does not give you a reflection._ 
 
-Vazirani in his https://www.youtube.com/watch?v=VPsl_5RQe1A&list=PLnhoxwUZN7-6hB2iWNhLrakuODLaxPTOG[videos] talks about the action of the unitary matrix as rotating the Hilbert space 
-but that is a simplification to aid in teaching. A unitary matrix can do more than rotation in general.
+In general a stem:[2 \times 2] unitary matrix can be written as (refer NC p. 20 Box 1.1):
+
+[stem]
+++++
+\begin{equation}
+U = e^{i\alpha} 
+     \begin{pmatrix} e^{-i\beta/2} & 0 \\ 0 & e^{+i\beta/2} \end{pmatrix}
+     \begin{pmatrix} \cos \frac{\gamma}{2} & -\sin \frac{\gamma}{2} \\ \sin \frac{\gamma}{2} & \cos \frac{\gamma}{2} \end{pmatrix}
+     \begin{pmatrix} e^{-i\delta/2} & 0 \\ 0 & e^{+i\delta/2} \end{pmatrix}
+\end{equation}
+++++
+
+where stem:[\alpha, \beta, \gamma, \delta] are _real_ numbers. The matrix in the middle is a proper rotation matrix. The rest are not strictly rotation matrices but 
+depending on who you ask can be understood as "`rotations in a different plane`" (quoting NC). 
 
 Finally, remember that if stem:[H] is Hermitian, then stem:[\exp(iH)] is unitary and if 
 stem:[U] is unitary, then stem:[-i\log(U)] is Hermitian. See exercises 2.55, 2.56 on p.84 in Nielsen and Chuang. So behind every unitary matrix
