@@ -458,7 +458,8 @@ the second magnet. To calculate this we need to express \(|\hat{n} + \rangle\) i
 <hr>
 <div class="paragraph">
 <p>as exercise it can be shown that the vectors above can be written in following equivalent form (see the
-<a href="https://inst.eecs.berkeley.edu/~cs191/fa10/notes/spins.pdf">lecture note</a> and <a href="https://en.wikipedia.org/wiki/Eigenspinor">wikipedia</a> for comparison):</p>
+<a href="https://inst.eecs.berkeley.edu/~cs191/fa10/notes/spins.pdf">lecture note</a> and <a href="https://en.wikipedia.org/wiki/Eigenspinor">wikipedia</a> for comparison;
+wikipedia calls these <em>eigenspinors</em>):</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -480,13 +481,13 @@ n_y &amp; = \sin \phi \sin \theta
 <hr>
 <div class="paragraph">
 <p>If we substitute \(n\) with \(m\) we will get \(|\hat{m} + \rangle\) and \(|\hat{m} - \rangle\).
-Let \(|\hat{m} + \rangle = \textbf{r}_1\) and \(|\hat{m} - \rangle = \textbf{r}_2\). Then \(\alpha\) is nothing but
-\(r_1^\dagger q_1\). Let&#8217;s calculate it:</p>
+Let \(|\hat{m} + \rangle = \textbf{r}_1\) and \(|\hat{m} - \rangle = \textbf{r}_2\). Then \(\alpha\) is nothing but inner product of
+\(\textbf{r}_1\) and \(\textbf{q}_1\). Let&#8217;s calculate it:</p>
 </div>
 <div class="stemblock">
 <div class="content">
 \[\begin{split}
-\alpha &amp; = r_1^\dagger q_1 = \frac{1}{\sqrt{2 (1 + m_z)}} \begin{pmatrix} 1 + m_z &amp; m_x - i m_y \end{pmatrix}
+\alpha &amp; = \textbf{r}_1^\dagger \textbf{q}_1 = \frac{1}{\sqrt{2 (1 + m_z)}} \begin{pmatrix} 1 + m_z &amp; m_x - i m_y \end{pmatrix}
                            \frac{1}{\sqrt{2 (1 + n_z)}} \begin{pmatrix} 1 + n_z \\ n_x + i n_y \end{pmatrix} \\
        &amp; = \frac{1}{2\sqrt{(1+m_z)(1+n_z)}} \left( (1+m_z)(1+n_z) + (m_x - i m_y)(n_x + i n_y) \right)
 \end{split}\]
