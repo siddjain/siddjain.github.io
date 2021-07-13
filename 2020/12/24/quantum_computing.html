@@ -729,6 +729,22 @@ modulo a global phase factor i.e., the state \(\psi\) cannot be distinguished fr
 If you want to get \(\psi\) you will apply \(X\) followed by \(Z\).
 But the order of the gates doesn&#8217;t matter. This is <em>quantum teleportation</em>. QED.</p>
 </div>
+<div class="paragraph">
+<p>A very insightful way to understand quantum teleportation is provided by following equation which expresses the 3 qubit system (Alice&#8217;s qubit &#43;
+the two entangled qubits) in the Bell basis
+(I got the equation from <a href="https://ms.mcmaster.ca/~matt/3qc3/Assignment4Solutions.pdf">here</a>):</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/images/quantum_teleportation_bell_expression.png" alt="quantum teleportation bell expression">
+</div>
+</div>
+<div class="paragraph">
+<p>This expression for the initial state makes it easier to see that
+once Alice measures her two qubits in the Bell basis, then the state
+vector of Bob’s qubit will be of the form \(U |\psi\rangle\), where \(U\) is one of: \(I,
+X, Z\), or \(XZ\), depending on the outcome of Alice’s measurement.</p>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -819,6 +835,18 @@ quantum adiabatic computation. See 5:27 in <a href="https://youtu.be/zvfkXjzzYOo
 <div class="paragraph">
 <p>According to <a href="https://youtu.be/NwoD82hDImM?t=672">this</a> video, for a problem to be solved by a quantum annealer, it must be cast into a QUBO - quadratic unconstrained binary
 optimization. More on adiabatic quantum computation in <a href="https://youtu.be/vFpNNrt-baE">this</a> video.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="references">References</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.youtube.com/playlist?list=PLDAjb_zu5aoFazE31_8yT0OfzsTcmvAVg">Umesh Vazirani Quantum Computing Course</a></p>
+</li>
+</ul>
 </div>
 </div>
 </div>
