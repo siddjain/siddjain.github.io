@@ -458,7 +458,7 @@ modulo a global phase factor i.e., the state stem:[\psi] cannot be distinguished
 If you want to get stem:[\psi] you will apply stem:[X] followed by stem:[Z]. 
 But the order of the gates doesn't matter. This is _quantum teleportation_. QED.
 
-A very insightful way to understand quantum teleportation is provided by following equation which expresses the 3 qubit system (Alice's qubit +
+A very insightful way to understand quantum teleportation is provided by following equation which expresses the 3 qubit system (Alice's qubit {plus}
 the two entangled qubits) in the Bell basis
 (I got the equation from https://ms.mcmaster.ca/~matt/3qc3/Assignment4Solutions.pdf[here]):
 
@@ -467,7 +467,7 @@ image::/assets/images/quantum_teleportation_bell_expression.png[]
 This expression for the initial state makes it easier to see that
 once Alice measures her two qubits in the Bell basis, then the state
 vector of Bob’s qubit will be of the form stem:[U |\psi\rangle], where stem:[U] is one of: stem:[I,
-X, Z, or XZ], depending on the outcome of Alice’s measurement.
+X, Z], or stem:[XZ], depending on the outcome of Alice’s measurement.
 
 == The connection between QM and QC
 
