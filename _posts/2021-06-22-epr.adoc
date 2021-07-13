@@ -339,7 +339,8 @@ https://en.wikipedia.org/wiki/Pauli_matrices[wikipedia]:
 
 '''
 as exercise it can be shown that the vectors above can be written in following equivalent form (see the 
-https://inst.eecs.berkeley.edu/~cs191/fa10/notes/spins.pdf[lecture note] and https://en.wikipedia.org/wiki/Eigenspinor[wikipedia] for comparison):
+https://inst.eecs.berkeley.edu/~cs191/fa10/notes/spins.pdf[lecture note] and https://en.wikipedia.org/wiki/Eigenspinor[wikipedia] for comparison;
+wikipedia calls these _eigenspinors_):
 
 image::/assets/images/eigenspinors.png[]
 
@@ -357,13 +358,13 @@ n_y & = \sin \phi \sin \theta
 '''
 
 If we substitute stem:[n] with stem:[m] we will get stem:[|\hat{m} + \rangle] and stem:[|\hat{m} - \rangle]. 
-Let stem:[|\hat{m} + \rangle = \textbf{r}_1] and stem:[|\hat{m} - \rangle = \textbf{r}_2]. Then stem:[\alpha] is nothing but
-stem:[r_1^\dagger q_1]. Let's calculate it:
+Let stem:[|\hat{m} + \rangle = \textbf{r}_1] and stem:[|\hat{m} - \rangle = \textbf{r}_2]. Then stem:[\alpha] is nothing but inner product of 
+stem:[\textbf{r}_1] and stem:[\textbf{q}_1]. Let's calculate it:
 
 [stem]
 ++++
 \begin{split}
-\alpha & = r_1^\dagger q_1 = \frac{1}{\sqrt{2 (1 + m_z)}} \begin{pmatrix} 1 + m_z & m_x - i m_y \end{pmatrix} 
+\alpha & = \textbf{r}_1^\dagger \textbf{q}_1 = \frac{1}{\sqrt{2 (1 + m_z)}} \begin{pmatrix} 1 + m_z & m_x - i m_y \end{pmatrix} 
                            \frac{1}{\sqrt{2 (1 + n_z)}} \begin{pmatrix} 1 + n_z \\ n_x + i n_y \end{pmatrix} \\
        & = \frac{1}{2\sqrt{(1+m_z)(1+n_z)}} \left( (1+m_z)(1+n_z) + (m_x - i m_y)(n_x + i n_y) \right)
 \end{split}
