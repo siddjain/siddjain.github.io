@@ -401,6 +401,9 @@ and
 \end{split}
 ++++
 
-Note to self: I think in the https://inst.eecs.berkeley.edu/~cs191/fa10/notes/spins.pdf[lecture note] he is trying to derive the fact that measuring spin along stem:[\hat{n}]
-amounts to expressing the wavefunction in the eigenbasis formed by the eigenvectors of stem:[S(\hat{n})] whereas I have always taken it as an a-priori assumption or rule.
-He is trying to explain from where that assumption came from. 
+In the https://inst.eecs.berkeley.edu/~cs191/fa10/notes/spins.pdf[lecture note] he is trying to derive the fact that measuring spin along stem:[\hat{n}]
+amounts to expressing the wavefunction in the eigenbasis formed by the eigenvectors of stem:[S(\hat{n})] whereas in above we have taken it as an a-priori assumption or rule.
+The lecture note starts with stem:[P(|\hat{n}+\rangle \rightarrow |\hat{m}+\rangle) = \frac{1}{2} \left( 1 + \hat{n} \cdot \hat{m} \right)] as a experimental fact,
+and _derives stem:[S(\hat{n})] from it_ whereas we start with stem:[S(\hat{n})] and try to derive 
+stem:[P(|\hat{n}+\rangle \rightarrow |\hat{m}+\rangle) = \frac{1}{2} \left( 1 + \hat{n} \cdot \hat{m} \right)] from it.
+The lecture note develops a theory to explain the experiment whereas we start with a theory and predict experimental outcome from it.

@@ -458,6 +458,17 @@ modulo a global phase factor i.e., the state stem:[\psi] cannot be distinguished
 If you want to get stem:[\psi] you will apply stem:[X] followed by stem:[Z]. 
 But the order of the gates doesn't matter. This is _quantum teleportation_. QED.
 
+A very insightful way to understand quantum teleportation is provided by following equation which expresses the 3 qubit system (Alice's qubit +
+the two entangled qubits) in the Bell basis
+(I got the equation from https://ms.mcmaster.ca/~matt/3qc3/Assignment4Solutions.pdf[here]):
+
+image::/assets/images/quantum_teleportation_bell_expression.png[]
+
+This expression for the initial state makes it easier to see that
+once Alice measures her two qubits in the Bell basis, then the state
+vector of Bob’s qubit will be of the form stem:[U |\psi\rangle], where stem:[U] is one of: stem:[I,
+X, Z, or XZ], depending on the outcome of Alice’s measurement.
+
 == The connection between QM and QC
 
 Quantum computers manipulate qubits using unitary matrices, but that is not what we are taught in
@@ -535,3 +546,7 @@ and https://quantumcomputing.stackexchange.com/questions/1577/what-is-the-differ
 
 According to https://youtu.be/NwoD82hDImM?t=672[this] video, for a problem to be solved by a quantum annealer, it must be cast into a QUBO - quadratic unconstrained binary
 optimization. More on adiabatic quantum computation in https://youtu.be/vFpNNrt-baE[this] video.
+
+== References
+
+* https://www.youtube.com/playlist?list=PLDAjb_zu5aoFazE31_8yT0OfzsTcmvAVg[Umesh Vazirani Quantum Computing Course]
