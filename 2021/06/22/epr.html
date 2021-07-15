@@ -316,7 +316,7 @@ What gives? The \(\Psi\) we have used is different from the \(\Psi\) used in the
 <div class="paragraph">
 <p>This formula is also worked out in <a href="https://www.physicsforums.com/insights/bell-states-and-conservation-of-spin-angular-momentum/">this</a> article.
 But this also is not \(+ \cos \theta\). What gives now? Well the answer is this: consider what happens to the state
-\(\frac{1}{\sqrt 2}|00\rangle + \frac{1}{\sqrt 2}|11\rangle\) when it is subjected to an arbitrary Unitary transform with bases
+\(\frac{1}{\sqrt 2}|00\rangle + \frac{1}{\sqrt 2}|11\rangle\) when it is subjected to an arbitrary unitary transform with bases
 \(u\) and \(u^ \perp\). Thus, let:</p>
 </div>
 <div class="stemblock">
@@ -384,7 +384,30 @@ to a rotation but not otherwise. This is actually called out in <a href="https:/
 as well. At the very top of his slide Vazirani does say in bold Rotational Invariance of the Bell State. So he is not considering any arbitrary transform.
 He is only considering rotational transforms and the axes \(u, u^\perp, v, v^\perp\) lie in the \(xz\) plane i.e., the \(y\) component is zero.
 When that is the case, then a₁⋅b₁ - a₂⋅b₂ + a₃⋅b₃ reduces to a₁⋅b₁ + a₃⋅b₃ and is equal to \(\cos \theta\). There is still a problem.
-There is a fctor of \(2\) mismatch. The formula in his video is \(\cos^2 \theta\) but we get \(\cos^2 \frac{\theta}{2}\). What gives? I don&#8217;t know.</p>
+There is a factor of \(2\) mismatch. The formula in his video is \(\cos^2 \theta\). Also see <a href="https://people.eecs.berkeley.edu/~vazirani/f19quantum/notes/191.pdf">this</a> lecture note reproduced below:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/images/vazirani_lecture_note_191.png" alt="vazirani lecture note 191">
+</div>
+</div>
+<div class="paragraph">
+<p><em>But we get \(\cos^2 \frac{\theta}{2}\). What gives?</em>
+The answer to the conundrum which bothered me for many days and weeks is that the \(\theta\) used in the lecture note above is <em>different</em> from the \(\theta\) we are using i.e.,
+<em>the same symbol \(\theta\) is being used to denote different angles and creating confusion</em>.
+<em>The \(\theta\) in the lecture note above is the angle by which the 2-D basis vectors are rotated in Hilbert space.
+Whereas our \(\theta\) is the angle by which the Stern-Gerlach magnets are rotated in real 3D space.</em>
+The two are related by factor of two which is evident when you refer the formula for the eigenspinors in this same article later on and
+is also called out in <a href="https://www.physicsforums.com/insights/bell-states-and-conservation-of-spin-angular-momentum/">this</a> article here:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/images/explanation_of_factor_2_mismatch.png" alt="explanation of factor 2 mismatch">
+</div>
+</div>
+<div class="paragraph">
+<p>For reference, <a href="https://inst.eecs.berkeley.edu/~cs191/fa10/notes/spins.pdf">here</a> is another lecture note (and discussed in very next section of this article) which also gives
+\(\cos^2 \frac{\theta}{2}\) as answer.</p>
 </div>
 <div class="paragraph">
 <p>Of the 4 <a href="https://en.wikipedia.org/wiki/Bell_state">bell states</a>, the spin-singlet state also denoted as \(\Psi^-\) is the only state that is invariant to any unitary transform.
@@ -400,8 +423,8 @@ explains it.</p>
 <p>In <a href="https://youtu.be/hWodwNNDSu8?t=655">this</a> video and <a href="https://inst.eecs.berkeley.edu/~cs191/fa10/notes/spins.pdf">lecture note</a> Umesh Vazirani considers the problem
 of measuring a single qubit in two different bases and calculating the probability that the qubit is in the same state in both the bases. The problem can be equivalently stated
 as measuring the spin of an electron - first through a detector (SG magnet) oriented along \(\hat{n}\) and then through a detector oriented along \(\hat{m}\).
-What is the probability that the second detector gives same spin as the first detector? The problem is similar to the 2 qubit system.
-He claims following formula:</p>
+What is the probability that the second detector gives same spin as the first detector? The problem is same as the entangled 2 qubit system we just discussed
+once the first qubit has been measured. He claims following formula:</p>
 </div>
 <div class="stemblock">
 <div class="content">
@@ -535,6 +558,27 @@ The lecture note starts with \(P(|\hat{n}\rangle \rightarrow |\hat{m}\rangle) = 
 and <em>derives \(S(\hat{n})\) from it</em> whereas we start with \(S(\hat{n})\) and try to derive
 \(P(|\hat{n}\rangle \rightarrow |\hat{m}\rangle) = \frac{1}{2} \left( 1 + \hat{n} \cdot \hat{m} \right)\) from it.
 The lecture note develops a theory to explain the experiment whereas we start with a theory and predict experimental outcome from it.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="references">References</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://depts.washington.edu/jrphys/ph248A11/qmch1.pdf" class="bare">https://depts.washington.edu/jrphys/ph248A11/qmch1.pdf</a></p>
+</li>
+<li>
+<p><a href="https://depts.washington.edu/jrphys/ph248A11/qmch2.pdf" class="bare">https://depts.washington.edu/jrphys/ph248A11/qmch2.pdf</a></p>
+</li>
+<li>
+<p><a href="https://depts.washington.edu/jrphys/ph248A11/qmch3Part.pdf" class="bare">https://depts.washington.edu/jrphys/ph248A11/qmch3Part.pdf</a></p>
+</li>
+<li>
+<p><a href="https://depts.washington.edu/jrphys/ph248A11/qmch4.pdf" class="bare">https://depts.washington.edu/jrphys/ph248A11/qmch4.pdf</a></p>
+</li>
+</ul>
 </div>
 </div>
 </div>
