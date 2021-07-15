@@ -549,4 +549,6 @@ optimization. More on adiabatic quantum computation in https://youtu.be/vFpNNrt-
 
 == References
 
-* https://www.youtube.com/playlist?list=PLDAjb_zu5aoFazE31_8yT0OfzsTcmvAVg[Umesh Vazirani Quantum Computing Course]
+* https://inst.eecs.berkeley.edu/~cs191/fa10/[Umesh Vazirani Lecture Notes]
+* https://www.youtube.com/watch?v=VPsl_5RQe1A&list=PLnhoxwUZN7-6hB2iWNhLrakuODLaxPTOG[Videos of Umesh Vazirani Quantum Computing Course] 
+* https://www.youtube.com/playlist?list=PLDAjb_zu5aoFazE31_8yT0OfzsTcmvAVg[Another playlist of Vazirani course]

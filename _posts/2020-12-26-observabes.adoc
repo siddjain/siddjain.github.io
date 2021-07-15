@@ -309,5 +309,4 @@ and turns out to be same as:
 \end{equation}
 ++++
 
-which in this case will be 0. The best book I have found on QM is not a book but the
-https://inst.eecs.berkeley.edu/~cs191/fa10/[Lecture Notes] and https://www.youtube.com/watch?v=VPsl_5RQe1A&list=PLnhoxwUZN7-6hB2iWNhLrakuODLaxPTOG[videos] by Umesh Vazirani. 
+which in this case will be 0. 

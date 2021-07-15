@@ -221,7 +221,7 @@ gives:
 
 This formula is also worked out in https://www.physicsforums.com/insights/bell-states-and-conservation-of-spin-angular-momentum/[this] article.
 But this also is not stem:[+ \cos \theta]. What gives now? Well the answer is this: consider what happens to the state
-stem:[\frac{1}{\sqrt 2}|00\rangle + \frac{1}{\sqrt 2}|11\rangle] when it is subjected to an arbitrary Unitary transform with bases
+stem:[\frac{1}{\sqrt 2}|00\rangle + \frac{1}{\sqrt 2}|11\rangle] when it is subjected to an arbitrary unitary transform with bases
 stem:[u] and stem:[u^ \perp]. Thus, let:
 
 [stem]
@@ -284,7 +284,22 @@ to a rotation but not otherwise. This is actually called out in https://www.phys
 as well. At the very top of his slide Vazirani does say in bold Rotational Invariance of the Bell State. So he is not considering any arbitrary transform.
 He is only considering rotational transforms and the axes stem:[u, u^\perp, v, v^\perp] lie in the stem:[xz] plane i.e., the stem:[y] component is zero.
 When that is the case, then a₁⋅b₁ - a₂⋅b₂ + a₃⋅b₃ reduces to a₁⋅b₁ + a₃⋅b₃ and is equal to stem:[\cos \theta]. There is still a problem.
-There is a fctor of stem:[2] mismatch. The formula in his video is stem:[\cos^2 \theta] but we get stem:[\cos^2 \frac{\theta}{2}]. What gives? I don't know. 
+There is a factor of stem:[2] mismatch. The formula in his video is stem:[\cos^2 \theta]. Also see https://people.eecs.berkeley.edu/~vazirani/f19quantum/notes/191.pdf[this] lecture note reproduced below:
+
+image::/assets/images/vazirani_lecture_note_191.png[]
+
+_But we get stem:[\cos^2 \frac{\theta}{2}]. What gives?_
+The answer to the conundrum which bothered me for many days and weeks is that the stem:[\theta] used in the lecture note above is _different_ from the stem:[\theta] we are using i.e.,
+_the same symbol stem:[\theta] is being used to denote different angles and creating confusion_. 
+_The stem:[\theta] in the lecture note above is the angle by which the 2-D basis vectors are rotated in Hilbert space.
+Whereas our stem:[\theta] is the angle by which the Stern-Gerlach magnets are rotated in real 3D space._
+The two are related by factor of two which is evident when you refer the formula for the eigenspinors in this same article later on and
+is also called out in https://www.physicsforums.com/insights/bell-states-and-conservation-of-spin-angular-momentum/[this] article here:
+
+image::/assets/images/explanation_of_factor_2_mismatch.png[]
+
+For reference, https://inst.eecs.berkeley.edu/~cs191/fa10/notes/spins.pdf[here] is another lecture note (and discussed in very next section of this article) which also gives
+stem:[\cos^2 \frac{\theta}{2}] as answer.
 
 Of the 4 https://en.wikipedia.org/wiki/Bell_state[bell states], the spin-singlet state also denoted as stem:[\Psi^-] is the only state that is invariant to any unitary transform.
 All other states are invariant only to rotations. Again, read https://www.physicsforums.com/insights/bell-states-and-conservation-of-spin-angular-momentum/[this] article which
@@ -295,8 +310,8 @@ explains it.
 In https://youtu.be/hWodwNNDSu8?t=655[this] video and https://inst.eecs.berkeley.edu/~cs191/fa10/notes/spins.pdf[lecture note] Umesh Vazirani considers the problem
 of measuring a single qubit in two different bases and calculating the probability that the qubit is in the same state in both the bases. The problem can be equivalently stated
 as measuring the spin of an electron - first through a detector (SG magnet) oriented along stem:[\hat{n}] and then through a detector oriented along stem:[\hat{m}].
-What is the probability that the second detector gives same spin as the first detector? The problem is similar to the 2 qubit system.
-He claims following formula:
+What is the probability that the second detector gives same spin as the first detector? The problem is same as the entangled 2 qubit system we just discussed
+once the first qubit has been measured. He claims following formula:
 
 [stem]
 ++++
@@ -408,3 +423,10 @@ The lecture note starts with stem:[P(|\hat{n}+\rangle \rightarrow |\hat{m}+\rang
 and _derives stem:[S(\hat{n})] from it_ whereas we start with stem:[S(\hat{n})] and try to derive 
 stem:[P(|\hat{n}+\rangle \rightarrow |\hat{m}+\rangle) = \frac{1}{2} \left( 1 + \hat{n} \cdot \hat{m} \right)] from it.
 The lecture note develops a theory to explain the experiment whereas we start with a theory and predict experimental outcome from it.
+
+== References
+
+* https://depts.washington.edu/jrphys/ph248A11/qmch1.pdf
+* https://depts.washington.edu/jrphys/ph248A11/qmch2.pdf
+* https://depts.washington.edu/jrphys/ph248A11/qmch3Part.pdf
+* https://depts.washington.edu/jrphys/ph248A11/qmch4.pdf
