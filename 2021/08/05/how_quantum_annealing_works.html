@@ -117,10 +117,11 @@ vector. Its length can be \(0\) or more than \(1\).</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>In other words, the answer is unfortunately completely incorrect (no offense to the person who answered it). When I tried to point out these things, Stack Overflow users (many of them
-with \(&gt;10\)k reputation I believe) ironically downvoted my question and even voted to close it. The question kept bothering me though.
+<p>In other words, the answer is unfortunately completely incorrect (no offense to the person who answered it - s/he is actually the top ranked user on Quantum Computing Stack Exchange).
+When I tried to point out these things, Stack Overflow users (many of them
+with \(&gt;10\)k reputation I believe) downvoted my question and even voted to close it. The question kept bothering me though.
 The best I could grasp is that we use QA to minimize \(\langle \Psi | H | \Psi \rangle\) for some \(H\) - what \(H\) is continued to be unclear - make an observation
-(measurement) and map the result to the \(x\) of the original QUBO problem. But how does that minimize \(x^T Q x\) is completely unclear and voodoo until finally I got it one
+(measurement) and map the result to the \(x\) of the original QUBO problem. But how does that minimize \(x^T Q x\) is a mystery until finally I got it one
 morning as I was getting ready to go to work&#8230;&#8203;</p>
 </div>
 </div>
@@ -147,7 +148,7 @@ morning as I was getting ready to go to work&#8230;&#8203;</p>
 <div class="paragraph">
 <p>What the heck does \(\sigma_i^z\) even mean? No book will tell you that. That is why we need to go to a school
 where we can ask questions to a real professor. The only place where I could find an explanation was <a href="https://arxiv.org/abs/0804.4884">this</a>
-paper (which I found as I was writing this article and after having worked it out myself) where he explains that:</p>
+paper (which I found as I was writing this article and after having worked out the solution myself) where he explains that:</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -196,23 +197,7 @@ We use following three properties which play a key role:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Property 2</strong> If \(A\) and \(B\) are two matrices and \(C\) is the sum of \(A\) and \(B\), then in general
-the eigenvalues of \(C\) are not equal to the sum of eigenvalues of \(A\) and \(B\), but if \(A\) and \(B\)
-have the same eigenvectors, then the eigenvalues do add up! In that case:</p>
-</li>
-</ul>
-</div>
-<div class="stemblock">
-<div class="content">
-\[\begin{equation}
-\textrm{eig}(A + B) = \textrm{eig}(A) + \textrm{eig}(B) \textrm{if A and B have same eigenvectors}
-\end{equation}\]
-</div>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Property 3</strong> The eigenvectors of tensor product of matrices are equal to tensor product of constituent eigenvectors i.e.</p>
+<p><strong>Property 2</strong> The eigenvectors of tensor product of matrices are equal to tensor product of constituent eigenvectors i.e.</p>
 </li>
 </ul>
 </div>
@@ -226,10 +211,190 @@ have the same eigenvectors, then the eigenvalues do add up! In that case:</p>
 <div class="paragraph">
 <p>this is related to Property 1 and same proof applies.</p>
 </div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Property 3</strong> If \(A\) and \(B\) are two matrices and \(C\) is the sum of \(A\) and \(B\), then in general
+the eigenvalues of \(C\) are not equal to the sum of eigenvalues of \(A\) and \(B\), but if \(A\) and \(B\)
+have the same eigenvectors, then the eigenvalues do add up! In that case:</p>
+</li>
+</ul>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{equation}
+\textrm{eig}(A + B) = \textrm{eig}(A) + \textrm{eig}(B) \textrm{if A and B have same eigenvectors}
+\end{equation}\]
+</div>
+</div>
 <div class="paragraph">
-<p>Now the eigenvectors of \(Z\) are \((1,0)^T\) and \((0,1)^T\). Any vector \(v\) is an eigenvector of \(I\)
-but to choose a basis, we choose the same eigenvectors \((1,0)^T\) and \((0,1)^T\) for \(I\) as well.
-With this we can show that the \(2^3\) eigenvalues (allowed energy levels) of \(H\) are in fact given by:</p>
+<p>Now the eigenvectors of \(Z\) are \(|0\rangle = (1,0)^T\) and \(|1\rangle = (0,1)^T\).
+Any vector \(v\) is an eigenvector of \(I\) but to choose a basis, we choose the same eigenvectors
+\((1,0)^T\) and \((0,1)^T\) for \(I\) as well.
+With this we can write \(H\) as:</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{equation}
+H = h_1 M_1 + h_2 M_2 + h_3 M_3 + J_{12} M_4 + J_{13} M_5 + J_{23} M_6
+\end{equation}\]
+</div>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s take \(M_1 = Z \otimes I \otimes I\). By <strong>Property 1</strong> the eigenvalues of \(M_1\)
+are given by \(\textrm{eig}(Z) \times \textrm{eig}(I) \times \textrm{eig}(I)\). This translates to only \(2\) distinct
+eigenvalues which are \(\{-1,+1\}\). Similarly, \(M_2, M_3, M_4, M_5, M_6\) all share the same set of only \(2\) distinct eigenvalues \(\{-1,+1\}\).</p>
+</div>
+<div class="paragraph">
+<p>What are the eigenvectors of \(M_1\)? By <strong>Property 2</strong> they are \(\textrm{eigvec}(Z) \otimes \textrm{eigvec}(I) \otimes \textrm{eigvec}(I)\).
+This gives us following 8 vectors (enumerating all combinations):</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{align}
+\begin{split}
+|0\rangle \otimes |0\rangle \otimes |0\rangle &amp; = |000\rangle \\
+|0\rangle \otimes |0\rangle \otimes |1\rangle &amp; = |001\rangle \\
+|0\rangle \otimes |1\rangle \otimes |0\rangle &amp; = |010\rangle \\
+|0\rangle \otimes |1\rangle \otimes |1\rangle &amp; = |011\rangle \\
+|1\rangle \otimes |0\rangle \otimes |0\rangle &amp; = |100\rangle \\
+|1\rangle \otimes |0\rangle \otimes |1\rangle &amp; = |101\rangle \\
+|1\rangle \otimes |1\rangle \otimes |0\rangle &amp; = |110\rangle \\
+|1\rangle \otimes |1\rangle \otimes |1\rangle &amp; = |111\rangle \\
+\end{split}
+\end{align}\]
+</div>
+</div>
+<div class="paragraph">
+<p>These are nothing but the computational basis vectors in \(2^3\)-D space.
+By same analysis we can show \(M_2, M_3, M_4, M_5, M_6\) all share the same set of eigenvectors above.</p>
+</div>
+<div class="paragraph">
+<p>So now we have shown \(M_1, M_2, M_3, M_4, M_5, M_6\) all have same eigenvalues and eigenvectors.
+Applying <strong>Property 3</strong>, we may be tempted to infer the eigenvalues of \(H\) as:</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{equation}
+\textrm{eig}(H) = h_1 b_1 + h_2 b_2 + h_3 b_3 + J_{12} b_4 + J_{13} b_5 + J_{23} b_6 \textrm{(wrong)}
+\end{equation}\]
+</div>
+</div>
+<div class="paragraph">
+<p>where \(b_i\) are independent variables having values \(\{-1,+1\}\) but this is wrong.
+For one this gives us \(2^6\) combinations of \(b_i\)'s whereas \(H\) should have \(2^3\) eigenvalues.
+The correct way to calculate the eigenvalues of \(H\) is to apply \(H\) to the eigenvectors
+of \(M_1, M_2, M_3, M_4, M_5, M_6\) we calculated above. For example:</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{align}
+H|101\rangle &amp; = h_1 M_1 |101\rangle + h_2 M_2 |101\rangle + h_3 M_3 |101\rangle + J_{12} M_4 |101\rangle + J_{13} M_5 |101\rangle + J_{23} M_6 |101\rangle
+\end{align}\]
+</div>
+</div>
+<div class="paragraph">
+<p>where:</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{align}
+\begin{split}
+M_1 |101\rangle &amp; = (Z \otimes I \otimes I) (|1\rangle \otimes |0\rangle \otimes |1\rangle) \\
+                &amp; = Z |1\rangle \otimes I |0\rangle \otimes I |1\rangle \; \; \textrm{since} (A \otimes B) (C \otimes D) = (AC \otimes BD) \\
+                &amp; = -|1\rangle \otimes |0\rangle \otimes |1\rangle \\
+                &amp; = -|101\rangle
+\end{split}
+\end{align}\]
+</div>
+</div>
+<div class="paragraph">
+<p>Similarly we have to do for \(M_2, M_3, M_4, M_5, M_6\). In general given the eigenvector \(|x_1 x_2 x_3 \rangle\) (\(x_i \in \{0,1\}\)):</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{align}
+\begin{split}
+M_1 |x_1 x_2 x_3 \rangle &amp; = h_1 (Z \otimes I \otimes I) (|x_1\rangle \otimes |x_2\rangle \otimes |x_3\rangle) \\
+                &amp; = h_1 Z |x_1\rangle \otimes I |x_2\rangle \otimes I |x_3\rangle \\
+                &amp; = h_1 (-1)^{x_1}|x_1\rangle \otimes |x_2\rangle \otimes |x_3\rangle \\
+                &amp; = h_1 (-1)^{x_1}|x_1 x_2 x_3\rangle
+\end{split}
+\end{align}\]
+</div>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{align}
+\begin{split}
+M_2 |x_1 x_2 x_3 \rangle &amp; = h_2 (I \otimes Z \otimes I) (|x_1\rangle \otimes |x_2\rangle \otimes |x_3\rangle) \\
+                &amp; = h_2 I |x_1\rangle \otimes Z |x_2\rangle \otimes I |x_3\rangle \\
+                &amp; = h_2 |x_1\rangle \otimes (-1)^{x_2}|x_2\rangle \otimes |x_3\rangle \\
+                &amp; = h_2 (-1)^{x_2}|x_1 x_2 x_3\rangle
+\end{split}
+\end{align}\]
+</div>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{align}
+\begin{split}
+M_3 |x_1 x_2 x_3 \rangle &amp; = h_3 (I \otimes I \otimes Z) (|x_1\rangle \otimes |x_2\rangle \otimes |x_3\rangle) \\
+                &amp; = h_3 I |x_1\rangle \otimes I |x_2\rangle \otimes Z |x_3\rangle \\
+                &amp; = h_3 |x_1\rangle \otimes |x_2\rangle \otimes (-1)^{x_3}|x_3\rangle \\
+                &amp; = h_3 (-1)^{x_3}|x_1 x_2 x_3\rangle
+\end{split}
+\end{align}\]
+</div>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{align}
+\begin{split}
+M_4 |x_1 x_2 x_3 \rangle &amp; = J_{12} (Z \otimes Z \otimes I) (|x_1\rangle \otimes |x_2\rangle \otimes |x_3\rangle) \\
+                &amp; = J_{12} Z |x_1\rangle \otimes Z |x_2\rangle \otimes I |x_3\rangle \\
+                &amp; = J_{12} (-1)^{x_1} |x_1\rangle \otimes (-1)^{x_2} |x_2\rangle \otimes |x_3\rangle \\
+                &amp; = J_{12} (-1)^{x_1 + x_2} |x_1 x_2 x_3\rangle
+\end{split}
+\end{align}\]
+</div>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{align}
+\begin{split}
+M_5 |x_1 x_2 x_3 \rangle &amp; = J_{13} (Z \otimes I \otimes Z) (|x_1\rangle \otimes |x_2\rangle \otimes |x_3\rangle) \\
+                &amp; = J_{13} Z |x_1\rangle \otimes I |x_2\rangle \otimes Z |x_3\rangle \\
+                &amp; = J_{13} (-1)^{x_1} |x_1\rangle \otimes |x_2\rangle \otimes (-1)^{x_3}|x_3\rangle \\
+                &amp; = J_{13} (-1)^{x_1 + x_3} |x_1 x_2 x_3\rangle
+\end{split}
+\end{align}\]
+</div>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{align}
+\begin{split}
+M_6 |x_1 x_2 x_3 \rangle &amp; = J_{23} (I \otimes Z \otimes Z) (|x_1\rangle \otimes |x_2\rangle \otimes |x_3\rangle) \\
+                &amp; = J_{23} I |x_1\rangle \otimes Z |x_2\rangle \otimes Z |x_3\rangle \\
+                &amp; = J_{23} |x_1\rangle \otimes (-1)^{x_2} |x_2\rangle \otimes (-1)^{x_3}|x_3\rangle \\
+                &amp; = J_{23} (-1)^{x_2 + x_3} |x_1 x_2 x_3\rangle
+\end{split}
+\end{align}\]
+</div>
+</div>
+<div class="paragraph">
+<p>Introduce following variables: \(s_i = (-1)^{x_i}\) for \(i \in \{1,2,3\}\). Then we can write \(H|x_1 x_2 x_3 \rangle\) as:</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{equation}
+H|x_1 x_2 x_3 \rangle = (h_1 s_1 + h_2 s_2 + h_3 s_3 + J_{12} s_1 s_2 + J_{13} s_1 s_3 + J_{23} s_2 s_3) |x_1 x_2 x_3 \rangle
+\end{equation}\]
+</div>
+</div>
+<div class="paragraph">
+<p>and so \(|x_1 x_2 x_3 \rangle\) is an eigenvector of \(H\) and the eigenvalues (allowed energy levels) of \(H\) are in fact given by:</p>
 </div>
 <div class="stemblock">
 <div class="content">
@@ -247,11 +412,13 @@ This is nothing but the QUBO cost function. The ground-state is the state that m
 and if we measure the values of the spins (qubits) in the ground state (measurement of a qubit will yield \(-1\) or \(+1\))
 we will find the vector \(x\) that minimizes the QUBO cost function. So this is how it works.
 If you do the math, it turns out the (final) Ising Hamiltonian is actually a diagonal matrix containing the energy values \(E\) on its diagonal.
-All the off-diagonal elements are \(0\).</p>
+All the off-diagonal elements are \(0\). This is just another way of saying that the eigenvectors of \(H\) are the same as the vectors
+of the computational basis. Going back to OP, there is a trivial relation (equivalence) between <strong>P1</strong> (minimize \(x^T Q x\)) and <strong>P2</strong> (eigendecomposition of some \(H\))
+which is simply this: calculate all \(2^n\) values of \(x^T Q x\). Put them on the diagonal of a \(2^n \times 2^n\) matrix. That matrix is \(H\).
+This relation is not very useful for classical optimization algorithms and that&#8217;s why there is no mention of it in books on quadratic programming.</p>
 </div>
 <div class="paragraph">
-<p>This also explains why the D-Wave computer is a special purpose computer because its Hamiltonian is constrained to be an Ising Hamiltonian
-in a transverse field.</p>
+<p>This also explains why the D-Wave computer is a special purpose computer because its Hamiltonian is constrained to be an Ising Hamiltonian in a transverse field.</p>
 </div>
 </div>
 </div>
