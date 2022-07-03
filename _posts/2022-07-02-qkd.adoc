@@ -28,7 +28,9 @@ will have stem:[45^{\circ}] polarization. There is no entanglement between the p
 You might be thinking how stupid is that. We already know the rule for encoding the binary string - its pretty simple. We can just decode the message stem:[|\Psi\rangle] using that rule and get back the original
 string of bits. Here is where QM comes in. In QM it is impossible to fully know the complete state of a quantum system (Heisenberg's uncertainty principle). Thus Eve has no instrument (think wireshark if you will)
 that can take input stem:[|\Psi\rangle] (stem:[|\Psi\rangle] is nothing but the stem:[16] photons we transmitted)
-and give stem:[| + 000+0+0++0+0+00\rangle] as a readout which she can then decode as stem:[1000101011010100]. All she can do is two things:
+and give stem:[| + 000+0+0++0+0+00\rangle] as a readout which she can then decode as stem:[1000101011010100]. 
+footnote:[In physical terms given a photon, there is no way to know how Alice polarized it. All we can do is measure the polarization in some basis. That gives us the component of polarization along that basis and
+in the process the original state is destroyed.] All she can do is two things:
 
 * Apply a unitary evolution to stem:[|\Psi\rangle] to yield another quantum state stem:[|\Phi\rangle]
 * Or, make a measurement. Making a measurement requires choosing a basis first of all. Then when a measurement is made, the quantum state will collapse to _one_ of the basis vectors
@@ -115,6 +117,57 @@ And this is how B92 protocol works.
 In some sense it is even more simpler (fundamental) than the BB84 protocol because here the encoding of classical bits to qubits is well-known in advance. It is a static rule and not dependent
 upon another random string generated at runtime as in case of BB84.
 
-At heart of QKD is the lemma that its is impossible to distinguish two _non-orthogonal_ quantum states without introducing a disturbance to either of them.
+At heart of QKD is the lemma that it is impossible to distinguish two _non-orthogonal_ quantum states without introducing a disturbance to either of them.
+And the no-cloning theorem which guarantees that it is impossible to clone or copy a quantum state.
 What QM taketh (impossible to fully know the complete state of a system) it giveth it away (a provably secure means of private key generation).
 
+A great simulation of the protocol can be found https://www.st-andrews.ac.uk/physics/quvis/simulations_html5/sims/cryptography-b92/B92_photons.html[here]
+
+It is possible to write a python program to simulate B92. The `main` function looks like this:
+
+[source,python]
+----
+eavesdrop = np.random.choice([True, False], size=N_trials)
+for i in range(0, N_trials):    
+    (key, is_compromised) = perform_b92_experiment(N_bits, N_test, eavesdrop[i])
+    if eavesdrop[i]:
+        num_positive += 1
+        if is_compromised:
+            true_positive += 1
+        else:
+            false_negative += 1 # Alice and Bob think the key is not compromised when in fact it has been compromised
+    else:
+        num_negative += 1
+        if is_compromised:
+            false_positive += 1 # Alice and Bob think the key is compromised when in fact it hasn't been compromised. This cannot happen with B92 protocol
+        else:
+            true_negative += 1
+----
+
+The `perform_b92_experiment` takes input 3 parameters:
+
+* `N_bits`: The number of bits in stem:[a], Alice's binary string
+* `N_test`: The (maximum) number of bits that will be used for testing whether the message or channel has been compromised by an eavesdropper
+* `eavesdrop`: Whether to eavesdrop on the signal or not
+
+and returns 2 outputs:
+
+* `key`: The shared secret
+* `is_compromised`: Whether the protocol determines that the channel has been compromised
+
+Filling out `perform_b92_experiment` is left as an exercise. When I performed the experiment stem:[1000] times with `N_bits=160` and `N_test=10`, this is what I found:
+
+----
+total trials =  1000
+num positive =  489
+num_negative =  511
+true positive =  489
+true negative =  511
+false positive =  0
+false negative =  0
+Confusion Matrix
+1.0   0.0
+0.0   1.0
+----
+
+so it gave a perfect result each time. What do you get?
