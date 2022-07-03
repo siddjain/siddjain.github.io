@@ -78,7 +78,8 @@ will have \(45^{\circ}\) polarization. There is no entanglement between the phot
 <p>You might be thinking how stupid is that. We already know the rule for encoding the binary string - its pretty simple. We can just decode the message \(|\Psi\rangle\) using that rule and get back the original
 string of bits. Here is where QM comes in. In QM it is impossible to fully know the complete state of a quantum system (Heisenberg&#8217;s uncertainty principle). Thus Eve has no instrument (think wireshark if you will)
 that can take input \(|\Psi\rangle\) (\(|\Psi\rangle\) is nothing but the \(16\) photons we transmitted)
-and give \(| + 000+0+0++0+0+00\rangle\) as a readout which she can then decode as \(1000101011010100\). All she can do is two things:</p>
+and give \(| + 000+0+0++0+0+00\rangle\) as a readout which she can then decode as \(1000101011010100\).
+<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup> All she can do is two things:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -411,9 +412,90 @@ If answer is affirmative then, the remaining \(3\) can be used to share a privat
 upon another random string generated at runtime as in case of BB84.</p>
 </div>
 <div class="paragraph">
-<p>At heart of QKD is the lemma that its is impossible to distinguish two <em>non-orthogonal</em> quantum states without introducing a disturbance to either of them.
+<p>At heart of QKD is the lemma that it is impossible to distinguish two <em>non-orthogonal</em> quantum states without introducing a disturbance to either of them.
+And the no-cloning theorem which guarantees that it is impossible to clone or copy a quantum state.
 What QM taketh (impossible to fully know the complete state of a system) it giveth it away (a provably secure means of private key generation).</p>
 </div>
+<div class="paragraph">
+<p>A great simulation of the protocol can be found <a href="https://www.st-andrews.ac.uk/physics/quvis/simulations_html5/sims/cryptography-b92/B92_photons.html">here</a></p>
+</div>
+<div class="paragraph">
+<p>It is possible to write a python program to simulate B92. The <code>main</code> function looks like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight" style="background: #f8f8f8;"><code data-lang="python"><span></span>eavesdrop <span style="color: #666666">=</span> np<span style="color: #666666">.</span>random<span style="color: #666666">.</span>choice([<span style="color: #008000; font-weight: bold">True</span>, <span style="color: #008000; font-weight: bold">False</span>], size<span style="color: #666666">=</span>N_trials)
+<span style="color: #008000; font-weight: bold">for</span> i <span style="color: #AA22FF; font-weight: bold">in</span> <span style="color: #008000">range</span>(<span style="color: #666666">0</span>, N_trials):
+    (key, is_compromised) <span style="color: #666666">=</span> perform_b92_experiment(N_bits, N_test, eavesdrop[i])
+    <span style="color: #008000; font-weight: bold">if</span> eavesdrop[i]:
+        num_positive <span style="color: #666666">+=</span> <span style="color: #666666">1</span>
+        <span style="color: #008000; font-weight: bold">if</span> is_compromised:
+            true_positive <span style="color: #666666">+=</span> <span style="color: #666666">1</span>
+        <span style="color: #008000; font-weight: bold">else</span>:
+            false_negative <span style="color: #666666">+=</span> <span style="color: #666666">1</span> <span style="color: #408080; font-style: italic"># Alice and Bob think the key is not compromised when in fact it has been compromised</span>
+    <span style="color: #008000; font-weight: bold">else</span>:
+        num_negative <span style="color: #666666">+=</span> <span style="color: #666666">1</span>
+        <span style="color: #008000; font-weight: bold">if</span> is_compromised:
+            false_positive <span style="color: #666666">+=</span> <span style="color: #666666">1</span> <span style="color: #408080; font-style: italic"># Alice and Bob think the key is compromised when in fact it hasn&#39;t been compromised. This cannot happen with B92 protocol</span>
+        <span style="color: #008000; font-weight: bold">else</span>:
+            true_negative <span style="color: #666666">+=</span> <span style="color: #666666">1</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>perform_b92_experiment</code> takes input 3 parameters:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>N_bits</code>: The number of bits in \(a\), Alice&#8217;s binary string</p>
+</li>
+<li>
+<p><code>N_test</code>: The (maximum) number of bits that will be used for testing whether the message or channel has been compromised by an eavesdropper</p>
+</li>
+<li>
+<p><code>eavesdrop</code>: Whether to eavesdrop on the signal or not</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>and returns 2 outputs:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>key</code>: The shared secret</p>
+</li>
+<li>
+<p><code>is_compromised</code>: Whether the protocol determines that the channel has been compromised</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Filling out <code>perform_b92_experiment</code> is left as an exercise. When I performed the experiment \(1000\) times with <code>N_bits=160</code> and <code>N_test=10</code>, this is what I found:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>total trials =  1000
+num positive =  489
+num_negative =  511
+true positive =  489
+true negative =  511
+false positive =  0
+false negative =  0
+Confusion Matrix
+1.0   0.0
+0.0   1.0</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>so it gave a perfect result each time. What do you get?</p>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<hr>
+<div class="footnote" id="_footnotedef_1">
+<a href="#_footnoteref_1">1</a>. In physical terms given a photon, there is no way to know how Alice polarized it. All we can do is measure the polarization in some basis. That gives us the component of polarization along that basis and in the process the original state is destroyed.
 </div>
 </div>
   </div>
