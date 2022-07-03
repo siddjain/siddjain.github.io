@@ -1,0 +1,474 @@
+<!-- from https://github.com/jekyll/minima/blob/master/_layouts/default.html -->
+<!DOCTYPE html>
+<html lang="en"><!-- this file derived from https://github.com/jekyll/minima/blob/v2.0.0/_includes/head.html
+     and has following changes:
+     - it adds custom-head.html to the original file
+     - it adds  page.description to the meta description tag which helps in SEO -->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Understanding Quantum Key Distribution (QKD)</title>
+  <meta name="description" content="understand how quantum key distribution works">
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://siddjain.github.io/2022/07/02/qkd.html">
+  <link rel="alternate" type="application/rss+xml" title="siddharth&#39;s space" href="/feed.xml">
+  
+  <!-- this file overrides https://github.com/jekyll/minima/blob/master/_includes/custom-head.html -->
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head><body>
+    
+    <!-- from https://developers.facebook.com/docs/plugins/like-button/ -->
+    <!-- I created a new app to get the appID. https://developers.facebook.com/apps/194621285460565/add/ -->
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous"
+     src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v9.0&appId=194621285460565&autoLogAppEvents=1"
+     nonce="mY2hWZoA"></script><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">siddharth&#39;s space</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <!-- this file is derived from https://github.com/jekyll/minima/blob/master/_layouts/post.html
+    and modifies the original to add the FB like button to the post -->
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Understanding Quantum Key Distribution (QKD)</h1>
+    <p class="post-meta"><time class="dt-published" datetime="2022-07-02T08:00:00+00:00" itemprop="datePublished">
+        Jul 2, 2022
+      </time>• 
+          <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+            <span class="p-author h-card" itemprop="name">Siddharth Jain</span></span></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Preface from <a href="https://en.wikipedia.org/wiki/Quantum_key_distribution">wikipedia</a>: Quantum key distribution (QKD) is a secure communication method which implements a cryptographic protocol involving
+components of quantum mechanics. It enables two parties to produce a shared random secret key known only to them, which can then be used to encrypt and decrypt messages. It is often incorrectly called
+quantum cryptography, as it is the best-known example of a quantum cryptographic task.</p>
+</div>
+<div class="paragraph">
+<p>IBM has a good <a href="https://qiskit.org/textbook/ch-algorithms/quantum-key-distribution.html">tutorial</a> on it that explains it using the BB84 protocol. Read it if you like. Here I try to explain QKD in my own words.</p>
+</div>
+<div class="paragraph">
+<p>QKD works by encoding a classical bit string as a string of quantum states. The B92 protocol for example encodes \(0\) as \(|0\rangle\) and \(1\) as \(| + \rangle\).
+If you don&#8217;t understand what \(|0\rangle\) and \(| + \rangle\) mean, stop reading and come back when you have understood the basics.
+So if Alice has a classical binary string \(1000101011010100\), this will get encoded as \(\Psi = | + 000+0+0++0+0+00\rangle\) and sent over a channel over which Eve might be listening.
+In physical terms what happens is that \(16\) photons will be sent over an optical fiber. The photons corresponding to \(0\) will have \(0^{\circ}\) polarization and the photons corresponding to \(1\)
+will have \(45^{\circ}\) polarization. There is no entanglement between the photons.</p>
+</div>
+<div class="paragraph">
+<p>You might be thinking how stupid is that. We already know the rule for encoding the binary string - its pretty simple. We can just decode the message \(|\Psi\rangle\) using that rule and get back the original
+string of bits. Here is where QM comes in. In QM it is impossible to fully know the complete state of a quantum system (Heisenberg&#8217;s uncertainty principle). Thus Eve has no instrument (think wireshark if you will)
+that can take input \(|\Psi\rangle\) (\(|\Psi\rangle\) is nothing but the \(16\) photons we transmitted)
+and give \(| + 000+0+0++0+0+00\rangle\) as a readout which she can then decode as \(1000101011010100\). All she can do is two things:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Apply a unitary evolution to \(|\Psi\rangle\) to yield another quantum state \(|\Phi\rangle\)</p>
+</li>
+<li>
+<p>Or, make a measurement. Making a measurement requires choosing a basis first of all. Then when a measurement is made, the quantum state will collapse to <em>one</em> of the basis vectors
+(very much like we project vectors to a basis in Linear Algebra classes) with a probability given by the Born rule. In the photon example, measurement corresponds to measuring the polarization of the
+photons. For this, we have to choose two axes along which we will measure the polarization. This corresponds to fixing the basis.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The measurement destroys the original state unless the state happened to be one of the basis vectors (this follows directly from Linear Algebra). Some examples might help clear this up. Consider the state \(|0\rangle\). This corresponds to
+the vector \((1,0)^T\) in Hilbert space. When measured in the \(Z\) basis which I call the canonical (native) basis (it is the canonical or native basis because its made up of the basis vectors
+ \((1,0)^T\) and \((0,1)^T\)), the state remains undisturbed and we consider this as measuring \(0\).
+But look what happens if \(| + \rangle\) were measured in this basis. \(|+ \rangle\) stands for \((1, 1)^T\) (I have dropped the \(\frac{1}{\sqrt{2}}\) normalization constant for convenience).
+Projecting (measuring is the better word) \((1, 1)^T\) onto the canonical basis gives \((1, 0)^T\) or \((0, 1)^T\) with equal probability. The original state is destroyed and this lies at the heart of QKD.
+The state that Bob will get will now be different from the state Alice had sent and they will be able to detect this and infer that someone had eavesdropped the channel.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s recap. Imagine Alice wishes to communicate a single bit of classical information. It has two states \(0\) and \(1\) and when its transmitted its transmitted as a quantum state
+\(|0\rangle\) or \(|+ \rangle\) respectively. Assume there is no eavesdropping for now. If Bob chooses to measure the received signal in \(Z\) basis, he gets \(0\) for \(|0\rangle\) but \(0\) or \(1\)
+with equal probability for \(|+\rangle\). So if Bob measures \(0\), he can&#8217;t be sure whether Alice sent \(0\) or \(1\). But if he measures \(1\), he can be sure that Alice sent \(1\) (it might be
+more appropriate to say that Alice meant to communicate a \(1\). I use colloquial language for ease of understanding).</p>
+</div>
+<div class="paragraph">
+<p>Suppose Bob was instead measuring in the \(X\) basis - this basis has the basis vectors \((1,1)^T\) and \((-1,1)^T\). In this basis \(|0\rangle\) will appear (i.e., will be measured) as \(0\) or \(1\)
+with equal probability but \(|+ \rangle\) will appear as \(0\) with \(100\%\) probability as \(|+ \rangle\) is a basis vector of the \(X\) basis. So in this basis if Bob measures \(0\),
+again he can&#8217;t be sure whether Alice sent a \(0\) or a \(1\), but if he measures \(1\), he can be sure that a \(0\) was sent.</p>
+</div>
+<div class="paragraph">
+<p>Here is the summary in absence of noise or eavesdropping:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. B92 Protocol</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Alice&#8217;s bit (\(a\))</th>
+<th class="tableblock halign-left valign-top">\(|\Psi \rangle = f(a)\)</th>
+<th class="tableblock halign-left valign-top">Bob&#8217;s basis</th>
+<th class="tableblock halign-left valign-top">Bob&#8217;s measurement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\(0\)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\(|0 \rangle\)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\(Z\)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\(0\)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\(1\)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\(|+ \rangle\)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\(Z\)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\(0\) or \(1\) with equal prob.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\(0\)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\(|0 \rangle\)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\(X\)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\(0\) or \(1\) with equal prob.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\(1\)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\(|+ \rangle\)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\(X\)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\(0\)</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Now, to understand the B92 protocol, let&#8217;s put it into action. Let&#8217;s see what happens when we take the happy path, when there is no noise in the channel (equivalently Eve is not eavesdropping)</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="step-1-alice-generates-a-binary-string-encodes-it-and-transmits-it">Step 1: Alice generates a binary string, encodes it and transmits it</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>We covered this step before. Binary string = \(a = 1000101011010100\), message = \(\Psi = |+ 000+0+0++0+0+00\rangle\). Remember Alice keeps \(a\). She does not send it.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="step-2-bob-decodes-the-message-using-a-random-basis-he-chooses">Step 2: Bob decodes the message using a random basis he chooses</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Bob randomly and independently decodes (measures) each qubit using either \(X\) or \(Z\) basis.
+Suppose he decided to use \(ZZXZXXXZXZXXXXXX\) for his measurements. Applying Table 1, Bob will get</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 5.8823%;">
+<col style="width: 5.8823%;">
+<col style="width: 5.8823%;">
+<col style="width: 5.8823%;">
+<col style="width: 5.8823%;">
+<col style="width: 5.8823%;">
+<col style="width: 5.8823%;">
+<col style="width: 5.8823%;">
+<col style="width: 5.8823%;">
+<col style="width: 5.8823%;">
+<col style="width: 5.8823%;">
+<col style="width: 5.8823%;">
+<col style="width: 5.8823%;">
+<col style="width: 5.8823%;">
+<col style="width: 5.8823%;">
+<col style="width: 5.8823%;">
+<col style="width: 5.8832%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">a</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">basis</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Z</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Z</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Z</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Z</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Z</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">observation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">?</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">?</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">?</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">?</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">?</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">?</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">?</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">?</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The ? are the qubits which he will randomly measure as \(0\) or \(1\) with equal probability.
+Remember that Bob does not have access to the top row in above table. It is there for illustration purposes only.
+To keep going, suppose he measures (in below I delete the top row from previous table to show Bob&#8217;s view):</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 6.25%;">
+<col style="width: 6.25%;">
+<col style="width: 6.25%;">
+<col style="width: 6.25%;">
+<col style="width: 6.25%;">
+<col style="width: 6.25%;">
+<col style="width: 6.25%;">
+<col style="width: 6.25%;">
+<col style="width: 6.25%;">
+<col style="width: 6.25%;">
+<col style="width: 6.25%;">
+<col style="width: 6.25%;">
+<col style="width: 6.25%;">
+<col style="width: 6.25%;">
+<col style="width: 6.25%;">
+<col style="width: 6.25%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Z</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Z</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Z</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Z</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Z</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="step-3-we-check-if-message-has-been-compromised">Step 3: We check if message has been compromised</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To do this, take a look at the qubits that were measured as \(1\). For example, in above the rightmost qubit is \(1\) and the \(X\) basis was used to measure it.
+From preceeding discussion we learned that when \(X\) basis is used for measurement and a \(1\) observation is made, Bob can be certain that a \(0\) was "sent" by Alice.
+i.e., in below:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 5.8823%;">
+<col style="width: 5.8823%;">
+<col style="width: 5.8823%;">
+<col style="width: 5.8823%;">
+<col style="width: 5.8823%;">
+<col style="width: 5.8823%;">
+<col style="width: 5.8823%;">
+<col style="width: 5.8823%;">
+<col style="width: 5.8823%;">
+<col style="width: 5.8823%;">
+<col style="width: 5.8823%;">
+<col style="width: 5.8823%;">
+<col style="width: 5.8823%;">
+<col style="width: 5.8823%;">
+<col style="width: 5.8823%;">
+<col style="width: 5.8823%;">
+<col style="width: 5.8832%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">basis</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Z</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Z</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Z</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Z</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Z</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">measurement</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Wherever there is a \(0\), Bob cannot say what Alice holds at that position, but wherever there is a \(1\) Bob can be confident what Alice holds depending on the basis (\(X\) or \(Z\)).</p>
+</div>
+<div class="paragraph">
+<p>So Bob will ask Alice, is the rightmost bit in \(a\) a \(0\)? If Alice answers no Bob knows that channel has been compromised
+(note this assumes Alice&#8217;s answer reaches Bob unmodified). If Alice answers yes there is now a non-zero probability \(p\) that no eavesdropping has occured
+(I think \(p = 0.25\) following same logic as in <a href="https://qiskit.org/textbook/ch-algorithms/quantum-key-distribution.html#5.-Risk-Analysis">BB84</a>; this assumes Eve is also measuring
+in either \(Z\) or \(X\) with equal prob. This cannot be the case necessarily. In general Eve could measure in a basis whose vectors form an angle \(\theta\) with \(Z\)).
+This probability \(p\) increases as more and more bits where we observe \(1s\) are compared (\(p = 1 - 0.75^n\) where \(n\) is the number of bits compared).
+In above we got total \(6\) \(1s\). We can choose to use \(3\) for testing if channel has not been compromised.
+If answer is affirmative then, the remaining \(3\) can be used to share a private key between Alice and Bob.</p>
+</div>
+<div class="paragraph">
+<p>And this is how B92 protocol works.</p>
+</div>
+<div class="paragraph">
+<p>In some sense it is even more simpler (fundamental) than the BB84 protocol because here the encoding of classical bits to qubits is well-known in advance. It is a static rule and not dependent
+upon another random string generated at runtime as in case of BB84.</p>
+</div>
+<div class="paragraph">
+<p>At heart of QKD is the lemma that its is impossible to distinguish two <em>non-orthogonal</em> quantum states without introducing a disturbance to either of them.
+What QM taketh (impossible to fully know the complete state of a system) it giveth it away (a provably secure means of private key generation).</p>
+</div>
+</div>
+</div>
+  </div>
+
+  <!-- from https://developers.facebook.com/docs/plugins/like-button/ -->
+  <!-- page.url will give the URL of the page sans the domain name. refer https://jekyllrb.com/docs/variables/ -->
+  <!-- more at https://www.digitalocean.com/community/tutorials/how-to-control-urls-and-links-in-jekyll -->
+  <div class="fb-like" data-href="https://siddjain.github.io/2022/07/02/qkd.html" 
+      data-width="" 
+      data-layout="standard"
+      data-action="like" 
+      data-size="small"
+      data-share="true"></div><a class="u-url" href="/2022/07/02/qkd.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">siddharth&#39;s space</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">siddharth&#39;s space</li><li><a class="u-email" href="mailto:siddjain@example.com">siddjain@example.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/siddjain"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">siddjain</span></a></li><li><a href="https://www.twitter.com/fd97207"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">fd97207</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>कोशिश करने वालो की कभी हार नहीं होती…</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+<!-- refer https://github.com/asciidoctor/jekyll-asciidoc#adding-the-stem-assets-to-the-page --><!-- from https://github.com/asciidoctor/jekyll-asciidoc#adding-the-stem-assets-to-the-page -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    messageStyle: "none",
+    tex2jax: {
+        inlineMath: [["\\(", "\\)"]],
+        displayMath: [["\\[", "\\]"]],
+        ignoreClass: "nostem|nolatexmath"
+    },
+    asciimath2jax: {
+        delimiters: [["\\$", "\\$"]],
+        ignoreClass: "nostem|noasciimath"
+    },
+    TeX: { equationNumbers: { autoNumber: "none" } }
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script></body>
+
+</html>
