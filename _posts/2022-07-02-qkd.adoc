@@ -1,0 +1,120 @@
+---
+layout: mathjax-post
+title:  "Understanding Quantum Key Distribution (QKD)"
+date:   2022-07-02 00:00:00 -0800
+categories: quantum-computing
+description: understand how quantum key distribution works
+---
+= Understanding Quantum Key Distribution (QKD)
+Siddharth Jain <siddjain@live.com>
+:revdate: 2022-07-02 00:00:00 -0800
+:doctype: article
+:stem: latexmath
+:eqnums: all
+:xrefstyle: short
+
+Preface from https://en.wikipedia.org/wiki/Quantum_key_distribution[wikipedia]: Quantum key distribution (QKD) is a secure communication method which implements a cryptographic protocol involving
+components of quantum mechanics. It enables two parties to produce a shared random secret key known only to them, which can then be used to encrypt and decrypt messages. It is often incorrectly called
+quantum cryptography, as it is the best-known example of a quantum cryptographic task.
+
+IBM has a good https://qiskit.org/textbook/ch-algorithms/quantum-key-distribution.html[tutorial] on it that explains it using the BB84 protocol. Read it if you like. Here I try to explain QKD in my own words.
+
+QKD works by encoding a classical bit string as a string of quantum states. The B92 protocol for example encodes stem:[0] as stem:[|0\rangle] and stem:[1] as stem:[| + \rangle].
+If you don't understand what stem:[|0\rangle] and stem:[| + \rangle] mean, stop reading and come back when you have understood the basics.
+So if Alice has a classical binary string stem:[1000101011010100], this will get encoded as stem:[\Psi = | + 000+0+0++0+0+00\rangle] and sent over a channel over which Eve might be listening.
+In physical terms what happens is that stem:[16] photons will be sent over an optical fiber. The photons corresponding to stem:[0] will have stem:[0^{\circ}] polarization and the photons corresponding to stem:[1]
+will have stem:[45^{\circ}] polarization. There is no entanglement between the photons.
+
+You might be thinking how stupid is that. We already know the rule for encoding the binary string - its pretty simple. We can just decode the message stem:[|\Psi\rangle] using that rule and get back the original
+string of bits. Here is where QM comes in. In QM it is impossible to fully know the complete state of a quantum system (Heisenberg's uncertainty principle). Thus Eve has no instrument (think wireshark if you will)
+that can take input stem:[|\Psi\rangle] (stem:[|\Psi\rangle] is nothing but the stem:[16] photons we transmitted)
+and give stem:[| + 000+0+0++0+0+00\rangle] as a readout which she can then decode as stem:[1000101011010100]. All she can do is two things:
+
+* Apply a unitary evolution to stem:[|\Psi\rangle] to yield another quantum state stem:[|\Phi\rangle]
+* Or, make a measurement. Making a measurement requires choosing a basis first of all. Then when a measurement is made, the quantum state will collapse to _one_ of the basis vectors
+(very much like we project vectors to a basis in Linear Algebra classes) with a probability given by the Born rule. In the photon example, measurement corresponds to measuring the polarization of the
+photons. For this, we have to choose two axes along which we will measure the polarization. This corresponds to fixing the basis. 
+
+The measurement destroys the original state unless the state happened to be one of the basis vectors (this follows directly from Linear Algebra). Some examples might help clear this up. Consider the state stem:[|0\rangle]. This corresponds to
+the vector stem:[(1,0)^T] in Hilbert space. When measured in the stem:[Z] basis which I call the canonical (native) basis (it is the canonical or native basis because its made up of the basis vectors
+ stem:[(1,0)^T] and stem:[(0,1)^T]), the state remains undisturbed and we consider this as measuring stem:[0].
+But look what happens if stem:[| + \rangle] were measured in this basis. stem:[|+ \rangle] stands for stem:[(1, 1)^T] (I have dropped the stem:[\frac{1}{\sqrt{2}}] normalization constant for convenience).
+Projecting (measuring is the better word) stem:[(1, 1)^T] onto the canonical basis gives stem:[(1, 0)^T] or stem:[(0, 1)^T] with equal probability. The original state is destroyed and this lies at the heart of QKD.
+The state that Bob will get will now be different from the state Alice had sent and they will be able to detect this and infer that someone had eavesdropped the channel.
+
+Let's recap. Imagine Alice wishes to communicate a single bit of classical information. It has two states stem:[0] and stem:[1] and when its transmitted its transmitted as a quantum state 
+stem:[|0\rangle] or stem:[|+ \rangle] respectively. Assume there is no eavesdropping for now. If Bob chooses to measure the received signal in stem:[Z] basis, he gets stem:[0] for stem:[|0\rangle] but stem:[0] or stem:[1]
+with equal probability for stem:[|+\rangle]. So if Bob measures stem:[0], he can't be sure whether Alice sent stem:[0] or stem:[1]. But if he measures stem:[1], he can be sure that Alice sent stem:[1] (it might be
+more appropriate to say that Alice meant to communicate a stem:[1]. I use colloquial language for ease of understanding).
+
+Suppose Bob was instead measuring in the stem:[X] basis - this basis has the basis vectors stem:[(1,1)^T] and stem:[(-1,1)^T]. In this basis stem:[|0\rangle] will appear (i.e., will be measured) as stem:[0] or stem:[1]
+with equal probability but stem:[|+ \rangle] will appear as stem:[0] with stem:[100\%] probability as stem:[|+ \rangle] is a basis vector of the stem:[X] basis. So in this basis if Bob measures stem:[0], 
+again he can't be sure whether Alice sent a stem:[0] or a stem:[1], but if he measures stem:[1], he can be sure that a stem:[0] was sent.
+
+Here is the summary in absence of noise or eavesdropping:
+
+.B92 Protocol
+[options="header"]
+|===
+| Alice's bit (stem:[a]) | stem:[\|\Psi \rangle = f(a)] | Bob's basis | Bob's measurement
+| stem:[0] | stem:[\|0 \rangle] | stem:[Z] | stem:[0]
+| stem:[1] | stem:[\|+ \rangle] | stem:[Z] | stem:[0] or stem:[1] with equal prob.
+| stem:[0] | stem:[\|0 \rangle] | stem:[X] | stem:[0] or stem:[1] with equal prob.
+| stem:[1] | stem:[\|+ \rangle] | stem:[X] | stem:[0]
+|===
+
+Now, to understand the B92 protocol, let's put it into action. Let's see what happens when we take the happy path, when there is no noise in the channel (equivalently Eve is not eavesdropping)
+
+== Step 1: Alice generates a binary string, encodes it and transmits it
+
+We covered this step before. Binary string = stem:[a = 1000101011010100], message = stem:[\Psi = |+ 000+0+0++0+0+00\rangle]. Remember Alice keeps stem:[a]. She does not send it.
+
+== Step 2: Bob decodes the message using a random basis he chooses
+
+Bob randomly and independently decodes (measures) each qubit using either stem:[X] or stem:[Z] basis.
+Suppose he decided to use stem:[ZZXZXXXZXZXXXXXX] for his measurements. Applying Table 1, Bob will get 
+
+|===
+| a | 1 | 0 | 0 | 0 | 1 | 0 | 1 | 0 | 1 | 1 | 0 | 1 | 0 | 1 | 0 | 0
+| basis | Z | Z | X | Z | X | X | X | Z | X | Z | X | X | X | X | X | X
+| observation | ? | 0 | ? | 0 | 0 | ? | 0 | 0 | 0 | ? | ? | 0 | ? | 0 | ? | ?
+|===
+
+The ? are the qubits which he will randomly measure as stem:[0] or stem:[1] with equal probability.
+Remember that Bob does not have access to the top row in above table. It is there for illustration purposes only.
+To keep going, suppose he measures (in below I delete the top row from previous table to show Bob's view):
+
+|===
+| Z | Z | X | Z | X | X | X | Z | X | Z | X | X | X | X | X | X
+| 0 | 0 | 1 | 0 | 0 | 1 | 0 | 0 | 0 | 0 | 1 | 0 | 1 | 0 | 1 | 1
+|===
+
+== Step 3: We check if message has been compromised
+
+To do this, take a look at the qubits that were measured as stem:[1]. For example, in above the rightmost qubit is stem:[1] and the stem:[X] basis was used to measure it.
+From preceeding discussion we learned that when stem:[X] basis is used for measurement and a stem:[1] observation is made, Bob can be certain that a stem:[0] was "sent" by Alice.
+i.e., in below:
+
+|===
+| basis | Z | Z | X | Z | X | X | X | Z | X | Z | X | X | X | X | X | X
+| measurement | 0 | 0 | 1 | 0 | 0 | 1 | 0 | 0 | 0 | 0 | 1 | 0 | 1 | 0 | 1 | 1
+|===
+
+Wherever there is a stem:[0], Bob cannot say what Alice holds at that position, but wherever there is a stem:[1] Bob can be confident what Alice holds depending on the basis (stem:[X] or stem:[Z]).
+
+So Bob will ask Alice, is the rightmost bit in stem:[a] a stem:[0]? If Alice answers no Bob knows that channel has been compromised
+(note this assumes Alice's answer reaches Bob unmodified). If Alice answers yes there is now a non-zero probability stem:[p] that no eavesdropping has occured
+(I think stem:[p = 0.25] following same logic as in https://qiskit.org/textbook/ch-algorithms/quantum-key-distribution.html#5.-Risk-Analysis[BB84]; this assumes Eve is also measuring
+in either stem:[Z] or stem:[X] with equal prob. This cannot be the case necessarily. In general Eve could measure in a basis whose vectors form an angle stem:[\theta] with stem:[Z]).
+This probability stem:[p] increases as more and more bits where we observe stem:[1s] are compared (stem:[p = 1 - 0.75^n] where stem:[n] is the number of bits compared).
+In above we got total stem:[6] stem:[1s]. We can choose to use stem:[3] for testing if channel has not been compromised.
+If answer is affirmative then, the remaining stem:[3] can be used to share a private key between Alice and Bob.
+
+And this is how B92 protocol works.
+
+In some sense it is even more simpler (fundamental) than the BB84 protocol because here the encoding of classical bits to qubits is well-known in advance. It is a static rule and not dependent
+upon another random string generated at runtime as in case of BB84.
+
+At heart of QKD is the lemma that its is impossible to distinguish two _non-orthogonal_ quantum states without introducing a disturbance to either of them.
+What QM taketh (impossible to fully know the complete state of a system) it giveth it away (a provably secure means of private key generation).
+

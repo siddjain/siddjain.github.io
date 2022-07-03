@@ -42,6 +42,15 @@ Ruby gem defined in the [Gemfile](Gemfile).
 
 # [Local Setup](https://jekyllrb.com/docs/step-by-step/01-setup/)
 
+Step 0:
+
+If you are using WSL:
+
+```
+sudo apt update
+sudo apt install make gcc g++ ruby-full
+```
+
 Step 1:
 
 ```
