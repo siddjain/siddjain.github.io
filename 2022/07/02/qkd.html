@@ -397,10 +397,8 @@ i.e., in below:</p>
 </div>
 <div class="paragraph">
 <p>So Bob will ask Alice, is the rightmost bit in \(a\) a \(0\)? If Alice answers no Bob knows that channel has been compromised
-(note this assumes Alice&#8217;s answer reaches Bob unmodified). If Alice answers yes there is now a non-zero probability \(p\) that no eavesdropping has occured
-(I think \(p = 0.25\) following same logic as in <a href="https://qiskit.org/textbook/ch-algorithms/quantum-key-distribution.html#5.-Risk-Analysis">BB84</a>; this assumes Eve is also measuring
-in either \(Z\) or \(X\) with equal prob. This cannot be the case necessarily. In general Eve could measure in a basis whose vectors form an angle \(\theta\) with \(Z\)).
-This probability \(p\) increases as more and more bits where we observe \(1s\) are compared (\(p = 1 - 0.75^n\) where \(n\) is the number of bits compared).
+(note this assumes Alice&#8217;s answer reaches Bob unmodified). If Alice answers yes there is now a non-zero probability \(p\) that no eavesdropping has occured.
+This probability \(p\) increases as more and more bits where we observe \(1s\) are compared.
 In above we got total \(6\) \(1s\). We can choose to use \(3\) for testing if channel has not been compromised.
 If answer is affirmative then, the remaining \(3\) can be used to share a private key between Alice and Bob.</p>
 </div>
@@ -438,7 +436,8 @@ What QM taketh (impossible to fully know the complete state of a system) it give
         <span style="color: #008000; font-weight: bold">if</span> is_compromised:
             false_positive <span style="color: #666666">+=</span> <span style="color: #666666">1</span> <span style="color: #408080; font-style: italic"># Alice and Bob think the key is compromised when in fact it hasn&#39;t been compromised. This cannot happen with B92 protocol</span>
         <span style="color: #008000; font-weight: bold">else</span>:
-            true_negative <span style="color: #666666">+=</span> <span style="color: #666666">1</span></code></pre>
+            true_negative <span style="color: #666666">+=</span> <span style="color: #666666">1</span>
+            key_length<span style="color: #666666">.</span>append(<span style="color: #008000">len</span>(key)) <span style="color: #408080; font-style: italic"># length of the shared key established between alice and bob</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -484,11 +483,83 @@ false positive =  0
 false negative =  0
 Confusion Matrix
 1.0   0.0
-0.0   1.0</pre>
+0.0   1.0
+avg. key length =  29.80952380952381</pre>
 </div>
 </div>
 <div class="paragraph">
 <p>so it gave a perfect result each time. What do you get?</p>
+</div>
+<div class="paragraph">
+<p>I then decided to try out the BB84 protocol. For BB84, this is what I got with identical settings:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>total trials =  1000
+num positive =  493
+num_negative =  507
+true positive =  466
+true negative =  507
+false positive =  0
+false negative =  27
+Confusion Matrix
+0.9452332657200812   0.05476673427991886
+0.0   1.0
+avg. key length =  70.23668639053254</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>so we can see it does not give a perfect result each time. On the other hand the avg. key length is more than double than in case of B92. I had to increase <code>N_test</code> to \(30\) to get
+a zero error rate. In general, IBM&#8217;s <a href="https://qiskit.org/textbook/ch-algorithms/quantum-key-distribution.html">tutorial</a> for BB84 determines its error rate as \(p(\textrm{undetected}) = 0.75^n\)
+where \(n\) is the number of bits used for testing. I initially thought the error rate for B92 will be the same but computer simulation says otherwise. Can we figure out error rate for B92?</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="b92-error-analysis">B92 Error Analysis</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>First, note that the protocol cannot give any false positive. false positive = protocol determines channel has been spoofed when in fact it hasn&#8217;t. This cannot happen.
+And that is true for BB84 as well. So the error rate is the rate of false negative. false negative = Alice and Bob think the channel is not compromised when in fact it has been compromised.
+How can we calculate it? Below graph of possible outcomes provides the answer:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/images/B92_decision_graph.png" alt="B92 decision graph">
+</div>
+</div>
+<div class="paragraph">
+<p>It shows the case when Alice has a \(0\) bit to send to Bob. The only way this can go undetected in the presence of eavesdropping by Eve is shown by the red path and the probability is given by:</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{align}
+\begin{split}
+p(\textrm{false negative}) &amp; = p(\textrm{Eve decides to measure in } Z) \cdot p(\textrm{Bob decides to measure in } X) \cdot p(\textrm{Bob measures } 1) \\
+                  &amp; = \frac{1}{2} \cdot \frac{1}{2} \cdot \frac{1}{2} \\
+                  &amp; = \frac{1}{8}
+\end{split}
+\end{align}\]
+</div>
+</div>
+<div class="paragraph">
+<p>There is a parallel case when Alice has a \(1\) bit to send to Bob. Both cases have equal chance to happen so the overall error rate remains \(\frac{1}{8}\). So if we test using \(n\) bits,
+the error rate of B92 protocol is given by (deserves an equation of its own):</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{equation}
+p(\textrm{false negative}) = 0.125^n
+\end{equation}\]
+</div>
+</div>
+<div class="paragraph">
+<p>Note carefully that above analysis (as well as the simulations I did) assumes Eve is also measuring in either \(Z\) or \(X\) with equal prob. This cannot be the case necessarily. In general Eve could
+measure in a basis whose vectors form an angle \(\theta\) with \(Z\).</p>
+</div>
+<div class="paragraph">
+<p>We can see that B92&#8217;s error rate is actually (much) better than BB84&#8217;s error rate. The improved error rate comes at the cost of shorter key length as I have seen in my simulations.
+Can we derive formulae for the average key length of the two protocols? Try doing it and let me know what you get.</p>
 </div>
 </div>
 </div>
