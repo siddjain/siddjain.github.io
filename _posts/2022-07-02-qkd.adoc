@@ -105,10 +105,8 @@ i.e., in below:
 Wherever there is a stem:[0], Bob cannot say what Alice holds at that position, but wherever there is a stem:[1] Bob can be confident what Alice holds depending on the basis (stem:[X] or stem:[Z]).
 
 So Bob will ask Alice, is the rightmost bit in stem:[a] a stem:[0]? If Alice answers no Bob knows that channel has been compromised
-(note this assumes Alice's answer reaches Bob unmodified). If Alice answers yes there is now a non-zero probability stem:[p] that no eavesdropping has occured
-(I think stem:[p = 0.25] following same logic as in https://qiskit.org/textbook/ch-algorithms/quantum-key-distribution.html#5.-Risk-Analysis[BB84]; this assumes Eve is also measuring
-in either stem:[Z] or stem:[X] with equal prob. This cannot be the case necessarily. In general Eve could measure in a basis whose vectors form an angle stem:[\theta] with stem:[Z]).
-This probability stem:[p] increases as more and more bits where we observe stem:[1s] are compared (stem:[p = 1 - 0.75^n] where stem:[n] is the number of bits compared).
+(note this assumes Alice's answer reaches Bob unmodified). If Alice answers yes there is now a non-zero probability stem:[p] that no eavesdropping has occured.
+This probability stem:[p] increases as more and more bits where we observe stem:[1s] are compared.
 In above we got total stem:[6] stem:[1s]. We can choose to use stem:[3] for testing if channel has not been compromised.
 If answer is affirmative then, the remaining stem:[3] can be used to share a private key between Alice and Bob.
 
@@ -142,6 +140,7 @@ for i in range(0, N_trials):
             false_positive += 1 # Alice and Bob think the key is compromised when in fact it hasn't been compromised. This cannot happen with B92 protocol
         else:
             true_negative += 1
+            key_length.append(len(key)) # length of the shared key established between alice and bob
 ----
 
 The `perform_b92_experiment` takes input 3 parameters:
@@ -168,6 +167,64 @@ false negative =  0
 Confusion Matrix
 1.0   0.0
 0.0   1.0
+avg. key length =  29.80952380952381
 ----
 
 so it gave a perfect result each time. What do you get?
+
+I then decided to try out the BB84 protocol. For BB84, this is what I got with identical settings:
+
+----
+total trials =  1000
+num positive =  493
+num_negative =  507
+true positive =  466
+true negative =  507
+false positive =  0
+false negative =  27
+Confusion Matrix
+0.9452332657200812   0.05476673427991886
+0.0   1.0
+avg. key length =  70.23668639053254
+----
+
+so we can see it does not give a perfect result each time. On the other hand the avg. key length is more than double than in case of B92. I had to increase `N_test` to stem:[30] to get
+a zero error rate. In general, IBM's https://qiskit.org/textbook/ch-algorithms/quantum-key-distribution.html[tutorial] for BB84 determines its error rate as stem:[p(\textrm{undetected}) = 0.75^n] 
+where stem:[n] is the number of bits used for testing. I initially thought the error rate for B92 will be the same but computer simulation says otherwise. Can we figure out error rate for B92?
+
+== B92 Error Analysis 
+
+First, note that the protocol cannot give any false positive. false positive = protocol determines channel has been spoofed when in fact it hasn't. This cannot happen.
+And that is true for BB84 as well. So the error rate is the rate of false negative. false negative = Alice and Bob think the channel is not compromised when in fact it has been compromised.
+How can we calculate it? Below graph of possible outcomes provides the answer:
+
+image::/assets/images/B92_decision_graph.png[]
+
+It shows the case when Alice has a stem:[0] bit to send to Bob. The only way this can go undetected in the presence of eavesdropping by Eve is shown by the red path and the probability is given by:
+
+[latexmath]
+++++
+\begin{align}
+\begin{split}
+p(\textrm{false negative}) & = p(\textrm{Eve decides to measure in } Z) \cdot p(\textrm{Bob decides to measure in } X) \cdot p(\textrm{Bob measures } 1) \\
+                  & = \frac{1}{2} \cdot \frac{1}{2} \cdot \frac{1}{2} \\
+                  & = \frac{1}{8}
+\end{split}
+\end{align}
+++++
+
+There is a parallel case when Alice has a stem:[1] bit to send to Bob. Both cases have equal chance to happen so the overall error rate remains stem:[\frac{1}{8}]. So if we test using stem:[n] bits,
+the error rate of B92 protocol is given by (deserves an equation of its own):
+
+[latexmath]
+++++
+\begin{equation}
+p(\textrm{false negative}) = 0.125^n                  
+\end{equation}
+++++
+
+Note carefully that above analysis (as well as the simulations I did) assumes Eve is also measuring in either stem:[Z] or stem:[X] with equal prob. This cannot be the case necessarily. In general Eve could
+measure in a basis whose vectors form an angle stem:[\theta] with stem:[Z].
+
+We can see that B92's error rate is actually (much) better than BB84's error rate. The improved error rate comes at the cost of shorter key length as I have seen in my simulations.
+Can we derive formulae for the average key length of the two protocols? Try doing it and let me know what you get.
