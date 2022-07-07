@@ -44,8 +44,14 @@ exclude:
 # from https://jekyllrb.com/docs/permalinks/
 permalink: /:year/:month/:day/:title:output_ext
 
+keep_files:
+  - images
+
 asciidoctor:
-  attributes:    
+  base_dir: :docdir
+  safe: unsafe
+  attributes:
+    imagesdir: /images
     source-highlighter: pygments
     pygments-css: style
     icons: font

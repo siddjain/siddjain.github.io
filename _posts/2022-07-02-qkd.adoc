@@ -112,7 +112,7 @@ If answer is affirmative then, the remaining stem:[3] can be used to share a pri
 
 And this is how B92 protocol works.
 
-In some sense it is even more simpler (fundamental) than the BB84 protocol because here the encoding of classical bits to qubits is well-known in advance. It is a static rule and not dependent
+In some sense it is even more simpler (elegant) than the BB84 protocol because here the encoding of classical bits to qubits is well-known in advance. It is a static rule and not dependent
 upon another random string generated at runtime as in case of BB84.
 
 At heart of QKD is the lemma that it is impossible to distinguish two _non-orthogonal_ quantum states without introducing a disturbance to either of them.
@@ -158,19 +158,19 @@ Filling out `perform_b92_experiment` is left as an exercise. When I performed th
 
 ----
 total trials =  1000
-num positive =  489
-num_negative =  511
-true positive =  489
-true negative =  511
+num positive =  507
+num_negative =  493
+true positive =  499
+true negative =  493
 false positive =  0
-false negative =  0
+false negative =  8
 Confusion Matrix
-1.0   0.0
+0.9842209072978304   0.015779092702169626
 0.0   1.0
-avg. key length =  29.80952380952381
+avg. key length =  30.352941176470587
 ----
 
-so it gave a perfect result each time. What do you get?
+What do you get?
 
 I then decided to try out the BB84 protocol. For BB84, this is what I got with identical settings:
 
@@ -188,9 +188,9 @@ Confusion Matrix
 avg. key length =  70.23668639053254
 ----
 
-so we can see it does not give a perfect result each time. On the other hand the avg. key length is more than double than in case of B92. I had to increase `N_test` to stem:[30] to get
-a zero error rate. In general, IBM's https://qiskit.org/textbook/ch-algorithms/quantum-key-distribution.html[tutorial] for BB84 determines its error rate as stem:[p(\textrm{undetected}) = 0.75^n] 
-where stem:[n] is the number of bits used for testing. I initially thought the error rate for B92 will be the same but computer simulation says otherwise. Can we figure out error rate for B92?
+so we can see it has a higher error rate than B92. On the other hand the avg. key length is more than double than in case of B92. 
+In general, IBM's https://qiskit.org/textbook/ch-algorithms/quantum-key-distribution.html[tutorial] for BB84 determines its error rate as stem:[p(\textrm{undetected}) = 0.75^t] 
+where stem:[t] is the number of bits used for testing. I initially thought the error rate for B92 will be the same but computer simulation says otherwise. Can we figure out error rate for B92?
 
 == B92 Error Analysis 
 
@@ -198,33 +198,217 @@ First, note that the protocol cannot give any false positive. false positive = p
 And that is true for BB84 as well. So the error rate is the rate of false negative. false negative = Alice and Bob think the channel is not compromised when in fact it has been compromised.
 How can we calculate it? Below graph of possible outcomes provides the answer:
 
-image::/assets/images/B92_decision_graph.png[]
+["graphviz"]
+----
+digraph G {
+  graph [splines=line];
+  node [shape="point"];
+  edge [arrowhead="none" ];
+  
+  rankdir="LR";
+  start;
+  n0;
+  start -> n0 [label="alice sends \n |0⟩"];
+  n1, n2, n3, n4, n5, n6, n7, n8, n9, n10, n11;
+  n0 -> n1 [label="Eve measures in X", color="red"];
+  n1 -> n2 [label="|0⟩ collapses to |+⟩"];
+  n1 -> n3 [label="|0⟩ collapses to |-⟩", color="red"];
+  n2 -> n4 [label="Bob measures in X", color="gray"];
+  n2 -> n5 [label="Bob measures in Z"];
+  n3 -> n6 [label="Bob measures in X", color="red"];
+  n3 -> n7 [label="Bob measures in Z"];
+  n5 -> n8 [label="|+⟩ collapses to |0⟩", color="gray"];
+  n5 -> n9 [label="|+⟩ collapses to |1⟩"];
+  n7 -> n10 [label="|-⟩ collapses to |0⟩", color="gray"];
+  n7 -> n11 [label="|-⟩ collapses to |1⟩"];
+  
+  m1, m2, m3, m4, m5;
+  n0 -> m1 [label="Eve measures in Z", color="red"];
+  m1 -> m2 [label="Bob measures in X", color="red"];
+  m1 -> m3 [label="Bob measures in Z", color="gray"];
+  m2 -> m4 [label="|0⟩ collapses to |+⟩", color="gray"];
+  m2 -> m5 [label="|0⟩ collapses to |-⟩", color="red"];
+}
+----
 
-It shows the case when Alice has a stem:[0] bit to send to Bob. The only way this can go undetected in the presence of eavesdropping by Eve is shown by the red path and the probability is given by:
+It shows the case when Alice has a stem:[0] bit to send to Bob. The only way this can go undetected in the presence of eavesdropping by Eve is shown by the two red paths and the probability is given by:
 
 [latexmath]
 ++++
 \begin{align}
 \begin{split}
-p(\textrm{false negative}) & = p(\textrm{Eve decides to measure in } Z) \cdot p(\textrm{Bob decides to measure in } X) \cdot p(\textrm{Bob measures } 1) \\
-                  & = \frac{1}{2} \cdot \frac{1}{2} \cdot \frac{1}{2} \\
-                  & = \frac{1}{8}
+p(\textrm{false negative}) & = p(\textrm{Eve decides to measure in } Z) \\
+                            &  \times p(\textrm{Bob decides to measure in } X) \\
+                            &  \times p(\textrm{Bob measures } 1)  \\
+                  & + p(\textrm{Eve decides to measure in } X) \\
+                  & \times p(|0\rangle \textrm{ collapses to } |- \rangle \textrm{ after Eve's measurement}) \\
+                  & \times p(\textrm{Bob decides to measure in  } X) \\
+                  & = \frac{1}{2} \cdot \frac{1}{2} \cdot \frac{1}{2}  + \frac{1}{2} \cdot \frac{1}{2} \cdot \frac{1}{2} \\
+                  & = \frac{1}{4} (\textrm{incorrect})
 \end{split}
 \end{align}
 ++++
 
-There is a parallel case when Alice has a stem:[1] bit to send to Bob. Both cases have equal chance to happen so the overall error rate remains stem:[\frac{1}{8}]. So if we test using stem:[n] bits,
-the error rate of B92 protocol is given by (deserves an equation of its own):
+Note that when Bob receives a stem:[|-\rangle] which is an invalid state since Alice encodes stem:[0] as stem:[|0\rangle] and stem:[1] as stem:[|+ \rangle], there is no way for him to know that
+he has received a stem:[|-\rangle]. All he can do is measure. The above formula is not the correct answer actually (and it took me a while to figure out). My simulations were giving
+stem:[p(\textrm{false negative}) = 0.66] and I just couldn't figure out whether the simulations were incorrect or the analysis was incorrect.
+As it happens, I kept pondering the whole day and could not determine which one is correct. Then next morning when I woke up, I realized. This happens very frequently.
+I think the brain does an awful amount of work during sleeping but that is tpoic for another post.
+ It turns out the analysis is incorrect, or rather
+incomplete. Bob performs a test only when the measured qubit is a stem:[1]. We need to factor that in above by dividing stem:[0.25] by the probability of observing a stem:[1]. 
+That means we need to exclude the paths colored in gray - those are the paths that end up with a stem:[0] measurement by Bob. The probability of observing a stem:[1] is given by:
+
+[latexmath]
+++++
+\begin{align}
+\begin{split}
+p(\textrm{1}) & = \frac{1}{4} + \frac{1}{16} + \frac{1}{16} \\
+              & = \frac{3}{8}
+\end{split}
+\end{align}
+++++
+
+Note very carefully that the _probability of Bob observing a stem:[1] changes if Eve is listening on the channel_. Without Eve listening, this probability is stem:[0.25] following the arguments earlier in the article
+(refer Table 1). This provides us another way to test if channel has been compromised. The correct formula for stem:[p(\textrm{false negative})] is:
+
+[latexmath]
+++++
+\begin{align}
+\begin{split}
+p(\textrm{false negative}) & = \frac{\frac{1}{4}}{\frac{3}{8}} \\
+                           & = \frac{2}{3} (\textrm{correct})
+\end{split}
+\end{align}
+++++
+
+There is a symmetric case when Alice has a stem:[1] bit to send to Bob. It is shown below for completeness:
+
+["graphviz"]
+----
+digraph G {
+  graph [splines=line];
+  node [shape="point"];
+  edge [arrowhead="none" ];
+  
+  rankdir="LR";
+  start;
+  n0;
+  start -> n0 [label="alice sends \n |+⟩"];
+  n1, n2, n3, n4, n5, n6, n7, n8, n9, n10, n11;
+  n0 -> n1 [label="Eve Z", color="red"];
+  n1 -> n2 [label="|0⟩"];
+  n1 -> n3 [label="|1⟩", color="red"];
+  n2 -> n4 [label="Bob Z", color="gray"];
+  n2 -> n5 [label="Bob X"];
+  n3 -> n6 [label="Bob Z", color="red"];
+  n3 -> n7 [label="Bob X"];
+  n5 -> n8 [label="|+⟩", color="gray"];
+  n5 -> n9 [label="|-⟩"];
+  n7 -> n10 [label="|+⟩", color="gray"];
+  n7 -> n11 [label="|-⟩"];
+  
+  m1, m2, m3, m4, m5;
+  n0 -> m1 [label="Eve X", color="red"];
+  m1 -> m2 [label="Bob Z", color="red"];
+  m1 -> m3 [label="Bob X", color="gray"];
+  m2 -> m4 [label="|0⟩", color="gray"];
+  m2 -> m5 [label="|1⟩", color="red"];  
+}
+----
+
+Both cases have equal chance to happen so the overall error rate remains stem:[\frac{2}{3}]. So if we test using stem:[t] bits, the error rate of B92 protocol is given by (deserves an equation of its own):
 
 [latexmath]
 ++++
 \begin{equation}
-p(\textrm{false negative}) = 0.125^n                  
+p(\textrm{false negative}) = \left( \frac{2}{3} \right) ^ t
 \end{equation}
 ++++
 
 Note carefully that above analysis (as well as the simulations I did) assumes Eve is also measuring in either stem:[Z] or stem:[X] with equal prob. This cannot be the case necessarily. In general Eve could
 measure in a basis whose vectors form an angle stem:[\theta] with stem:[Z].
 
-We can see that B92's error rate is actually (much) better than BB84's error rate. The improved error rate comes at the cost of shorter key length as I have seen in my simulations.
-Can we derive formulae for the average key length of the two protocols? Try doing it and let me know what you get.
+We can see that B92's error rate is slightly better than BB84's error rate. The BB84 protocol requires stem:[1.4] times stem:[\left( \frac{\log(0.66)}{\log(0.75)} \right)] as many bits as B92 to achieve the same error rate. 
+The improved error rate comes at the cost of shorter key length as I have seen in my simulations.
+
+== Average Key Length
+
+Can we derive formulae for the average key length of the two protocols? Yes we can. In case of BB84, the number of eligible bits is given by number of times the chosen bases between Alice and Bob match. 
+This has a stem:[50\%] of chance of happening for each qubit independent of others. And so if stem:[n] is the number of total qubits transmitted (also equal to length of Alice's binary string):
+
+[latexmath]
+++++
+\begin{equation}
+\textrm{BB84: } \textrm{avg. key length} + \textrm{number of bits used for testing} = 0.5n
+\end{equation}
+++++
+
+In case of B92, bits measured as stem:[0] by Bob are discarded and stem:[1] bits are kept. The probability of observing a stem:[1] by Bob is stem:[0.25] in absence of noise (eavesdropping).
+And so the corresponding formula in case of B92 is:
+
+[latexmath]
+++++
+\begin{equation}
+\textrm{B92: } \textrm{avg. key length} + \textrm{number of bits used for testing} = 0.25n
+\end{equation}
+++++
+
+Now, given a desired error rate stem:[e], and average key length stem:[l], what should be stem:[n] for the two protocols? Let's do it for BB84 first.
+
+[latexmath]
+++++
+\begin{split}
+\begin{align}
+\textrm{BB84: } l + \frac{\log(e)}{\log(0.75)} = 0.5n
+\end{align}
+\end{split}
+++++
+
+and so,
+
+[latexmath]
+++++
+\begin{split}
+\begin{align}
+\textrm{BB84: } n & = 2 \left( l + \frac{\log(e)}{\log(0.75)} \right) \\
+                  & \approx 2 l + 7.0 \log{\frac{1}{e}} 
+\end{align}
+\end{split}
+++++
+
+In case of B92:
+
+[latexmath]
+++++
+\begin{split}
+\begin{align}
+\textrm{B92: } l + \frac{\log(e)}{\log(0.66)} = 0.25n
+\end{align}
+\end{split}
+++++
+
+and so,
+
+[latexmath]
+++++
+\begin{split}
+\begin{align}
+\textrm{B92: } n & = 4 \left( l + \frac{\log(e)}{\log(0.66)} \right) \\
+                & \approx 4 l + 9.9 \log{\frac{1}{e}} 
+\end{align}
+\end{split}
+++++
+
+The stem:[\log] is w.r.t. natural base in above equations (i.e., stem:[\log(2.718281828459) = 1]). Below are some numerical calculations with stem:[l = 32] and varying stem:[e] for the two protocols:
+
+.BB84 vs B92: number of qubits required to get a desired error rate and average key length
+[options="header"]
+|===
+| e | BB84 | B92
+| 0.01 | 96 | 173
+| 0.001 | 112 | 196
+| 0.0001 | 128 | 219
+| 0.00001 | 144 | 242
+| 0.000001 | 160 | 264
+| stem:[10^{-30}] | 544 | 809
+|===

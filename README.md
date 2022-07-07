@@ -48,7 +48,7 @@ If you are using WSL:
 
 ```
 sudo apt update
-sudo apt install make gcc g++ ruby-full
+sudo apt install make gcc g++ ruby-full graphviz
 ```
 
 Step 1:
