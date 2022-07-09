@@ -5,6 +5,8 @@ require 'rake-jekyll'
 # This task builds the Jekyll site and deploys it to a remote Git repository.
 # It's preconfigured to be used with GitHub and Travis CI.
 # See http://github.com/jirutka/rake-jekyll for more options.
+# If the travis build fails, it means this task is failing.
+# Refer to the source code at https://github.com/jirutka/rake-jekyll/blob/master/lib/rake-jekyll/git_deploy_task.rb to debug why its failing
 Rake::Jekyll::GitDeployTask.new(:deploy) do |t|
 
     # Description of the rake task.

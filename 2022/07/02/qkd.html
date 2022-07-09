@@ -406,7 +406,7 @@ If answer is affirmative then, the remaining \(3\) can be used to share a privat
 <p>And this is how B92 protocol works.</p>
 </div>
 <div class="paragraph">
-<p>In some sense it is even more simpler (fundamental) than the BB84 protocol because here the encoding of classical bits to qubits is well-known in advance. It is a static rule and not dependent
+<p>In some sense it is even more simpler (elegant) than the BB84 protocol because here the encoding of classical bits to qubits is well-known in advance. It is a static rule and not dependent
 upon another random string generated at runtime as in case of BB84.</p>
 </div>
 <div class="paragraph">
@@ -475,20 +475,20 @@ What QM taketh (impossible to fully know the complete state of a system) it give
 <div class="listingblock">
 <div class="content">
 <pre>total trials =  1000
-num positive =  489
-num_negative =  511
-true positive =  489
-true negative =  511
+num positive =  507
+num_negative =  493
+true positive =  499
+true negative =  493
 false positive =  0
-false negative =  0
+false negative =  8
 Confusion Matrix
-1.0   0.0
+0.9842209072978304   0.015779092702169626
 0.0   1.0
-avg. key length =  29.80952380952381</pre>
+avg. key length =  30.352941176470587</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>so it gave a perfect result each time. What do you get?</p>
+<p>What do you get?</p>
 </div>
 <div class="paragraph">
 <p>I then decided to try out the BB84 protocol. For BB84, this is what I got with identical settings:</p>
@@ -509,9 +509,9 @@ avg. key length =  70.23668639053254</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>so we can see it does not give a perfect result each time. On the other hand the avg. key length is more than double than in case of B92. I had to increase <code>N_test</code> to \(30\) to get
-a zero error rate. In general, IBM&#8217;s <a href="https://qiskit.org/textbook/ch-algorithms/quantum-key-distribution.html">tutorial</a> for BB84 determines its error rate as \(p(\textrm{undetected}) = 0.75^n\)
-where \(n\) is the number of bits used for testing. I initially thought the error rate for B92 will be the same but computer simulation says otherwise. Can we figure out error rate for B92?</p>
+<p>so we can see it has a higher error rate than B92. On the other hand the avg. key length is more than double than in case of B92.
+In general, IBM&#8217;s <a href="https://qiskit.org/textbook/ch-algorithms/quantum-key-distribution.html">tutorial</a> for BB84 determines its error rate as \(p(\textrm{undetected}) = 0.75^t\)
+where \(t\) is the number of bits used for testing. I initially thought the error rate for B92 will be the same but computer simulation says otherwise. Can we figure out error rate for B92?</p>
 </div>
 </div>
 </div>
@@ -525,31 +525,77 @@ How can we calculate it? Below graph of possible outcomes provides the answer:</
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="/assets/images/B92_decision_graph.png" alt="B92 decision graph">
+<img src="/images/diag-626f6a7c5cdfe5fe9673e3a3a35e88ab.png" alt="Diagram" width="1111" height="282">
 </div>
 </div>
 <div class="paragraph">
-<p>It shows the case when Alice has a \(0\) bit to send to Bob. The only way this can go undetected in the presence of eavesdropping by Eve is shown by the red path and the probability is given by:</p>
+<p>It shows the case when Alice has a \(0\) bit to send to Bob. The only way this can go undetected in the presence of eavesdropping by Eve is shown by the two red paths and the probability is given by:</p>
 </div>
 <div class="stemblock">
 <div class="content">
 \[\begin{align}
 \begin{split}
-p(\textrm{false negative}) &amp; = p(\textrm{Eve decides to measure in } Z) \cdot p(\textrm{Bob decides to measure in } X) \cdot p(\textrm{Bob measures } 1) \\
-                  &amp; = \frac{1}{2} \cdot \frac{1}{2} \cdot \frac{1}{2} \\
-                  &amp; = \frac{1}{8}
+p(\textrm{false negative}) &amp; = p(\textrm{Eve decides to measure in } Z) \\
+                            &amp;  \times p(\textrm{Bob decides to measure in } X) \\
+                            &amp;  \times p(\textrm{Bob measures } 1)  \\
+                  &amp; + p(\textrm{Eve decides to measure in } X) \\
+                  &amp; \times p(|0\rangle \textrm{ collapses to } |- \rangle \textrm{ after Eve's measurement}) \\
+                  &amp; \times p(\textrm{Bob decides to measure in  } X) \\
+                  &amp; = \frac{1}{2} \cdot \frac{1}{2} \cdot \frac{1}{2}  + \frac{1}{2} \cdot \frac{1}{2} \cdot \frac{1}{2} \\
+                  &amp; = \frac{1}{4} (\textrm{incorrect})
 \end{split}
 \end{align}\]
 </div>
 </div>
 <div class="paragraph">
-<p>There is a parallel case when Alice has a \(1\) bit to send to Bob. Both cases have equal chance to happen so the overall error rate remains \(\frac{1}{8}\). So if we test using \(n\) bits,
-the error rate of B92 protocol is given by (deserves an equation of its own):</p>
+<p>Note that when Bob receives a \(|-\rangle\) which is an invalid state since Alice encodes \(0\) as \(|0\rangle\) and \(1\) as \(|+ \rangle\), there is no way for him to know that
+he has received a \(|-\rangle\). All he can do is measure. The above formula is not the correct answer actually (and it took me a while to figure out). My simulations were giving
+\(p(\textrm{false negative}) = 0.66\) and I just couldn&#8217;t figure out whether the simulations were incorrect or the analysis was incorrect.
+As it happens, I kept pondering the whole day and could not determine which one is correct. Then next morning when I woke up, I realized. This happens very frequently.
+I think the brain does an awful amount of work during sleeping but that is tpoic for another post.
+ It turns out the analysis is incorrect, or rather
+incomplete. Bob performs a test only when the measured qubit is a \(1\). We need to factor that in above by dividing \(0.25\) by the probability of observing a \(1\).
+That means we need to exclude the paths colored in gray - those are the paths that end up with a \(0\) measurement by Bob. The probability of observing a \(1\) is given by:</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{align}
+\begin{split}
+p(\textrm{1}) &amp; = \frac{1}{4} + \frac{1}{16} + \frac{1}{16} \\
+              &amp; = \frac{3}{8}
+\end{split}
+\end{align}\]
+</div>
+</div>
+<div class="paragraph">
+<p>Note very carefully that the <em>probability of Bob observing a \(1\) changes if Eve is listening on the channel</em>. Without Eve listening, this probability is \(0.25\) following the arguments earlier in the article
+(refer Table 1). This provides us another way to test if channel has been compromised. The correct formula for \(p(\textrm{false negative})\) is:</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{align}
+\begin{split}
+p(\textrm{false negative}) &amp; = \frac{\frac{1}{4}}{\frac{3}{8}} \\
+                           &amp; = \frac{2}{3} (\textrm{correct})
+\end{split}
+\end{align}\]
+</div>
+</div>
+<div class="paragraph">
+<p>There is a symmetric case when Alice has a \(1\) bit to send to Bob. It is shown below for completeness:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/images/diag-1daa1c4ed3114972004cfed7f664ec7b.png" alt="Diagram" width="594" height="276">
+</div>
+</div>
+<div class="paragraph">
+<p>Both cases have equal chance to happen so the overall error rate remains \(\frac{2}{3}\). So if we test using \(t\) bits, the error rate of B92 protocol is given by (deserves an equation of its own):</p>
 </div>
 <div class="stemblock">
 <div class="content">
 \[\begin{equation}
-p(\textrm{false negative}) = 0.125^n
+p(\textrm{false negative}) = \left( \frac{2}{3} \right) ^ t
 \end{equation}\]
 </div>
 </div>
@@ -558,9 +604,136 @@ p(\textrm{false negative}) = 0.125^n
 measure in a basis whose vectors form an angle \(\theta\) with \(Z\).</p>
 </div>
 <div class="paragraph">
-<p>We can see that B92&#8217;s error rate is actually (much) better than BB84&#8217;s error rate. The improved error rate comes at the cost of shorter key length as I have seen in my simulations.
-Can we derive formulae for the average key length of the two protocols? Try doing it and let me know what you get.</p>
+<p>We can see that B92&#8217;s error rate is slightly better than BB84&#8217;s error rate. The BB84 protocol requires \(1.4\) times \(\left( \frac{\log(0.66)}{\log(0.75)} \right)\) as many bits as B92 to achieve the same error rate.
+The improved error rate comes at the cost of shorter key length as I have seen in my simulations.</p>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="average-key-length">Average Key Length</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Can we derive formulae for the average key length of the two protocols? Yes we can. In case of BB84, the number of eligible bits is given by number of times the chosen bases between Alice and Bob match.
+This has a \(50\%\) of chance of happening for each qubit independent of others. And so if \(n\) is the number of total qubits transmitted (also equal to length of Alice&#8217;s binary string):</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{equation}
+\textrm{BB84: } \textrm{avg. key length} + \textrm{number of bits used for testing} = 0.5n
+\end{equation}\]
+</div>
+</div>
+<div class="paragraph">
+<p>In case of B92, bits measured as \(0\) by Bob are discarded and \(1\) bits are kept. The probability of observing a \(1\) by Bob is \(0.25\) in absence of noise (eavesdropping).
+And so the corresponding formula in case of B92 is:</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{equation}
+\textrm{B92: } \textrm{avg. key length} + \textrm{number of bits used for testing} = 0.25n
+\end{equation}\]
+</div>
+</div>
+<div class="paragraph">
+<p>Now, given a desired error rate \(e\), and average key length \(l\), what should be \(n\) for the two protocols? Let&#8217;s do it for BB84 first.</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{split}
+\begin{align}
+\textrm{BB84: } l + \frac{\log(e)}{\log(0.75)} = 0.5n
+\end{align}
+\end{split}\]
+</div>
+</div>
+<div class="paragraph">
+<p>and so,</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{split}
+\begin{align}
+\textrm{BB84: } n &amp; = 2 \left( l + \frac{\log(e)}{\log(0.75)} \right) \\
+                  &amp; \approx 2 l + 7.0 \log{\frac{1}{e}}
+\end{align}
+\end{split}\]
+</div>
+</div>
+<div class="paragraph">
+<p>In case of B92:</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{split}
+\begin{align}
+\textrm{B92: } l + \frac{\log(e)}{\log(0.66)} = 0.25n
+\end{align}
+\end{split}\]
+</div>
+</div>
+<div class="paragraph">
+<p>and so,</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{split}
+\begin{align}
+\textrm{B92: } n &amp; = 4 \left( l + \frac{\log(e)}{\log(0.66)} \right) \\
+                &amp; \approx 4 l + 9.9 \log{\frac{1}{e}}
+\end{align}
+\end{split}\]
+</div>
+</div>
+<div class="paragraph">
+<p>The \(\log\) is w.r.t. natural base in above equations (i.e., \(\log(2.718281828459) = 1\)). Below are some numerical calculations with \(l = 32\) and varying \(e\) for the two protocols:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 2. BB84 vs B92: number of qubits required to get a desired error rate and average key length</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">e</th>
+<th class="tableblock halign-left valign-top">BB84</th>
+<th class="tableblock halign-left valign-top">B92</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.01</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">96</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">173</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.001</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">112</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">196</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.0001</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">128</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">219</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.00001</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">144</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">242</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.000001</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">160</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">264</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\(10^{-30}\)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">544</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">809</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <div id="footnotes">
