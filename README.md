@@ -17,7 +17,9 @@ Among other things, the main step is to run following command to build the site:
 bundle exec rake deploy
 ```
 
-This command in turn references [Rakefile](Rakefile) for instructions on what it should do. In the [Rakefile](Rakefile)
+This command in turn references [Rakefile](Rakefile) for instructions on what it should do. The [Rakefile](Rakefile)
+tells to execute the `GitDeployTask` in the plugin `rake-jekyll`. The source code of this task can be found 
+[here](https://github.com/jirutka/rake-jekyll/blob/master/lib/rake-jekyll/git_deploy_task.rb). In the [Rakefile](Rakefile)
 you can see we have set:
 
 ```
@@ -35,6 +37,33 @@ You can run this command yourself if you want to build manually although its nic
 
 How are the posts written in asciidoc converted to HTML? This is done using the [jekyll-asciidoc](https://github.com/asciidoctor/jekyll-asciidoc)
 Ruby gem defined in the [Gemfile](Gemfile).
+
+## Troubleshooting the build
+
+Here is the sequence - the callstack if you will:
+
+```
+.travis.yml -> bundle exec rake deploy -> Rakefile -> GitDeployTask
+```
+
+The `GitDeployTask` is defined in the `rake-jekyll` plugin and source code is [here](https://github.com/jirutka/rake-jekyll/blob/master/lib/rake-jekyll/git_deploy_task.rb). 
+
+## Manual deployment
+
+In below `$TMP` is a bash variable that holds path to a temporary directory we will create and `$MAIN` is main directory synced to the master branch where you have your latest code that you want to deploy.
+
+```
+$ mkdir $TMP
+$ cd $TMP
+$ git clone git@github.com:siddjain/siddjain.github.io.git .
+$ git checkout --track origin/gh-pages
+$ cd $MAIN
+$ bundle exec jekyll build --destination $TMP
+$ cd $TMP
+$ git push -q gh-pages:gh-pages
+```
+
+This is what the [GitDeployTask](https://github.com/jirutka/rake-jekyll/blob/master/lib/rake-jekyll/git_deploy_task.rb) does.
 
 ## References
 

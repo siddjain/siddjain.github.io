@@ -45,6 +45,7 @@ exclude:
 permalink: /:year/:month/:day/:title:output_ext
 
 keep_files:
+  - .git
   - images
 
 asciidoctor:
