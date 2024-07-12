@@ -1,17 +1,15 @@
----
-layout: mathjax-post
-title:  "Notes on Special Relativity"
-date:   2024-07-11 00:00:00 -0800
-categories: special-relativity
-description: understanding special relativity
----
 = Understanding Special Relativity
-Siddharth Jain <siddjain@live.com>
+:layout: mathjax-post
+:title:  Notes on Special Relativity
+:date:   2024-07-11 00:00:00 -0800
+:categories: special-relativity
+:description: understanding special relativity
 :revdate: 2024-07-11 00:00:00 -0800
 :doctype: article
 :stem: latexmath
 :eqnums: all
 :xrefstyle: short
+Siddharth Jain <siddjain@live.com>
 
 What is the difference between SR (special relativity) and GR (general relativity)?
 
@@ -19,7 +17,7 @@ SR is the theory of relativity in the absence of gravity. This can be stated equ
 GR is really the theory of gravity. It is the theory of relativity in curved spacetime.
 
 To understand SR, you can start with the postulate that the speed of light has to be constant for all observers (inertial reference frames).
-This can be stated equivalently, as saying that the distance of spacetime displacement vector (the vector representing motion of light from one point to another)
+This can be stated equivalently, as saying that the length of spacetime displacement vector (the vector representing motion of light from one point to another)
 is invariant between two inertial reference frames under the _Minkowski_ metric. i.e.:
 
 [latexmath]
@@ -30,7 +28,7 @@ ds^2 = (c dt)^2 - (dx)^2 - (dy)^2 - (dz)^2 = (c dt')^2 - (dx')^2 - (dy')^2 - (dz
 ++++
 
 The prime symbol ' is used to denote a co-ordinate in frame 2.
-The Lorentz transformation can then be derived from this assumption. 
+The Lorentz transformation can then be derived from this assumption. See https://physics.stackexchange.com/questions/821317/question-on-special-relativity[[1]] for some discussion on this whether its right.
 In essence, above constraint translates to following _equivalent_ constraint on the Lorentz transformation matrix latexmath:[$\Lambda$]:
 
 [latexmath]
