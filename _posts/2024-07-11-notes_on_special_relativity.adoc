@@ -1,0 +1,110 @@
+---
+layout: mathjax-post
+title:  "Notes on Special Relativity"
+date:   2024-07-11 00:00:00 -0800
+categories: special-relativity
+description: understanding special relativity
+---
+= Understanding Special Relativity
+Siddharth Jain <siddjain@live.com>
+:revdate: 2024-07-11 00:00:00 -0800
+:doctype: article
+:stem: latexmath
+:eqnums: all
+:xrefstyle: short
+
+What is the difference between SR (special relativity) and GR (general relativity)?
+
+SR is the theory of relativity in the absence of gravity. This can be stated equivalently as saying that SR is the theory of relativity in flat spacetime.
+GR is really the theory of gravity. It is the theory of relativity in curved spacetime.
+
+To understand SR, you can start with the postulate that the speed of light has to be constant for all observers (inertial reference frames).
+This can be stated equivalently, as saying that the distance of spacetime displacement vector (the vector representing motion of light from one point to another)
+is invariant between two inertial reference frames under the _Minkowski_ metric. i.e.:
+
+[latexmath]
+++++
+\begin{equation}
+ds^2 = (c dt)^2 - (dx)^2 - (dy)^2 - (dz)^2 = (c dt')^2 - (dx')^2 - (dy')^2 - (dz')^2 
+\end{equation}
+++++
+
+The prime symbol ' is used to denote a co-ordinate in frame 2.
+The Lorentz transformation can then be derived from this assumption. 
+In essence, above constraint translates to following _equivalent_ constraint on the Lorentz transformation matrix latexmath:[$\Lambda$]:
+
+[latexmath]
+++++
+\begin{equation}
+\eta^T = \Lambda^T \eta^T \Lambda
+\end{equation}
+++++
+
+where latexmath:[$\eta$] is the Minknowski metric (or matix depending on how you want to look at it):
+
+[latexmath]
+++++
+\begin{equation}
+\eta = \begin{pmatrix} 1 && 0 && 0 && 0 \\ 0 && -1 && 0 && 0 \\ 0 && 0 && -1 && 0 \\ 0 && 0 && 0 && -1 \end{pmatrix} 
+\end{equation}
+++++
+
+Remember 1 and 2 are equivalent. You can start from 1 and derive 2 or go in the reverse direction if you so desire.
+
+As I was reading Weinberg p. 35 I was very confused. He says:
+
+[quote,S. Weinberg,Gravitation and Cosmology p. 35]
+for any quantity that undergoes the transformation latexmath:[$ \mathbf{V'} = \mathbf{\Lambda V}$], such a latexmath:[$ \mathbf{V}$] should be called a contravariant 4 vector to distinguish it from a covariant 4 vector defined as a quantity latexmath:[$ \mathbf{U}$] whose transformation rule is latexmath:[$ \mathbf{U'} = \mathbf{\Lambda^{-1} U}$]
+
+_How can he decide at whim that some vectors he will transform as latexmath:[$ \mathbf{\Lambda V}$] and that others he will transform as latexmath:[$ \mathbf{U'} = \mathbf{\Lambda^{-1}U}$] ?_
+
+This bothered me to no end and kept me up for many days until I realized that _the Lorentz transformation matrix latexmath:[$ \mathbf{\Lambda}$] tells how co-ordinates transform from one inertial reference frame to another. This is not to be confused with how a quantity such as a 4 vector transforms between the two reference frames._ To his credit, the complete text from Weinberg's book is:
+
+[quote,S. Weinberg,Gravitation and Cosmology p. 35]
+for any quantity that undergoes the transformation latexmath:[$ \mathbf{V'} = \mathbf{\Lambda V}$] when the co-ordinate system is transformed by latexmath:[$ \mathbf{x'} = \mathbf{\Lambda x}$] ...
+
+More generally a contravariant vector is a quantity where the i-th component in the other reference frame is given by:
+
+[latexmath]
+++++
+\begin{equation}
+\mathbf{V'_i} = \sum_j \frac{\partial x'_i}{\partial x_j} \mathbf{V_j}
+\end{equation}
+++++
+
+Here latexmath:[\frac{\partial x'_i}{\partial x_j}] is partial derivative of the i-th co-ordinate in frame 2 w.r.t. j-th co-ordinate in frame 1 evaluated at some point.
+Remember these co-ordinates are like functions or variables of multivariate calculus. This can be expressed in matrix form using the Jacobian matrix as:
+
+[latexmath]
+++++
+\mathbf{V'} = \mathbf{J V}
+++++
+
+Recall the Jacobian matrix is the matrix of first-order partial differentials.
+When the transformation between the co-ordinates is linear i.e., latexmath:[\mathbf{x' = M x}], then the Jacobian is same as latexmath:[\mathbf{M}].
+This is generalization of the fact that when latexmath:[y = k x], latexmath:[dy / dx = k]. In our case, latexmath:[\mathbf{M = \Lambda}].
+
+Note very very carefully that when you are dealing with multi-variate calculus:
+
+[latexmath]
+++++
+\frac{\partial x_i}{\partial x'_j} \neq \frac{1}{\partial x'_j / \partial x_i}
+++++
+
+This is a statement of the fact that given a matrix latexmath:[\mathbf{M}] (in our case replace latexmath:[\mathbf{M}] with the Jacobian latexmath:[\mathbf{J}]):
+
+[latexmath]
+++++
+\begin{equation}
+M = \begin{pmatrix} m_{00} && m_{01} \\ m_{10} && m_{11} \end{pmatrix}
+\end{equation}
+++++
+
+[latexmath]
+++++
+\begin{equation}
+M^{-1} \neq \begin{pmatrix} \frac{1}{m_{00}} && \frac{1}{m_{01}} \\ \frac{1}{m_{10}} && \frac{1}{m_{11}} \end{pmatrix}
+\end{equation}
+++++
+
+It took me a lifetime to learn special relativity - I am still learning it and haven't even gotten to GR. 
