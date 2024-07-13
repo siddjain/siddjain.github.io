@@ -1,9 +1,11 @@
+---
+layout: mathjax-post
+title:  Notes on Special Relativity
+date:   2022-07-02 00:00:00 -0800
+categories: special-relativity
+description: understanding special relativity
+---
 = Understanding Special Relativity
-:layout: mathjax-post
-:title:  Notes on Special Relativity
-:date:   2024-07-11 00:00:00 -0800
-:categories: special-relativity
-:description: understanding special relativity
 :revdate: 2024-07-11 00:00:00 -0800
 :doctype: article
 :stem: latexmath
