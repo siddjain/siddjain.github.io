@@ -9,8 +9,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Notes on Special Relativity</title>
-  <meta name="description" content="कोशिश करने वालो की कभी हार नहीं होती…">
+  <title>Understanding Special Relativity</title>
+  <meta name="description" content="understanding special relativity">
 
   <link rel="stylesheet" href="/assets/main.css">
   <link rel="canonical" href="https://siddjain.github.io/2024/07/11/notes_on_special_relativity.html">
@@ -43,10 +43,12 @@
 </header>
 <main class="page-content" aria-label="Content">
       <div class="wrapper">
-        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+        <!-- this file is derived from https://github.com/jekyll/minima/blob/master/_layouts/post.html
+    and modifies the original to add the FB like button to the post -->
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title p-name" itemprop="name headline">Notes on Special Relativity</h1>
+    <h1 class="post-title p-name" itemprop="name headline">Understanding Special Relativity</h1>
     <p class="post-meta"><time class="dt-published" datetime="2024-07-11T08:00:00+00:00" itemprop="datePublished">
         Jul 11, 2024
       </time>• 
@@ -215,6 +217,22 @@ M^{-1} \neq \begin{pmatrix} \frac{1}{m_{00}} &amp;&amp; \frac{1}{m_{01}} \\ \fra
   </div>
 
 </footer>
-</body>
+<!-- refer https://github.com/asciidoctor/jekyll-asciidoc#adding-the-stem-assets-to-the-page --><!-- from https://github.com/asciidoctor/jekyll-asciidoc#adding-the-stem-assets-to-the-page -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    messageStyle: "none",
+    tex2jax: {
+        inlineMath: [["\\(", "\\)"]],
+        displayMath: [["\\[", "\\]"]],
+        ignoreClass: "nostem|nolatexmath"
+    },
+    asciimath2jax: {
+        delimiters: [["\\$", "\\$"]],
+        ignoreClass: "nostem|noasciimath"
+    },
+    TeX: { equationNumbers: { autoNumber: "none" } }
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script></body>
 
 </html>
