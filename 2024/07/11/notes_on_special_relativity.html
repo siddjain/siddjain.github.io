@@ -1,0 +1,220 @@
+<!-- from https://github.com/jekyll/minima/blob/master/_layouts/default.html -->
+<!DOCTYPE html>
+<html lang="en"><!-- this file derived from https://github.com/jekyll/minima/blob/v2.0.0/_includes/head.html
+     and has following changes:
+     - it adds custom-head.html to the original file
+     - it adds  page.description to the meta description tag which helps in SEO -->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Notes on Special Relativity</title>
+  <meta name="description" content="कोशिश करने वालो की कभी हार नहीं होती…">
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://siddjain.github.io/2024/07/11/notes_on_special_relativity.html">
+  <link rel="alternate" type="application/rss+xml" title="siddharth&#39;s space" href="/feed.xml">
+  
+  <!-- this file overrides https://github.com/jekyll/minima/blob/master/_includes/custom-head.html -->
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head><body>
+    
+    <!-- from https://developers.facebook.com/docs/plugins/like-button/ -->
+    <!-- I created a new app to get the appID. https://developers.facebook.com/apps/194621285460565/add/ -->
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous"
+     src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v9.0&appId=194621285460565&autoLogAppEvents=1"
+     nonce="mY2hWZoA"></script><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">siddharth&#39;s space</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Notes on Special Relativity</h1>
+    <p class="post-meta"><time class="dt-published" datetime="2024-07-11T08:00:00+00:00" itemprop="datePublished">
+        Jul 11, 2024
+      </time>• 
+          <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+            <span class="p-author h-card" itemprop="name">Siddharth Jain</span></span></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <div class="paragraph">
+<p>What is the difference between SR (special relativity) and GR (general relativity)?</p>
+</div>
+<div class="paragraph">
+<p>SR is the theory of relativity in the absence of gravity. This can be stated equivalently as saying that SR is the theory of relativity in flat spacetime.
+GR is really the theory of gravity. It is the theory of relativity in curved spacetime.</p>
+</div>
+<div class="paragraph">
+<p>To understand SR, you can start with the postulate that the speed of light has to be constant for all observers (inertial reference frames).
+This can be stated equivalently, as saying that the length of spacetime displacement vector (the vector representing motion of light from one point to another)
+is invariant between two inertial reference frames under the <em>Minkowski</em> metric. i.e.:</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{equation}
+ds^2 = (c dt)^2 - (dx)^2 - (dy)^2 - (dz)^2 = (c dt')^2 - (dx')^2 - (dy')^2 - (dz')^2
+\end{equation}\]
+</div>
+</div>
+<div class="paragraph">
+<p>The prime symbol ' is used to denote a co-ordinate in frame 2.
+The Lorentz transformation can then be derived from this assumption. See <a href="https://physics.stackexchange.com/questions/821317/question-on-special-relativity">[1</a>] for some discussion on this whether its right.
+In essence, above constraint translates to following <em>equivalent</em> constraint on the Lorentz transformation matrix \(\Lambda\):</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{equation}
+\eta^T = \Lambda^T \eta^T \Lambda
+\end{equation}\]
+</div>
+</div>
+<div class="paragraph">
+<p>where \(\eta\) is the Minknowski metric (or matix depending on how you want to look at it):</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{equation}
+\eta = \begin{pmatrix} 1 &amp;&amp; 0 &amp;&amp; 0 &amp;&amp; 0 \\ 0 &amp;&amp; -1 &amp;&amp; 0 &amp;&amp; 0 \\ 0 &amp;&amp; 0 &amp;&amp; -1 &amp;&amp; 0 \\ 0 &amp;&amp; 0 &amp;&amp; 0 &amp;&amp; -1 \end{pmatrix}
+\end{equation}\]
+</div>
+</div>
+<div class="paragraph">
+<p>Remember 1 and 2 are equivalent. You can start from 1 and derive 2 or go in the reverse direction if you so desire.</p>
+</div>
+<div class="paragraph">
+<p>As I was reading Weinberg p. 35 I was very confused. He says:</p>
+</div>
+<div class="quoteblock">
+<blockquote>
+for any quantity that undergoes the transformation \( \mathbf{V'} = \mathbf{\Lambda V}\), such a \( \mathbf{V}\) should be called a contravariant 4 vector to distinguish it from a covariant 4 vector defined as a quantity \( \mathbf{U}\) whose transformation rule is \( \mathbf{U'} = \mathbf{\Lambda^{-1} U}\)
+</blockquote>
+<div class="attribution">
+&#8212; S. Weinberg<br>
+<cite>Gravitation and Cosmology p. 35</cite>
+</div>
+</div>
+<div class="paragraph">
+<p><em>How can he decide at whim that some vectors he will transform as \( \mathbf{\Lambda V}\) and that others he will transform as \( \mathbf{U'} = \mathbf{\Lambda^{-1}U}\) ?</em></p>
+</div>
+<div class="paragraph">
+<p>This bothered me to no end and kept me up for many days until I realized that <em>the Lorentz transformation matrix \( \mathbf{\Lambda}\) tells how co-ordinates transform from one inertial reference frame to another. This is not to be confused with how a quantity such as a 4 vector transforms between the two reference frames.</em> To his credit, the complete text from Weinberg&#8217;s book is:</p>
+</div>
+<div class="quoteblock">
+<blockquote>
+for any quantity that undergoes the transformation \( \mathbf{V'} = \mathbf{\Lambda V}\) when the co-ordinate system is transformed by \( \mathbf{x'} = \mathbf{\Lambda x}\) &#8230;&#8203;
+</blockquote>
+<div class="attribution">
+&#8212; S. Weinberg<br>
+<cite>Gravitation and Cosmology p. 35</cite>
+</div>
+</div>
+<div class="paragraph">
+<p>More generally a contravariant vector is a quantity where the i-th component in the other reference frame is given by:</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{equation}
+\mathbf{V'_i} = \sum_j \frac{\partial x'_i}{\partial x_j} \mathbf{V_j}
+\end{equation}\]
+</div>
+</div>
+<div class="paragraph">
+<p>Here \(\frac{\partial x'_i}{\partial x_j}\) is partial derivative of the i-th co-ordinate in frame 2 w.r.t. j-th co-ordinate in frame 1 evaluated at some point.
+Remember these co-ordinates are like functions or variables of multivariate calculus. This can be expressed in matrix form using the Jacobian matrix as:</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\mathbf{V'} = \mathbf{J V}\]
+</div>
+</div>
+<div class="paragraph">
+<p>Recall the Jacobian matrix is the matrix of first-order partial differentials.
+When the transformation between the co-ordinates is linear i.e., \(\mathbf{x' = M x}\), then the Jacobian is same as \(\mathbf{M}\).
+This is generalization of the fact that when \(y = k x\), \(dy / dx = k\). In our case, \(\mathbf{M = \Lambda}\).</p>
+</div>
+<div class="paragraph">
+<p>Note very very carefully that when you are dealing with multi-variate calculus:</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\frac{\partial x_i}{\partial x'_j} \neq \frac{1}{\partial x'_j / \partial x_i}\]
+</div>
+</div>
+<div class="paragraph">
+<p>This is a statement of the fact that given a matrix \(\mathbf{M}\) (in our case replace \(\mathbf{M}\) with the Jacobian \(\mathbf{J}\)):</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{equation}
+M = \begin{pmatrix} m_{00} &amp;&amp; m_{01} \\ m_{10} &amp;&amp; m_{11} \end{pmatrix}
+\end{equation}\]
+</div>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{equation}
+M^{-1} \neq \begin{pmatrix} \frac{1}{m_{00}} &amp;&amp; \frac{1}{m_{01}} \\ \frac{1}{m_{10}} &amp;&amp; \frac{1}{m_{11}} \end{pmatrix}
+\end{equation}\]
+</div>
+</div>
+<div class="paragraph">
+<p>It took me a lifetime to learn special relativity - I am still learning it and haven&#8217;t even gotten to GR.</p>
+</div>
+  </div>
+
+  <!-- from https://developers.facebook.com/docs/plugins/like-button/ -->
+  <!-- page.url will give the URL of the page sans the domain name. refer https://jekyllrb.com/docs/variables/ -->
+  <!-- more at https://www.digitalocean.com/community/tutorials/how-to-control-urls-and-links-in-jekyll -->
+  <div class="fb-like" data-href="https://siddjain.github.io/2024/07/11/notes_on_special_relativity.html" 
+      data-width="" 
+      data-layout="standard"
+      data-action="like" 
+      data-size="small"
+      data-share="true"></div><a class="u-url" href="/2024/07/11/notes_on_special_relativity.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">siddharth&#39;s space</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">siddharth&#39;s space</li><li><a class="u-email" href="mailto:siddjain@example.com">siddjain@example.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/siddjain"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">siddjain</span></a></li><li><a href="https://www.twitter.com/fd97207"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">fd97207</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>कोशिश करने वालो की कभी हार नहीं होती…</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

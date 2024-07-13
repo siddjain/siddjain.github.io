@@ -49,6 +49,8 @@ Rake::Jekyll::GitDeployTask.new(:deploy) do |t|
     
     # Use URL of the 'origin' remote to fetch/push the built site into. If env.
     # variable GH_TOKEN is set, then it adds it as a userinfo to the URL.
+    # first, create a personal access token on https://github.com/settings/tokens
+    # then, add it as environment variable on https://app.travis-ci.com/github/siddjain/siddjain.github.io/settings?serverType=git
     t.remote_url = -> {
         url = `git config remote.origin.url`.strip.gsub(/^git:/, 'https:')
         # next url.gsub(%r{^https://([^/]+)/(.*)$}, 'git@\1:\2') if ssh_key_file?
