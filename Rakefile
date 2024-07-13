@@ -50,9 +50,9 @@ Rake::Jekyll::GitDeployTask.new(:deploy) do |t|
     # Use URL of the 'origin' remote to fetch/push the built site into. If env.
     # variable GH_TOKEN is set, then it adds it as a userinfo to the URL.
     t.remote_url = -> {
-        url = `git config remote.origin.url`.strip.gsub(/^git:/, 'https:')
+        url = `git config remote.origin.url`
         # next url.gsub(%r{^https://([^/]+)/(.*)$}, 'git@\1:\2') if ssh_key_file?
-        next url.gsub(%r{^https://}, "https://#{ENV['GH_TOKEN']}@") if ENV.key? 'GH_TOKEN'
+        # next url.gsub(%r{^https://}, "https://#{ENV['GH_TOKEN']}@") if ENV.key? 'GH_TOKEN'
         next url
     }
 
