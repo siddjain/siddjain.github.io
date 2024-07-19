@@ -54,7 +54,7 @@ Remember 1 and 2 are equivalent. You can start from 1 and derive 2 or go in the 
 As I was reading Weinberg p. 35 I was very confused. He says:
 
 [quote,S. Weinberg,Gravitation and Cosmology p. 35]
-for any quantity that undergoes the transformation latexmath:[$ \mathbf{V'} = \mathbf{\Lambda V}$], such a latexmath:[$ \mathbf{V}$] should be called a contravariant 4 vector to distinguish it from a covariant 4 vector defined as a quantity latexmath:[$ \mathbf{U}$] whose transformation rule is latexmath:[$ \mathbf{U'} = \mathbf{\Lambda^{-1} U}$]
+for any quantity that undergoes the transformation latexmath:[$ \mathbf{V'} = \mathbf{\Lambda V}$], such a latexmath:[$ \mathbf{V}$] should be called a contravariant 4 vector to distinguish it from a covariant 4 vector defined as a quantity latexmath:[$ \mathbf{U}$] whose transformation rule is latexmath:[$ \mathbf{U'} = \mathbf{\Lambda^{-T} U}$]
 
 _How can he decide at whim that some vectors he will transform as latexmath:[$ \mathbf{\Lambda V}$] and that others he will transform as latexmath:[$ \mathbf{U'} = \mathbf{\Lambda^{-T}U}$] ?_
 
@@ -107,6 +107,41 @@ M^{-1} \neq \begin{pmatrix} \frac{1}{m_{00}} && \frac{1}{m_{01}} \\ \frac{1}{m_{
 \end{equation}
 ++++
 
+To get the partial derivatives in the other direction, we have to invert the Jacobian using laws of matrix inversion. i.e., Given:
+
+[latexmath]
+++++
+\begin{equation}
+J_{ij} = \frac{\partial x'_{i}}{\partial x_{j}}
+\end{equation}
+++++
+
+latexmath:[\frac{\partial x_{i}}{\partial x'_{j}}]
+is given by latexmath:[J^{-1}]. e.g., consider the cartesion co-ordinates vs. spherical co-ordinates. Given:
+
+[latexmath]
+++++
+\begin{equation}
+J = \begin{pmatrix} \frac{\partial r}{\partial x} && \frac{\partial r}{\partial y} && \frac{\partial r}{\partial z} \\
+        \frac{\partial \theta}{\partial x} && \frac{\partial \theta}{\partial y} && \frac{\partial \theta}{\partial z} \\
+        \frac{\partial \phi}{\partial x} && \frac{\partial \phi}{\partial y} && \frac{\partial \phi}{\partial z} \\ \end{pmatrix}
+\end{equation}
+++++
+
+it then follows that latexmath:[J^{-1}] will give us:
+
+[latexmath]
+++++
+\begin{equation}
+J^{-1} = \begin{pmatrix} \frac{\partial x}{\partial r} && \frac{\partial x}{\partial \theta} && \frac{\partial x}{\partial \phi} \\
+        \frac{\partial y}{\partial r} && \frac{\partial y}{\partial \theta} && \frac{\partial y}{\partial \phi} \\
+        \frac{\partial z}{\partial r} && \frac{\partial z}{\partial \theta} && \frac{\partial z}{\partial \phi} \\ \end{pmatrix}
+\end{equation}
+++++
+
+latexmath:[J] will be multipled with a latexmath:[(\delta x, \delta y, \delta z)] to give a latexmath:[(\delta r, \delta \theta, \delta \phi)],
+whereas latexmath:[J^{-1}] will be multipled with a latexmath:[(\delta r, \delta \theta, \delta \phi)] to give a latexmath:[(\delta x, \delta y, \delta z)].
+
 == Raising and lowering indices
 
 For this, realize you require a metric tensor first of all. You cannot raise or lower indices without a metric tensor. Lets denote the (covariant) metric by latexmath:[g_{\mu \nu}] and the (contravariant) metric by latexmath:[g^{\mu \nu}].
@@ -138,7 +173,7 @@ e.g., if we have latexmath:[T(i,j,k,l)] I will use the symbol latexmath:[m]
 4. Now, you have a repeated index latexmath:[m] and we must sum over it.
 5. The result is the tensor with latexmath:[i] in downstairs position.
 
-Symbolically:
+Symbolically (making the summation explicit):
 
 [latexmath]
 ++++
@@ -147,10 +182,26 @@ T_i = \sum_m g_{im}T^{m};
 \end{equation}
 ++++
 
-where I have hidden the other indices on latexmath:[T] as they remain unchanged and carry over as-is to latexmath:[T].
+where I have hidden the other indices on latexmath:[T] as they remain unchanged and carry over as-is to latexmath:[T] on the LHS.
 
 Since we are not doing matrix multiplication, it doesn't matter if you write latexmath:[g_{im}] to the left or right of latexmath:[T(...,m,...)]. Also since
 metric tensor is symmetric, it doesn't matter if you use latexmath:[g_{im}] or latexmath:[g_{mi}].
 
 The algorithm to raise an index is similar except that we use latexmath:[g^{\mu \nu}] in this case. The whole operation is also called as contracting latexmath:[T] with
 latexmath:[g_{\mu \nu}] or latexmath:[g^{\mu \nu}] as the case may be.
+
+Also remember that in the usual notation used in literature, primes (e.g., latexmath:[T vs. T']) are used to denote the _same_ quantity but measured in different 
+co-ordinate systems (a.k.a. reference frames) whereas raising or lowering indices is an operation you do in the same frame and it changes the quantity. It is no longer the _same_. 
+This should be evident from above equation.
+
+I think this post ended up being more on mathematics and less on physics. The two are intertwined.
+If you understand the notation and tensor math you are already half-way through understanding relativity or other advanced topics like QFT. If you don't understand this
+language, the equations will all look gibberish and you won't be able to make any progress.
+
+Btw, I disagree very strongly with statements like time is an illusion. Different observers will measure time differently (because they use different inertial frames) but time is very much real.
+
+== Further Reading
+
+* https://www.youtube.com/playlist?list=PLUl4u3cNGP629n_3fX7HmKKgin_rqGzbx[Scott Hughes lectures on GR]. The best resource to learn GR.
+* https://web.mit.edu/sahughes/www/8.962/index.html[Scott Hughes Lecture Notes on GR]
+
