@@ -108,7 +108,7 @@ In essence, above constraint translates to following <em>equivalent</em> constra
 </div>
 <div class="quoteblock">
 <blockquote>
-for any quantity that undergoes the transformation \( \mathbf{V'} = \mathbf{\Lambda V}\), such a \( \mathbf{V}\) should be called a contravariant 4 vector to distinguish it from a covariant 4 vector defined as a quantity \( \mathbf{U}\) whose transformation rule is \( \mathbf{U'} = \mathbf{\Lambda^{-1} U}\)
+for any quantity that undergoes the transformation \( \mathbf{V'} = \mathbf{\Lambda V}\), such a \( \mathbf{V}\) should be called a contravariant 4 vector to distinguish it from a covariant 4 vector defined as a quantity \( \mathbf{U}\) whose transformation rule is \( \mathbf{U'} = \mathbf{\Lambda^{-T} U}\)
 </blockquote>
 <div class="attribution">
 &#8212; S. Weinberg<br>
@@ -179,6 +179,45 @@ M^{-1} \neq \begin{pmatrix} \frac{1}{m_{00}} &amp;&amp; \frac{1}{m_{01}} \\ \fra
 \end{equation}\]
 </div>
 </div>
+<div class="paragraph">
+<p>To get the partial derivatives in the other direction, we have to invert the Jacobian using laws of matrix inversion. i.e., Given:</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{equation}
+J_{ij} = \frac{\partial x'_{i}}{\partial x_{j}}
+\end{equation}\]
+</div>
+</div>
+<div class="paragraph">
+<p>\(\frac{\partial x_{i}}{\partial x'_{j}}\)
+is given by \(J^{-1}\). e.g., consider the cartesion co-ordinates vs. spherical co-ordinates. Given:</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{equation}
+J = \begin{pmatrix} \frac{\partial r}{\partial x} &amp;&amp; \frac{\partial r}{\partial y} &amp;&amp; \frac{\partial r}{\partial z} \\
+        \frac{\partial \theta}{\partial x} &amp;&amp; \frac{\partial \theta}{\partial y} &amp;&amp; \frac{\partial \theta}{\partial z} \\
+        \frac{\partial \phi}{\partial x} &amp;&amp; \frac{\partial \phi}{\partial y} &amp;&amp; \frac{\partial \phi}{\partial z} \\ \end{pmatrix}
+\end{equation}\]
+</div>
+</div>
+<div class="paragraph">
+<p>it then follows that \(J^{-1}\) will give us:</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{equation}
+J^{-1} = \begin{pmatrix} \frac{\partial x}{\partial r} &amp;&amp; \frac{\partial x}{\partial \theta} &amp;&amp; \frac{\partial x}{\partial \phi} \\
+        \frac{\partial y}{\partial r} &amp;&amp; \frac{\partial y}{\partial \theta} &amp;&amp; \frac{\partial y}{\partial \phi} \\
+        \frac{\partial z}{\partial r} &amp;&amp; \frac{\partial z}{\partial \theta} &amp;&amp; \frac{\partial z}{\partial \phi} \\ \end{pmatrix}
+\end{equation}\]
+</div>
+</div>
+<div class="paragraph">
+<p>\(J\) will be multipled with a \((\delta x, \delta y, \delta z)\) to give a \((\delta r, \delta \theta, \delta \phi)\),
+whereas \(J^{-1}\) will be multipled with a \((\delta r, \delta \theta, \delta \phi)\) to give a \((\delta x, \delta y, \delta z)\).</p>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -242,7 +281,7 @@ e.g., if we have \(T(i,j,k,l)\) I will use the symbol \(m\)</p>
 </ol>
 </div>
 <div class="paragraph">
-<p>Symbolically:</p>
+<p>Symbolically (making the summation explicit):</p>
 </div>
 <div class="stemblock">
 <div class="content">
@@ -252,7 +291,7 @@ T_i = \sum_m g_{im}T^{m};
 </div>
 </div>
 <div class="paragraph">
-<p>where I have hidden the other indices on \(T\) as they remain unchanged and carry over as-is to \(T\).</p>
+<p>where I have hidden the other indices on \(T\) as they remain unchanged and carry over as-is to \(T\) on the LHS.</p>
 </div>
 <div class="paragraph">
 <p>Since we are not doing matrix multiplication, it doesn&#8217;t matter if you write \(g_{im}\) to the left or right of \(T(...,m,...)\). Also since
@@ -261,6 +300,34 @@ metric tensor is symmetric, it doesn&#8217;t matter if you use \(g_{im}\) or \(g
 <div class="paragraph">
 <p>The algorithm to raise an index is similar except that we use \(g^{\mu \nu}\) in this case. The whole operation is also called as contracting \(T\) with
 \(g_{\mu \nu}\) or \(g^{\mu \nu}\) as the case may be.</p>
+</div>
+<div class="paragraph">
+<p>Also remember that in the usual notation used in literature, primes (e.g., \(T vs. T'\)) are used to denote the <em>same</em> quantity but measured in different
+co-ordinate systems (a.k.a. reference frames) whereas raising or lowering indices is an operation you do in the same frame and it changes the quantity. It is no longer the <em>same</em>.
+This should be evident from above equation.</p>
+</div>
+<div class="paragraph">
+<p>I think this post ended up being more on mathematics and less on physics. The two are intertwined.
+If you understand the notation and tensor math you are already half-way through understanding relativity or other advanced topics like QFT. If you don&#8217;t understand this
+language, the equations will all look gibberish and you won&#8217;t be able to make any progress.</p>
+</div>
+<div class="paragraph">
+<p>Btw, I disagree very strongly with statements like time is an illusion. Different observers will measure time differently (because they use different inertial frames) but time is very much real.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="further-reading">Further Reading</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.youtube.com/playlist?list=PLUl4u3cNGP629n_3fX7HmKKgin_rqGzbx">Scott Hughes lectures on GR</a>. The best resource to learn GR.</p>
+</li>
+<li>
+<p><a href="https://web.mit.edu/sahughes/www/8.962/index.html">Scott Hughes Lecture Notes on GR</a></p>
+</li>
+</ul>
 </div>
 </div>
 </div>
