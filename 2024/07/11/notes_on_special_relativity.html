@@ -57,7 +57,9 @@
   </header>
 
   <div class="post-content e-content" itemprop="articleBody">
-    <div class="paragraph">
+    <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
 <p>What is the difference between SR (special relativity) and GR (general relativity)?</p>
 </div>
 <div class="paragraph">
@@ -114,7 +116,7 @@ for any quantity that undergoes the transformation \( \mathbf{V'} = \mathbf{\Lam
 </div>
 </div>
 <div class="paragraph">
-<p><em>How can he decide at whim that some vectors he will transform as \( \mathbf{\Lambda V}\) and that others he will transform as \( \mathbf{U'} = \mathbf{\Lambda^{-1}U}\) ?</em></p>
+<p><em>How can he decide at whim that some vectors he will transform as \( \mathbf{\Lambda V}\) and that others he will transform as \( \mathbf{U'} = \mathbf{\Lambda^{-T}U}\) ?</em></p>
 </div>
 <div class="paragraph">
 <p>This bothered me to no end and kept me up for many days until I realized that <em>the Lorentz transformation matrix \( \mathbf{\Lambda}\) tells how co-ordinates transform from one inertial reference frame to another. This is not to be confused with how a quantity such as a 4 vector transforms between the two reference frames.</em> To his credit, the complete text from Weinberg&#8217;s book is:</p>
@@ -177,8 +179,90 @@ M^{-1} \neq \begin{pmatrix} \frac{1}{m_{00}} &amp;&amp; \frac{1}{m_{01}} \\ \fra
 \end{equation}\]
 </div>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="raising-and-lowering-indices">Raising and lowering indices</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>It took me a lifetime to learn special relativity - I am still learning it and haven&#8217;t even gotten to GR.</p>
+<p>For this, realize you require a metric tensor first of all. You cannot raise or lower indices without a metric tensor. Lets denote the (covariant) metric by \(g_{\mu \nu}\) and the (contravariant) metric by \(g^{\mu \nu}\).</p>
+</div>
+<div class="paragraph">
+<p>Properties of metric tensor:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>\(g_{\mu \nu}\) and \(g^{\mu \nu}\) are inverse of each other. This is written mathematically as \(g_{i k} g^{k j} = \delta^{i}_{j}\) where
+\(\delta^{i}_{j} = 1\) for \(i=j\) and \(0\) otherwise. In matrix lingo this is nothing but \(g G = I\) where I have used \(g\) and \(G\) for the two matrices representing \(g_{\mu \nu}\) and \(g^{\mu \nu}\).</p>
+</li>
+<li>
+<p>metric tensor is a tensor of rank 2 so can be written as a \(d \times d\) matrix where \(d\) is the number of dimensions we are dealing with (\(d=4\) for us in physics - 3 for space, 1 for time)</p>
+</li>
+<li>
+<p>metric tensor is symmetric so \(g_{\mu \nu} = g_{\nu \mu}\)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Finally, we come to the algorithm to raise or lower an index on any (mixed) tensor. A mixed tensor is a tensor that has a mixture of contravariant and covariant indices.
+For computer programmers, it helps to think of a tensor like an N-D array in computer science. In pseudocode, here is a rank 4 tensor:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>T = new float[d][d][d][d];</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>However, in addition to being an N-D array, <em>a tensor (in physics) has to obey very specifc rules when its expressed in a different co-ordinate system</em>. Only then can it be called a tensor.
+i.e., if \(T\) is the tensor written in frame 1 and \(T'\) is the same tensor written in frame 2, the numbers in the two N-D arrays have to be related to each other
+by very specific rules which are the rules of contravariant and covariant transformations on respective indices.</p>
+</div>
+<div class="paragraph">
+<p>Anyway here is the algorithm to lower the \(i\) th index on a tensor \(T(...,i,...)\):</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>First of all, we can do this operation only if \(i\) is upstairs in the tensor. If its already downstairs then this operation is meaningless.</p>
+</li>
+<li>
+<p>Step 1: Write down the tensor and replace \(i\) with another symbol. I choose the next symbol in the alphabet after the last index of \(T(...,i,...)\).
+e.g., if we have \(T(i,j,k,l)\) I will use the symbol \(m\)</p>
+</li>
+<li>
+<p>Step 2: Multiply above by \(g_{\mu \nu}\) and replace \(\nu\) with \(m\) and \(\mu\) with \(i\) so it becomes \(g_{im}\).</p>
+</li>
+<li>
+<p>Now, you have a repeated index \(m\) and we must sum over it.</p>
+</li>
+<li>
+<p>The result is the tensor with \(i\) in downstairs position.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Symbolically:</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{equation}
+T_i = \sum_m g_{im}T^{m};
+\end{equation}\]
+</div>
+</div>
+<div class="paragraph">
+<p>where I have hidden the other indices on \(T\) as they remain unchanged and carry over as-is to \(T\).</p>
+</div>
+<div class="paragraph">
+<p>Since we are not doing matrix multiplication, it doesn&#8217;t matter if you write \(g_{im}\) to the left or right of \(T(...,m,...)\). Also since
+metric tensor is symmetric, it doesn&#8217;t matter if you use \(g_{im}\) or \(g_{mi}\).</p>
+</div>
+<div class="paragraph">
+<p>The algorithm to raise an index is similar except that we use \(g^{\mu \nu}\) in this case. The whole operation is also called as contracting \(T\) with
+\(g_{\mu \nu}\) or \(g^{\mu \nu}\) as the case may be.</p>
+</div>
+</div>
 </div>
   </div>
 
