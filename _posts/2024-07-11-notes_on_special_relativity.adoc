@@ -56,7 +56,7 @@ As I was reading Weinberg p. 35 I was very confused. He says:
 [quote,S. Weinberg,Gravitation and Cosmology p. 35]
 for any quantity that undergoes the transformation latexmath:[$ \mathbf{V'} = \mathbf{\Lambda V}$], such a latexmath:[$ \mathbf{V}$] should be called a contravariant 4 vector to distinguish it from a covariant 4 vector defined as a quantity latexmath:[$ \mathbf{U}$] whose transformation rule is latexmath:[$ \mathbf{U'} = \mathbf{\Lambda^{-1} U}$]
 
-_How can he decide at whim that some vectors he will transform as latexmath:[$ \mathbf{\Lambda V}$] and that others he will transform as latexmath:[$ \mathbf{U'} = \mathbf{\Lambda^{-1}U}$] ?_
+_How can he decide at whim that some vectors he will transform as latexmath:[$ \mathbf{\Lambda V}$] and that others he will transform as latexmath:[$ \mathbf{U'} = \mathbf{\Lambda^{-T}U}$] ?_
 
 This bothered me to no end and kept me up for many days until I realized that _the Lorentz transformation matrix latexmath:[$ \mathbf{\Lambda}$] tells how co-ordinates transform from one inertial reference frame to another. This is not to be confused with how a quantity such as a 4 vector transforms between the two reference frames._ To his credit, the complete text from Weinberg's book is:
 
@@ -107,4 +107,50 @@ M^{-1} \neq \begin{pmatrix} \frac{1}{m_{00}} && \frac{1}{m_{01}} \\ \frac{1}{m_{
 \end{equation}
 ++++
 
-It took me a lifetime to learn special relativity - I am still learning it and haven't even gotten to GR. 
+== Raising and lowering indices
+
+For this, realize you require a metric tensor first of all. You cannot raise or lower indices without a metric tensor. Lets denote the (covariant) metric by latexmath:[g_{\mu \nu}] and the (contravariant) metric by latexmath:[g^{\mu \nu}].
+
+Properties of metric tensor:
+
+- latexmath:[g_{\mu \nu}] and latexmath:[g^{\mu \nu}] are inverse of each other. This is written mathematically as latexmath:[g_{i k} g^{k j} = \delta^{i}_{j}] where
+latexmath:[\delta^{i}_{j} = 1] for latexmath:[i=j] and latexmath:[0] otherwise. In matrix lingo this is nothing but latexmath:[g G = I] where I have used latexmath:[g] and latexmath:[G] for the two matrices representing latexmath:[g_{\mu \nu}] and latexmath:[g^{\mu \nu}].
+- metric tensor is a tensor of rank 2 so can be written as a latexmath:[d \times d] matrix where latexmath:[d] is the number of dimensions we are dealing with (latexmath:[d=4] for us in physics - 3 for space, 1 for time)
+- metric tensor is symmetric so latexmath:[g_{\mu \nu} = g_{\nu \mu}]
+
+Finally, we come to the algorithm to raise or lower an index on any (mixed) tensor. A mixed tensor is a tensor that has a mixture of contravariant and covariant indices.
+For computer programmers, it helps to think of a tensor like an N-D array in computer science. In pseudocode, here is a rank 4 tensor:
+
+----
+T = new float[d][d][d][d];
+----
+
+However, in addition to being an N-D array, _a tensor (in physics) has to obey very specifc rules when its expressed in a different co-ordinate system_. Only then can it be called a tensor.
+i.e., if latexmath:[T] is the tensor written in frame 1 and latexmath:[T'] is the same tensor written in frame 2, the numbers in the two N-D arrays have to be related to each other
+by very specific rules which are the rules of contravariant and covariant transformations on respective indices.
+
+Anyway here is the algorithm to lower the latexmath:[i] th index on a tensor latexmath:[T(...,i,...)]:
+
+1. First of all, we can do this operation only if latexmath:[i] is upstairs in the tensor. If its already downstairs then this operation is meaningless.
+2. Step 1: Write down the tensor and replace latexmath:[i] with another symbol. I choose the next symbol in the alphabet after the last index of latexmath:[T(...,i,...)].
+e.g., if we have latexmath:[T(i,j,k,l)] I will use the symbol latexmath:[m]
+3. Step 2: Multiply above by latexmath:[g_{\mu \nu}] and replace latexmath:[\nu] with latexmath:[m] and latexmath:[\mu] with latexmath:[i] so it becomes latexmath:[g_{im}]. 
+4. Now, you have a repeated index latexmath:[m] and we must sum over it.
+5. The result is the tensor with latexmath:[i] in downstairs position.
+
+Symbolically:
+
+[latexmath]
+++++
+\begin{equation}
+T_i = \sum_m g_{im}T^{m};
+\end{equation}
+++++
+
+where I have hidden the other indices on latexmath:[T] as they remain unchanged and carry over as-is to latexmath:[T].
+
+Since we are not doing matrix multiplication, it doesn't matter if you write latexmath:[g_{im}] to the left or right of latexmath:[T(...,m,...)]. Also since
+metric tensor is symmetric, it doesn't matter if you use latexmath:[g_{im}] or latexmath:[g_{mi}].
+
+The algorithm to raise an index is similar except that we use latexmath:[g^{\mu \nu}] in this case. The whole operation is also called as contracting latexmath:[T] with
+latexmath:[g_{\mu \nu}] or latexmath:[g^{\mu \nu}] as the case may be.
